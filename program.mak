@@ -111,13 +111,15 @@ MAK_SWITCH= \
 #            $(SW_PREFIX)NO_IDPROM_CHECK
 
 MAK_LIBS= 	$(LIB_PREFIX)$(MEN_LIB_DIR)/usr_oss$(LIB_SUFFIX)			\
-			$(LIB_PREFIX)$(MEN_LIB_DIR)/usr_utl$(LIB_SUFFIX)			\
+		$(LIB_PREFIX)$(MEN_LIB_DIR)/usr_utl$(LIB_SUFFIX)			\
         	$(LIB_PREFIX)$(MEN_LIB_DIR)/chameleon_usr$(LIB_SUFFIX)		\
         	$(LIB_PREFIX)$(MEN_LIB_DIR)/chameleon_usr_io$(LIB_SUFFIX)	\
         	$(LIB_PREFIX)$(MEN_LIB_DIR)/chameleon_usr_sw$(LIB_SUFFIX)	\
         	$(LIB_PREFIX)$(MEN_LIB_DIR)/chameleon_usr_io_sw$(LIB_SUFFIX)\
         	$(LIB_PREFIX)$(MEN_LIB_DIR)/oss_usr$(LIB_SUFFIX)			\
         	$(LIB_PREFIX)$(MEN_LIB_DIR)/dbg_usr$(LIB_SUFFIX)			\
+        	$(LIB_PREFIX)$(MEN_LIB_DIR)/vme4l_api$(LIB_SUFFIX)			\
+        	$(LIB_PREFIX)$(MEN_LIB_DIR)/pci$(LIB_SUFFIX)			\
 
 # for VXWORKS, in case BSP does not include the SMB2 library:
 #MAK_LIBS+=	$(LIB_PREFIX)$(MEN_LIB_DIR)/smb2_all_usr$(LIB_SUFFIX) \
@@ -144,12 +146,12 @@ MAK_INCL=$(MEN_INC_DIR)/men_typs.h \
 		 $(MEN_INC_DIR)/usr_err.h \
 		 $(MEN_INC_DIR)/usr_utl.h \
 		 $(MEN_INC_DIR)/fpga_header.h \
-         $(MEN_MOD_DIR)/../COM/fpga_load.h \
-         $(MEN_MOD_DIR)/../COM/hw_acc.c \
-         $(MEN_MOD_DIR)/../COM/istratapc28fxxxp30.c \
-		 $(MEN_MOD_DIR)/../COM/am29lvxxx.c \
-		 $(MEN_MOD_DIR)/../COM/am29lvxxx_smb.c \
-         $(MEN_MOD_DIR)/../COM/stm25p32.c \
+		 $(MEN_MOD_DIR)/fpga_load.h \
+		 $(MEN_MOD_DIR)/hw_acc.c \
+		 $(MEN_MOD_DIR)/istratapc28fxxxp30.c \
+		 $(MEN_MOD_DIR)/am29lvxxx.c \
+		 $(MEN_MOD_DIR)/am29lvxxx_smb.c \
+		 $(MEN_MOD_DIR)/stm25p32.c \
 
 MAK_INP1=_amd_stub$(INP_SUFFIX)
 MAK_INP2=_amd_sw_stub$(INP_SUFFIX)
