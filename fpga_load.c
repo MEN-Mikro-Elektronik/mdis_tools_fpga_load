@@ -185,6 +185,10 @@ static char RCSid[]="$Header: /dd2/CVSR/COM/TOOLS/FPGA_LOAD/COM/fpga_load.c,v 1.
 #include "fpga_load.h"
 #include "fpga_load_flash.h"
 #include "MEN/smb2.h"
+#include <MEN/serflash.h>
+#include <sys/mman.h>
+#include <fcntl.h>
+#include <unistd.h>
 
 /*-----------------------------------------+
  |  GLOBALS                                |
@@ -242,6 +246,7 @@ static FLASH_TRYP fpga_flash_trys[] = {
 #define MAP_REG_SIZE 0x10 /* amount of memory space to map */
 #define SHOW_ALL_CHAMTABLES	0xff	/*  shows all Chameleon Tables */
 
+#define CHAM_TBL_FILE_LEN 	12	/* # of chars in chameleon header at start of BAR0 */
 /*-----------------------------------------+
  |  TYPEDEFS                               |
  +-----------------------------------------*/
@@ -1653,13 +1658,17 @@ static int32 Get_Chameleon( OSS_HANDLE *osHdl,
 					 u_int8 verbose,
 					 u_int32 pciDomain)
 {
-	u_int32 i;
-	int32 ret;
-
+	u_int32 i,j;
+	int32 ret=0;
+	u_int32 z126Status=0;
 	CHAMELEONV2_HANDLE	*chaHdl;
 	CHAM_FUNCTBL		*chaFktTbl = NULL;
 	CHAMELEONV2_TABLE	chamTable;
+	char *pRegs = NULL;
 	u_int32 chaUnitNbr = 0;
+	char tblfile[CHAM_TBL_FILE_LEN+1];
+
+	memset( tblfile, 0x0, sizeof(tblfile) );
 
 	/* use specified chameleon table address (ISA/LPC) */
 	if( tblAddr ){
@@ -1784,21 +1793,18 @@ static int32 Get_Chameleon( OSS_HANDLE *osHdl,
 	if (verbose) {
 		/* ISA/LPC */
 		if( tblAddr ){
-			printf("Cham_Info for device 0x%x:\n",
+			printf("\nChameleon FPGA table for device 0x%x:\n",
 				tblAddr);
 		}
 		/* PCI */
 		else
 		{
-			printf("Cham_Info for device %d/%d/%d (bus/dev/fun):\n",
+			printf("\nBARs of FPGA PCI device %02d:%d.%d:\n",
 				pciDev->bus, pciDev->dev, pciDev->fun);
 		}
-		printf(" chaRev: %d;	busId: %d;	tableNbr %d;\n"
-				" unitNbr: %d;	bridgeNbr: %d;	cpuNbr %d;\n",
-				chamInfo->chaRev,  chamInfo->busId,     chamInfo->tableNbr,
-				chamInfo->unitNbr, chamInfo->bridgeNbr, chamInfo->cpuNbr);
+
 		for(i=0; i<6; i++)
-			printf("BAR%d: 0x%08x; size: 0x%08x, mapType: %s;\n",
+			printf("  BAR%d: 0x%08x; size: 0x%08x, mapType: %s;\n",
 					(int)i, (int)chamInfo->ba[i].addr,
 					(int)chamInfo->ba[i].size,
 					chamInfo->ba[i].type == 0 ? "MEM" :
@@ -1808,7 +1814,7 @@ static int32 Get_Chameleon( OSS_HANDLE *osHdl,
 	/*------------------------------+
 	|  CHAM - TableIdent            |
 	+------------------------------*/
-	for( i=0; i<1000; i++ ){
+	for(i=0;;i++) {
 		if( (ret = chaFktTbl->TableIdent( chaHdl, i, &chamTable )) ==
 			CHAMELEONV2_NO_MORE_ENTRIES )
 			break;
@@ -1828,27 +1834,34 @@ static int32 Get_Chameleon( OSS_HANDLE *osHdl,
 			goto ERROR_END;
 		}
 
-		if(verbose)
-			printf("CHAMELEONV2_HEADER #%2d:\n"
-					"  busType=0x%02x, busId=%d, model=%c, MajorRevision=0x%02x,"
-					"  MinorRevision=0x%02x,\n file=%s, magicWord=0x%04x\n",
-					(int)i,
-					chamTable.busType, chamTable.busId, chamTable.model,
-					chamTable.revision,chamTable.minRevision,
-					chamInfo->chaRev < 2 ? "not supported" : chamTable.file,
-					chamTable.magicWord);
+		if(verbose) {
+
+			for (j=0; j < CHAM_TBL_FILE_LEN; j++)
+				tblfile[j] = (chamTable.file[j] != 0) ? chamTable.file[j] : ' ';
+			tblfile[CHAM_TBL_FILE_LEN]='\0';
+
+			printf( "\nInformation about the Chameleon FPGA:\n");
+			printf( "FPGA File='%s' table model=0x%02x('%c') Revision %d.%d Magic 0x%04X\n",
+					tblfile,
+					chamTable.model,
+					chamTable.model,
+					chamTable.revision,
+					chamTable.minRevision,
+					chamTable.magicWord );
+		}
+
 	}
 
 	/*------------------------------+
 	|  CHAM - UnitIdent             |
 	+------------------------------*/
 	if (verbose){
-		printf("CHAMELEONV2_UNIT:\n");
+		printf("List of the Chameleon units:\n");
 		printf("Idx DevId  Module                   Grp Inst Var Rev IRQ BAR Offset     Address\n"
 				"--- ------ ------------------------ --- ---- --- --- --- --- ---------- ----------\n");
 	}
 
-	for( i=0; i<1000; i++ ){
+	for( i=0;;i++ ) {
 
 		if( (ret = chaFktTbl->UnitIdent( chaHdl, i, chamUnit )) ==
 			CHAMELEONV2_NO_MORE_ENTRIES )
@@ -1888,7 +1901,52 @@ static int32 Get_Chameleon( OSS_HANDLE *osHdl,
 				chaUnitNbr = i;
 			}
 		}
+
+		if ( chamUnit->devId == CHAMELEON_16Z126_SERFLASH )
+		{ /* if we come across 16Z126_SERFLASH read out current running FPGA file */
+			int fd = open("/dev/mem", O_RDWR | O_SYNC );
+			int pgsz=getpagesize();
+			if (fd > 0) {
+			        pRegs = (char *)mmap( NULL, pgsz, PROT_READ | PROT_WRITE, MAP_SHARED, fd, (long)(chamUnit->addr) & ~(pgsz-1));
+			        if (pRegs == (void *)-1 ) {
+			        	printf("failed to mmap, errno=%d\n", errno );
+			        	close( fd );
+			        } else {
+			        	z126Status = ((u_int32*)pRegs)[ (chamUnit->offset + SFII_BSR) >> 2 ];
+			        	munmap( pRegs, pgsz );
+			        	close( fd );
+			        }
+			}
+		}
 	}
+
+	/* from 16Z126-01_IcArchSpec.doc table 31:
+	 *	0	0	FPGA is programmed with the FPGA Fallback Image and no configuration error has occurred.
+	 *	0	1	FPGA is programmed with the FPGA Image
+	 *	1	0	FPGA has returned to FPGA Fallback Image after a configuration error.
+	 *	1	1	Invalid
+	 */
+	if ( pRegs ) { /* display only FPGA status info if /dev/mem could be opened and a Z126 was found */
+		printf ( "\n Current FPGA file/usage status: " );
+		switch ( z126Status & 3 ) {
+			case 0:
+				printf ("fallback image active, no configuration error occurred." );
+				break;
+			case 1:
+				printf ("user image active.\n" );
+				break;
+			case 2:
+				printf ("fallback image active after configuration error!" );
+				break;
+			case 3:
+			default:
+				printf ("** invalid, Check FPGA programming." );
+				break;
+		}
+		printf ("\n\n" );
+		pRegs = NULL;
+	}
+
 	if ( ( verbose != SHOW_ALL_CHAMTABLES ) && ( chamUnit->devId != mod_id ) ){
 		goto ERROR_END;
 	}
