@@ -170,12 +170,12 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 2 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
@@ -474,7 +474,9 @@ main(int argc, char *argv[ ])
 {
 	int32 error = 0;
 	u_int8 rc, *tempBuf;
+#ifdef VXWORKS
 	char *pOptstr=NULL;
+#endif
 	u_int8 do_load_new = 0;
 	DEV_HDL *h = NULL;
 	u_int32 pcieCtrlNum=0;
@@ -601,7 +603,7 @@ main(int argc, char *argv[ ])
 		else if ( UTL_TSTOPT("d") )
 		{
 			int largc = argc;
-			u_int32 BusAddr = 0 ;
+			long BusAddr = 0 ;
 			char **largv = &argv[0];
 
 			while( largc ){
@@ -704,7 +706,7 @@ main(int argc, char *argv[ ])
 		char **largv = &argv[0];
 		while( largc ){
 			if( !strcmp( "-x", *largv ) ) {
-				Dummy_Routine();
+
 				if((error = Set_BusSwitch(largc, largv, h, osHdl, &rc)))
 					printf("*** ERROR: Set_BusSwitch failed (0x%x)\n",
 							(unsigned int)(error));
@@ -949,7 +951,7 @@ static int Read_block( int argc,
 						u_int8 *retCnt )
 {
 	u_int32 startOffset = 0, len = 0;
-	u_int8 fileName[256], *buf = NULL, putToFile=0;
+	unsigned char fileName[256], *buf = NULL, putToFile=0;
 	int32 error = 0;
 	u_int32 bufGotSize = 0;
 
@@ -983,7 +985,7 @@ static int Read_block( int argc,
 	h->flash_entry.ReadBlock(&h->flashDev, startOffset, len, buf);
 
 	if( putToFile ) {
-		if( Put_file( (volatile char*)fileName, (volatile char*)buf, len ) < 0 )
+		if( Put_file( (char*)fileName, (char*)buf, len ) < 0 )
 			printf("*** ERROR: writing read data to file\n");
 		else if( h->dbgLevel )
 			printf("==> Data put to file %s\n", fileName);
@@ -1051,9 +1053,9 @@ static int Write_block
 		error = ERR_UOS_ILL_PARAM;
 		goto WRITEEND;
 	} else if( (fileSize = Get_file( osHdl,
-			(volatile char*)fileName,
-									 (char**)&fBuf,
-									 &fBufGotSize )) < 0 )
+			(char*)fileName,
+			(char**)&fBuf,
+			&fBufGotSize )) < 0 )
 	{
 		printf("*** ERROR: illegal path/filename\n");
 		error = ERR_UOS_ILL_PARAM;
@@ -1184,9 +1186,9 @@ static int Update_fpga( int argc, char* argv[], DEV_HDL *h, OSS_HANDLE *osHdl, u
 	DBGOUT(( "Update_fpga: update configuration %d\n", (int)fpga_num ));
 
 	if( (fileSize = Get_file( osHdl,
-			(volatile char*)fileName,
-							  (char**)&fBuf,
-							  &fBufGotSize)) < 0 )
+			(char*)fileName,
+			(char**)&fBuf,
+			&fBufGotSize)) < 0 )
 	{
 		printf("*** ERROR: illegal path/filename\n");
 		error = ERR_UOS_ILL_PARAM;
@@ -1662,19 +1664,19 @@ static int32 Get_Chameleon( OSS_HANDLE *osHdl,
 	/* use specified chameleon table address (ISA/LPC) */
 	if( tblAddr ){
 		CHAM_FUNCTBL chaNoswFktTbl, chaSwFktTbl;
-		u_int8 ioAccess = 0;
+
 
 		/*------------------------------+
 		|  CHAM_InitXxx                 |
 		+------------------------------*/
 		/* io access? */
-		if( (u_int32)tblAddr & 0x1 ){
+		if( (long)tblAddr & 0x1 ){
 			#ifndef Z100_IO_ACCESS_ENABLE
 				printf("*** ERROR: IO mapped access not supported\n");
 				goto ERROR_END;
 			#endif
-			ioAccess = 1;
-			tblAddr = (void*)((u_int32)tblAddr & ~0x1);
+
+			tblAddr = (void*)((long)tblAddr & ~0x1);
 
 			if( CHAM_InitIo( &chaNoswFktTbl ) || CHAM_InitIoSw( &chaSwFktTbl ) ){
 				printf("*** ERROR: CHAM_InitIo failed\n");
@@ -2012,7 +2014,7 @@ static int32 Verify_FpgaConfig
 	}
 
 	/* fill the buffer with 0 */
-	OSS_MemFill(osHdl,len,(volatile char *)verBuf,0);
+	OSS_MemFill(osHdl,len,(char *)verBuf,0);
 
 	h->flash_entry.ReadBlock(&h->flashDev, offset, len, verBuf);
 	{
@@ -2152,29 +2154,29 @@ static int32 FindPciDevice( OSS_HANDLE *osHdl,
 					OSS_PciGetConfig( osHdl,
 							OSS_MERGE_BUS_DOMAIN(bus, dom), slot, function,
 									  OSS_PCI_DEVICE_ID,
-									  (volatile int32 *)&pCurdev->devId);
+									  (int32 *)&pCurdev->devId);
 					OSS_PciGetConfig( osHdl,
 							OSS_MERGE_BUS_DOMAIN(bus, dom), slot, function,
 									  OSS_PCI_SUBSYS_VENDOR_ID,
-									  (volatile int32 *)&pCurdev->subSysVenId);
+									  (int32 *)&pCurdev->subSysVenId);
 					OSS_PciGetConfig( osHdl,
 							OSS_MERGE_BUS_DOMAIN(bus, dom), slot, function,
 									  OSS_PCI_COMMAND,
-									  (volatile int32 *)&comReg);
+									  (int32 *)&comReg);
 
 					pCurdev->origComReg = (u_int16)(Z100_SWAP_BE16(comReg));
 
 					OSS_PciGetConfig( osHdl,
 							OSS_MERGE_BUS_DOMAIN(bus, dom), slot, function,
 									  OSS_PCI_HEADER_TYPE,
-									  (volatile int32 *)&headerType);
+									  (int32 *)&headerType);
 
 					if( !(headerType & 0x7f) ) /* some bridge? */
 						for (barn = 0; barn < 6; barn++)
 							OSS_PciGetConfig( osHdl,
 									OSS_MERGE_BUS_DOMAIN(bus, dom), slot, function,
-											  OSS_PCI_ADDR_0+barn,
-											  (volatile int32 *)&pCurdev->bar[barn]);
+									OSS_PCI_ADDR_0+barn,
+									(int32 *)&pCurdev->bar[barn]);
 						pCurdev->comRegChanged = 0;
 
 

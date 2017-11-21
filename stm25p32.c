@@ -78,12 +78,12 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 2 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ****************************************************************************/
@@ -328,7 +328,7 @@ extern int32 Z100_STM25P32_TRY(DEV_HDL *devHdl,
 								u_int32 dbgLevel)
 {
 	int32 error=0;
-	FLASH_DEVS fDev;
+
 
 	DBGOUT(( "FLASH::stm25p32::Try\n" ));
 
@@ -382,8 +382,8 @@ extern int32 Z100_STM25P32_TRY(DEV_HDL *devHdl,
 			(int)devHdl->flashDev.sectSize, (int)devHdl->flashDev.nSectors,
 			(int)devHdl->flashDev.bootSect));
 
-	if( error )
-		fDev.manId = 0;
+
+
 	*flash_initP = NULL;
 	if( error == 0){
 		*flash_initP = &Init;
@@ -456,12 +456,12 @@ static int32 Exit( FLASH_DEVS *fDev)
 static void Identify( DEV_HDL *devHdl )
 {
 	u_int32 retval;
-	u_int8  flash_acc;
+
 	DEV_HDL *h = devHdl;
 
 	DBGOUT(( "FLASH::stm25p32::Identify\n" ));
 
-	flash_acc = devHdl->flash_acc_size;
+
 	devHdl->flash_acc_size = Z100_FLASH_ACCESS_8BIT;		/* 8 bit Flash */
 
     retval = Z100_FLASH_READ(devHdl, BIT_READSID);
@@ -560,7 +560,7 @@ static int32 EraseChip( FLASH_DEVS *fDev )
 *******************************************************************************/
 static int32 EraseSectors( FLASH_DEVS *fDev, u_int32 startOffs, u_int32 len )
 {
-	u_int32 phyStart, phyEnd, sectSize;
+	u_int32 phyStart=0, phyEnd=0, sectSize=0;
 	u_int32  sect=0;
 	int32   error = 0;
 	DEV_HDL *h = fDev->devHdl;
