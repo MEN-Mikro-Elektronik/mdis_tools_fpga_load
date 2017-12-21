@@ -244,7 +244,13 @@ static FLASH_TRYP fpga_flash_trys[] = {
 #endif
 
 #define MAP_REG_SIZE 0x10 /* amount of memory space to map */
-#define SHOW_ALL_CHAMTABLES	0xff	/*  shows all Chameleon Tables */
+
+/* GetChameleon() flags */
+enum CHAM_FLAGS {
+	CF_ALL_TABLES	= 0x01,		/* shows all Chameleon Tables */
+	CF_DEBUG	= 0x02,		/* enables debug output */
+	CF_VERSION	= 0x04		/* displays version information */
+};
 
 #define CHAM_TBL_FILE_LEN 	12	/* # of chars in chameleon header at start of BAR0 */
 /*-----------------------------------------+
@@ -292,7 +298,7 @@ static int32 Get_Chameleon( OSS_HANDLE *osHdl,
 					 u_int16 mod_group,
 					 CHAMELEONV2_INFO *chamInfo,
 					 CHAMELEONV2_UNIT *chamUnit,
-					 u_int8 verbose,
+					 u_int8 flags,
 					 u_int32 pciDomain);
 static int32 FindFlashSect( FLASH_DEVS *fDev,
 					  		u_int32 phyAddr,
@@ -429,6 +435,7 @@ static void Usage(void)
 			"\n"
 			" _____ Misc _____\n"
 			"    -t                shows the chameleon table                           [no]\n"
+			"    -n                version information                                 [no]\n"
 			"    -v                verbose mode                                        [no]\n"
 			"    -h / -?           print this help                                     [no]\n"
 			"\n"
@@ -526,12 +533,12 @@ main(int argc, char *argv[ ])
 	/* parse command line */
 	/* find general settings */
 #ifdef VXWORKS
-	pOptstr = "abcdefg=hijkosurltwv?mpxz";
+	pOptstr = "abcdefg=hijknosurltwv?mpxz";
 	/* if ((errstr = UTL_ILLIOPT( ("abcdefg=hijkosurltwv?mpxz"), (void*)errbuf))) */
 	if ((errstr = UTL_ILLIOPT( pOptstr, (void*)errbuf)))
 
 #else
-	if ((errstr = UTL_ILLIOPT("abcdefoksurltwv?hpxzj", errbuf)))
+	if ((errstr = UTL_ILLIOPT("abcdefnoksurltwv?hpxzj", errbuf)))
 #endif
 	{
 		printf("*** ERROR: %s\n" FPGA_P_HELP, errstr);
@@ -582,18 +589,33 @@ main(int argc, char *argv[ ])
 	}
 
 	/*
-	* parallel or seriell flash must be specified
+	* parallel or serial flash must be specified, unless one of the
+	* following switches is enabled
 	*/
-	if ( !UTL_TSTOPT("z") && !UTL_TSTOPT("j") && !UTL_TSTOPT("t") && !UTL_TSTOPT("s")) {
+	const char* noFlashOptions = "nts";
+	char buf[2] = {0, 0};
+	int flashRequired = 1;
+
+	/* check if flash type parameter is required */
+	for(i = 0; i < sizeof(noFlashOptions); ++i) {
+		buf[0] = noFlashOptions[i];
+
+		if(UTL_TSTOPT(buf)) {
+			flashRequired = 0;
+			break;
+		}
+	}
+
+	/* serial flash */
+	if (UTL_TSTOPT("z")) {
+		h->interfacespi = 1;
+	/* parallel flash */
+	} else if (UTL_TSTOPT("j") || !flashRequired) {
+		h->interfacespi = 0;
+	} else {
 		printf("*** ERROR: please specify the flash type (-j or -z)\n");
 		error = ERR_UOS_ILL_PARAM;
 		goto MAINEND;
-	/* seriell flash */
-	} else if (UTL_TSTOPT("z")) {
-		h->interfacespi = 1;
-	/* parallel flash */
-	} else {
-		h->interfacespi = 0;
 	}
 
 	/* only init PCI and VME addresses if not SMBus or SMBus with directly
@@ -1644,7 +1666,7 @@ static int32 Put_file(char* fName, char *buf, u_int32 size)
  * \param mod_group	\IN Module group of module to get
  * \param chamInfo	\IN chameleon info to be filled
  * \param chamUnit	\IN chameleon unit to be filled
- * \param verbose	\IN flag, print detailed debug messages
+ * \param flags		\IN flags affecting the output format
  *
  * \return 0 on success or -1 if failed
  ******************************************************************************/
@@ -1655,7 +1677,7 @@ static int32 Get_Chameleon( OSS_HANDLE *osHdl,
 					 u_int16 mod_group,
 					 CHAMELEONV2_INFO *chamInfo,
 					 CHAMELEONV2_UNIT *chamUnit,
-					 u_int8 verbose,
+					 u_int8 flags,
 					 u_int32 pciDomain)
 {
 	u_int32 i,j;
@@ -1790,7 +1812,7 @@ static int32 Get_Chameleon( OSS_HANDLE *osHdl,
 		}
 		goto ERROR_END;
 	}
-	if (verbose) {
+	if (flags & (CF_DEBUG | CF_ALL_TABLES)) {
 		/* ISA/LPC */
 		if( tblAddr ){
 			printf("\nChameleon FPGA table for device 0x%x:\n",
@@ -1834,11 +1856,11 @@ static int32 Get_Chameleon( OSS_HANDLE *osHdl,
 			goto ERROR_END;
 		}
 
-		if(verbose) {
+		for (j=0; j < CHAM_TBL_FILE_LEN; j++)
+			tblfile[j] = (chamTable.file[j] != 0) ? chamTable.file[j] : ' ';
+		tblfile[CHAM_TBL_FILE_LEN]='\0';
 
-			for (j=0; j < CHAM_TBL_FILE_LEN; j++)
-				tblfile[j] = (chamTable.file[j] != 0) ? chamTable.file[j] : ' ';
-			tblfile[CHAM_TBL_FILE_LEN]='\0';
+		if(flags & (CF_ALL_TABLES | CF_DEBUG)) {
 
 			printf( "\nInformation about the Chameleon FPGA:\n");
 			printf( "FPGA File='%s' table model=0x%02x('%c') Revision %d.%d Magic 0x%04X\n",
@@ -1848,6 +1870,11 @@ static int32 Get_Chameleon( OSS_HANDLE *osHdl,
 					chamTable.revision,
 					chamTable.minRevision,
 					chamTable.magicWord );
+		} else if(flags & CF_VERSION) {
+			printf("gateware-revision: %d.%d\n", chamTable.revision, chamTable.minRevision);
+			printf("fpga-model: %c\n", chamTable.model);
+			printf("fpga-file: %s\n", tblfile);
+			printf("magic-word: 0x%04x\n", chamTable.magicWord);
 		}
 
 	}
@@ -1855,7 +1882,7 @@ static int32 Get_Chameleon( OSS_HANDLE *osHdl,
 	/*------------------------------+
 	|  CHAM - UnitIdent             |
 	+------------------------------*/
-	if (verbose){
+	if (flags & (CF_ALL_TABLES | CF_DEBUG)){
 		printf("List of the Chameleon units:\n");
 		printf("Idx DevId  Module                   Grp Inst Var Rev IRQ BAR Offset     Address\n"
 				"--- ------ ------------------------ --- ---- --- --- --- --- ---------- ----------\n");
@@ -1882,7 +1909,7 @@ static int32 Get_Chameleon( OSS_HANDLE *osHdl,
 			goto ERROR_END;
 		}
 
-		if(verbose)	{
+		if(flags & (CF_ALL_TABLES & CF_DEBUG))	{
 			printf("%3d 0x%04x %-24s %3d %4d %3d %3d %3d %3d 0x%08lx %p\n",
 				   (int)i, chamUnit->devId,CHAM_DevIdToName(chamUnit->devId),chamUnit->group,
 				   chamUnit->instance, chamUnit->variant, chamUnit->revision,
@@ -1895,7 +1922,7 @@ static int32 Get_Chameleon( OSS_HANDLE *osHdl,
 			((chamInfo->chaRev >= 2) && (chamUnit->devId == mod_id) &&
 			 (chamUnit->group == mod_group)) )
 		{
-			if (verbose != SHOW_ALL_CHAMTABLES){
+			if (!(flags & CF_ALL_TABLES)){
 				break;
 			}else {
 				chaUnitNbr = i;
@@ -1927,31 +1954,50 @@ static int32 Get_Chameleon( OSS_HANDLE *osHdl,
 	 *	1	1	Invalid
 	 */
 	if ( pRegs ) { /* display only FPGA status info if /dev/mem could be opened and a Z126 was found */
-		printf ( "\n Current FPGA file/usage status: " );
-		switch ( z126Status & 3 ) {
-			case 0:
-				printf ("fallback image active, no configuration error occurred." );
-				break;
-			case 1:
-				printf ("user image active.\n" );
-				break;
-			case 2:
-				printf ("fallback image active after configuration error!" );
-				break;
-			case 3:
-			default:
-				printf ("** invalid, Check FPGA programming." );
-				break;
+		if(flags & CF_VERSION) {
+			printf("image-type: ");
+			switch ( z126Status & 3 ) {
+				case 0:
+					printf ("fallback no-config-error\n" );
+					break;
+				case 1:
+					printf ("user\n" );
+					break;
+				case 2:
+					printf ("fallback config-error\n" );
+					break;
+				case 3:
+				default:
+					printf ("invalid\n" );
+					break;
+			}
+		} else {
+			printf ( "\n Current FPGA file/usage status: " );
+			switch ( z126Status & 3 ) {
+				case 0:
+					printf ("fallback image active, no configuration error occurred." );
+					break;
+				case 1:
+					printf ("user image active.\n" );
+					break;
+				case 2:
+					printf ("fallback image active after configuration error!" );
+					break;
+				case 3:
+				default:
+					printf ("** invalid, Check FPGA programming." );
+					break;
+			}
+			printf ("\n\n" );
 		}
-		printf ("\n\n" );
 		pRegs = NULL;
 	}
 
-	if ( ( verbose != SHOW_ALL_CHAMTABLES ) && ( chamUnit->devId != mod_id ) ){
+	if ( !(flags & (CF_ALL_TABLES|CF_VERSION)) && ( chamUnit->devId != mod_id ) ){
 		goto ERROR_END;
 	}
 
-	if ( verbose == SHOW_ALL_CHAMTABLES ){
+	if ( flags & (CF_ALL_TABLES|CF_VERSION) ){
 		chaFktTbl->UnitIdent( chaHdl, chaUnitNbr, chamUnit );
 	}
 
@@ -2453,7 +2499,7 @@ static int32 Z100_PciInit(
 	u_int32 units_reg_offset = 0;
 	u_int32 numDevs = 0, n, instance = 0, tmpPciDevGotSize;
 	u_int8 showOnly = 0;
-	u_int8 showChamTable = 0;
+	u_int8 showChamFlags = 0;
 #ifdef VXWORKS
 	int32 cpu_to_pci_mem_offset = 0;	/* specifies an offset to be added for
 										 * accesses to PCI memory mapped devs*/
@@ -2475,7 +2521,10 @@ static int32 Z100_PciInit(
 	}
 
 	showOnly = (UTL_TSTOPT("s") ? 1 : 0);
-	showChamTable = (UTL_TSTOPT("t")? 1 : 0 );
+	showChamFlags |= (UTL_TSTOPT("t") ? CF_ALL_TABLES : 0);
+	showChamFlags |= (UTL_TSTOPT("n") ? CF_VERSION : 0);
+	showChamFlags |= (h->dbgLevel     ? CF_DEBUG : 0);
+
 	AddrSetManually = UTL_TSTOPT("b") ? 1 : 0;
 	pciDev = &h->pciDev;
 
@@ -2642,38 +2691,16 @@ static int32 Z100_PciInit(
 			}
 		}
 
-		if( showChamTable){
-			if( (error = Get_Chameleon( osHdl,
-										&h->pciDev,
-										NULL,
-										modId,
-										grpId,
-										&h->chamInfo,
-										&h->chamUnit,
-										SHOW_ALL_CHAMTABLES,
-										pciDomain)) )
+		if(showChamFlags) {
+			if( (error = Get_Chameleon( osHdl, &h->pciDev, NULL, modId, grpId,
+				&h->chamInfo, &h->chamUnit, showChamFlags, pciDomain)) )
 			{
-					printf("*** ERROR: Chameleon table or flash interface not found "
-							"(0x%x)\n",
-							(unsigned int)error);
-					goto PCIINITEND;
+				/* error occured while searching for 16Z045_FLASH or 16Z126_SPI_FLASH */
+				printf("*** ERROR: Chameleon table or flash interface not found "
+						"(0x%x)\n", (unsigned int)error);
+			} else {
+				error = 100;
 			}
-			error = 100;
-			goto PCIINITEND;
-		}else if( (error = Get_Chameleon( osHdl,
-									&h->pciDev,
-									NULL,
-									modId,
-									grpId,
-									&h->chamInfo,
-									&h->chamUnit,
-									h->dbgLevel,
-									pciDomain)) )
-		{
-			/* error occured while searching for 16Z045_FLASH or 16Z126_SPI_FLASH */
-			printf("*** ERROR: Chameleon table or flash interfaces not found "
-						"(0x%x)\n",
-						(unsigned int)error);
 			goto PCIINITEND;
 		}
 
@@ -2752,7 +2779,7 @@ static int32 Z100_IsaInit(
 )
 {
 	int32 error = 0;
-	u_int8 showChamTable = 0;
+	u_int8 showChamFlags = 0;
 	u_int16 modId = WB2FLASH_INTERFACE_ID;
 	u_int16 grpId = WB2FLASH_INTERFACE_GROUP;
 	void* tableAddr;
@@ -2760,7 +2787,9 @@ static int32 Z100_IsaInit(
 	if( h->dbgLevel )
 		printf("Z100_IsaInit\n");
 
-	showChamTable = (UTL_TSTOPT("t")? 1 : 0 );
+	showChamFlags |= (UTL_TSTOPT("t") ? CF_ALL_TABLES : 0);
+	showChamFlags |= (UTL_TSTOPT("n") ? CF_VERSION : 0);
+	showChamFlags |= (h->dbgLevel     ? CF_DEBUG : 0);
 
 	/* read parameters from command line */
 	if( (argc<3) ||				/* need table address */
@@ -2791,41 +2820,18 @@ static int32 Z100_IsaInit(
 		}
 	}
 
-	if( showChamTable){
-		if( (error = Get_Chameleon( osHdl,
-									NULL,
-									tableAddr,
-									modId,
-									grpId,
-									&h->chamInfo,
-									&h->chamUnit,
-									SHOW_ALL_CHAMTABLES,
-									0)) )
+	if(showChamFlags) {
+		if( (error = Get_Chameleon( osHdl, NULL, tableAddr, modId, grpId,
+			&h->chamInfo, &h->chamUnit, showChamFlags, 0)) )
 		{
-				printf("*** ERROR: Chameleon table or flash interface not found "
-						"(0x%x)\n",
-						(unsigned int)error);
-				goto ISAINITEND;
+			/* error occured while searching for 16Z045_FLASH or 16Z126_SPI_FLASH */
+			printf("*** ERROR: Chameleon table or flash interface not found "
+					"(0x%x)\n", (unsigned int)error);
+		} else {
+			error = 100;
 		}
-		error = 100;
-		goto ISAINITEND;
-	}else if( (error = Get_Chameleon( osHdl,
-								NULL,
-								tableAddr,
-								modId,
-								grpId,
-								&h->chamInfo,
-								&h->chamUnit,
-								h->dbgLevel,
-								0)) )
-	{
-		/* error occured while searching for 16Z045_FLASH or 16Z126_SPI_FLASH */
-		printf("*** ERROR: Chameleon table or flash interfaces not found "
-					"(0x%x)\n",
-					(unsigned int)error);
 		goto ISAINITEND;
 	}
-
 
 	h->physAddr = (void*)h->chamUnit.addr;
 	h->mapType = h->chamInfo.ba[h->chamUnit.bar].type;
