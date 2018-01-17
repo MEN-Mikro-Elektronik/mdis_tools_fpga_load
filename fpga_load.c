@@ -2691,18 +2691,20 @@ static int32 Z100_PciInit(
 			}
 		}
 
-		if(showChamFlags) {
-			if( (error = Get_Chameleon( osHdl, &h->pciDev, NULL, modId, grpId,
-				&h->chamInfo, &h->chamUnit, showChamFlags, pciDomain)) )
-			{
-				/* error occured while searching for 16Z045_FLASH or 16Z126_SPI_FLASH */
-				printf("*** ERROR: Chameleon table or flash interface not found "
-						"(0x%x)\n", (unsigned int)error);
-			} else {
-				error = 100;
-			}
-			goto PCIINITEND;
+		if( (error = Get_Chameleon( osHdl, &h->pciDev, NULL, modId, grpId,
+			&h->chamInfo, &h->chamUnit, showChamFlags, pciDomain)) )
+		{
+			/* error occured while searching for 16Z045_FLASH or 16Z126_SPI_FLASH */
+			printf("*** ERROR: Chameleon table or flash interface not found "
+					"(0x%x)\n", (unsigned int)error);
 		}
+
+		/* Finish here if only information is to be displayed */
+		if(showChamFlags & (CF_ALL_TABLES|CF_VERSION))
+			error = 100;
+
+		if(error)
+			goto PCIINITEND;
 
 #ifdef VXWORKS
 
@@ -2820,18 +2822,20 @@ static int32 Z100_IsaInit(
 		}
 	}
 
-	if(showChamFlags) {
-		if( (error = Get_Chameleon( osHdl, NULL, tableAddr, modId, grpId,
-			&h->chamInfo, &h->chamUnit, showChamFlags, 0)) )
-		{
-			/* error occured while searching for 16Z045_FLASH or 16Z126_SPI_FLASH */
-			printf("*** ERROR: Chameleon table or flash interface not found "
-					"(0x%x)\n", (unsigned int)error);
-		} else {
-			error = 100;
-		}
-		goto ISAINITEND;
+	if( (error = Get_Chameleon( osHdl, NULL, tableAddr, modId, grpId,
+		&h->chamInfo, &h->chamUnit, showChamFlags, 0)) )
+	{
+		/* error occured while searching for 16Z045_FLASH or 16Z126_SPI_FLASH */
+		printf("*** ERROR: Chameleon table or flash interface not found "
+				"(0x%x)\n", (unsigned int)error);
 	}
+
+	/* Finish here if only information is to be displayed */
+	if(showChamFlags & (CF_ALL_TABLES|CF_VERSION))
+		error = 100;
+
+	if(error)
+		goto ISAINITEND;
 
 	h->physAddr = (void*)h->chamUnit.addr;
 	h->mapType = h->chamInfo.ba[h->chamUnit.bar].type;
