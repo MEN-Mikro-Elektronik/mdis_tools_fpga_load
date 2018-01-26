@@ -1909,7 +1909,7 @@ static int32 Get_Chameleon( OSS_HANDLE *osHdl,
 			goto ERROR_END;
 		}
 
-		if(flags & (CF_ALL_TABLES & CF_DEBUG))	{
+		if(flags & (CF_ALL_TABLES|CF_DEBUG))	{
 			printf("%3d 0x%04x %-24s %3d %4d %3d %3d %3d %3d 0x%08lx %p\n",
 				   (int)i, chamUnit->devId,CHAM_DevIdToName(chamUnit->devId),chamUnit->group,
 				   chamUnit->instance, chamUnit->variant, chamUnit->revision,
