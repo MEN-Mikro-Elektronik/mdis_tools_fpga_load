@@ -424,8 +424,8 @@ static void Usage(void)
 			"   -e <start> <len>    erase complete blocks, starting with the block\n"
 			"                        where offset <start> resides, ending with \n"
 			"                        the block that is reached by <len> bytes          [0]\n"
-			"   -w <file> [<start>] write <file> to the flash, starting at offset\n"
-			"                        <start> (<start> default is 0x00)\n"
+			"   -w <file> <start>   write <file> to the flash, starting at offset\n"
+			"                        <start>\n"
 			"\n"
 			" _____ HW Specifics _____\n"
 			" -x <z>              set bus switches of A500 ESM carrier\n"
@@ -1093,8 +1093,9 @@ static int Write_block
 	if ( argc > 2 && sscanf(argv[2],"%x",(unsigned int*)&startOffset) ) {
 		(*retCnt)++;
 	} else {
-		/* Default Offset */
-		startOffset = 0x00;
+		printf("\n*** ERROR: Option -w requires offset\n");
+		error = ERR_UOS_ILL_PARAM;
+		goto WRITEEND;
 	}
 
 	/* erase sectors occupied by requested config */
