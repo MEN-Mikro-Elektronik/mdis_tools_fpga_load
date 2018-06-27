@@ -3,12 +3,12 @@
 
 Prerequisites: install pciutils and pciutils-dev (or pciutils-devel)  (use apt, yum, zypper,…) Get A25 project         
 
-    $ git clone https://github.com/ThomasSchnuerer/A25_MDIS_project.git
+    $ git clone https://github.com/MEN-Mikro-Elektronik/A25_MDIS_project.git
  
 Get Sources:
 
-    $ git clone https://github.com/ThomasSchnuerer/MDIS4Linux_systemPackage.git  
-    $ cd MDIS4Linux_systemPackage/ 
+    $ git clone https://github.com/MEN-Mikro-Elektronik/MDISforLinux.git  
+    $ cd MDISforLinux/ 
     $ git submodule update --init --recursive 
 
 Add fpga_load source:
@@ -16,10 +16,10 @@ Add fpga_load source:
     $ cd TOOLS $ mkdir fpga_load 
     $ git clone ssh://git@192.168.1.166:7999/mct/fpga_load.git fpga_load/COM
     
-Adoptions in makefiles of MDIS4Linux_systemPackage:
+Adoptions in makefiles of MDISforLinux:
 
 
-Change ~/MDIS4Linux_systemPackage/LIBSRC/OSS/library_usr.mak:
+Change ~/MDISforLinux/LIBSRC/OSS/library_usr.mak:
 
     <          $(MEN_MOD_DIR)/../pciutils/lib/pci.h  \ 
     <          $(MEN_MOD_DIR)/../pciutils/lib/config.h  \ 
@@ -29,7 +29,7 @@ Change ~/MDIS4Linux_systemPackage/LIBSRC/OSS/library_usr.mak:
     >          /usr/include/pci/config.h \ 
     >          /usr/include/pci/header.h \
     
-Change ~/MDIS4Linux_systemPackage/INCLUDE/NATIVE/MEN/ossu_os.h:
+Change ~/MDISforLinux/INCLUDE/NATIVE/MEN/ossu_os.h:
 
     <          #ifdef OSS_CONFIG_PCI 
     <          #       include "../../../LIBSRC/pciutils/lib/pci.h" 
@@ -39,7 +39,7 @@ Change ~/MDIS4Linux_systemPackage/INCLUDE/NATIVE/MEN/ossu_os.h:
     >          #       include <pci/pci.h> 
     >          #endif /* OSS_CONFIG_PCI */
     
-Change ~/MDIS4Linux_systemPackage/LIBSRC/OSS/oss_intern.h:
+Change ~/MDISforLinux/LIBSRC/OSS/oss_intern.h:
 
     <          #if LINUX_VERSION_CODE > KERNEL_VERSION(3,0,0) 
     <          # define TASK_SIGPENDING        pending.signal.sig 
@@ -62,13 +62,13 @@ Change ~/MDIS4Linux_systemPackage/LIBSRC/OSS/oss_intern.h:
     >          # define TASK_UNLOCK_SIGNALS(t,flags)   spin_unlock_irqrestore(&(t)->sighand->siglock, flags); 
     >          # define RECALC_SIGPENDING()                    recalc_sigpending()
     
-Change ~/MDIS4Linux_systemPackage/LIBSRC/OSS/ossu_bustoaddr.c:
+Change ~/MDISforLinux/LIBSRC/OSS/ossu_bustoaddr.c:
 
     <          #include "../pciutils/lib/pci.h" 
     ---
     >          #include <pci/pci.h> 
     
-Change ~/MDIS4Linux_systemPackage/TOOLS/fpga_load/COM/program.mak:
+Change ~/MDISforLinux/TOOLS/fpga_load/COM/program.mak:
 
     <          MAK_LIBS=       $(LIB_PREFIX)$(MEN_LIB_DIR)/usr_oss$(LIB_SUFFIX)                        \ 
     <                          $(LIB_PREFIX)$(MEN_LIB_DIR)/usr_utl$(LIB_SUFFIX)                        \ 
