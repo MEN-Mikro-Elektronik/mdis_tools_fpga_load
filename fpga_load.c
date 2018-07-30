@@ -1400,7 +1400,7 @@ static int Set_BusSwitch( int argc,
 
 	busSwitch = (u_int8)retVal;
 
-	if( (error == FindFlashSect( &h->flashDev,
+	if( (error = FindFlashSect( &h->flashDev,
 						  		 A500_BUS_SWITCH_OFFS,
 						  		 &sectAddr,
 					  			 &sectSize )) < 0 ) {
@@ -2282,7 +2282,7 @@ static int32 FindPciDevice( OSS_HANDLE *osHdl,
 									OSS_MERGE_BUS_DOMAIN(bus, dom), slot, function,
 									OSS_PCI_ADDR_0+barn,
 									(int32 *)&pCurdev->bar[barn]);
-						pCurdev->comRegChanged = 0;
+					pCurdev->comRegChanged = 0;
 
 
 					/* check for match and continue to next */
