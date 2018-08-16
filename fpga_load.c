@@ -1511,7 +1511,7 @@ static int Init_Flash(
 								 (void**)&h->mappedAddr)) )
 			{
 				printf("*** ERROR: Init_Flash: can't map address 0x%x (0x%x)\n",
-						h->physAddr, (int)error);
+						(unsigned int)h->physAddr, (int)error);
 				return( ERR_NO_SUPPORTED_FLASH_DEVICE_FOUND );
 			}
 
@@ -1732,7 +1732,7 @@ static int32 Get_Chameleon( OSS_HANDLE *osHdl,
 		}
 		else {
 			printf("*** ERROR: no chameleon table found at address 0x%x (0x%x)\n",
-				tblAddr, ret);
+				(unsigned int)tblAddr, (unsigned int)ret);
 			goto ERROR_END;
 		}
 	}
@@ -1789,9 +1789,9 @@ static int32 Get_Chameleon( OSS_HANDLE *osHdl,
 #endif
 		else
 		{
-			printf("*** ERROR: No chameleon table found for PCI device [%d](%d/%d/%d) "
-					"[dom](bus/dev/fun) (0x%x)\n",
-					pciDev->bus, pciDev->dev, pciDev->fun, ret);
+			printf("*** ERROR: No chameleon table found for PCI device (%d/%d/%d) "
+					"(bus/dev/fun) (0x%x)\n",
+					(int)pciDev->bus, (int)pciDev->dev, (int)pciDev->fun, (unsigned int)ret);
 			goto ERROR_END;
 		}
 	}
@@ -1803,7 +1803,7 @@ static int32 Get_Chameleon( OSS_HANDLE *osHdl,
 		/* ISA/LPC */
 		if( tblAddr ){
 			printf("*** ERROR: Cham_Info failed for device 0x%x\n",
-					tblAddr);
+					(unsigned int)tblAddr);
 		}
 		/* PCI */
 		else
@@ -1817,7 +1817,7 @@ static int32 Get_Chameleon( OSS_HANDLE *osHdl,
 		/* ISA/LPC */
 		if( tblAddr ){
 			printf("\nChameleon FPGA table for device 0x%x:\n",
-				tblAddr);
+					(unsigned int)tblAddr);
 		}
 		/* PCI */
 		else
@@ -1846,7 +1846,7 @@ static int32 Get_Chameleon( OSS_HANDLE *osHdl,
 			/* ISA/LPC */
 			if( tblAddr ){
 				printf("*** ERROR: Cham_TableIdent failed for device 0x%x\n",
-						tblAddr);
+						(unsigned int)tblAddr);
 			}
 			/* PCI */
 			else
@@ -1899,7 +1899,7 @@ static int32 Get_Chameleon( OSS_HANDLE *osHdl,
 			/* ISA/LPC */
 			if( tblAddr ){
 				printf("*** ERROR: Cham_UnitIdent failed for device 0x%x\n",
-						tblAddr);
+						(unsigned int)tblAddr);
 			}
 			/* PCI */
 			else
@@ -1929,7 +1929,7 @@ static int32 Get_Chameleon( OSS_HANDLE *osHdl,
 				chaUnitNbr = i;
 			}
 		}
-
+#ifndef VXWORKS
 		if ( chamUnit->devId == CHAMELEON_16Z126_SERFLASH )
 		{ /* if we come across 16Z126_SERFLASH read out current running FPGA file */
 			int fd = open("/dev/mem", O_RDWR | O_SYNC );
@@ -1946,6 +1946,7 @@ static int32 Get_Chameleon( OSS_HANDLE *osHdl,
 			        }
 			}
 		}
+#endif
 	}
 
 	/* from 16Z126-01_IcArchSpec.doc table 31:
@@ -2166,7 +2167,7 @@ static void Print_PciDeviceInfo( PCI_DEVS **pciDevs,
 		printf("Nr.| dom|bus|dev|fun| Ven ID | Dev ID | SubVen ID |\n");
 		for(n = 0; n < numDevs; n++) {
 			printf("%3d|%3d %3d %3d %3d   0x%04x   0x%04x    0x%04x\n",
-					(int)n, pciDomain, pciDevs[n]->bus, pciDevs[n]->dev, pciDevs[n]->fun,
+					(int)n, (int)pciDomain, (int)pciDevs[n]->bus, (int)pciDevs[n]->dev, (int)pciDevs[n]->fun,
 					(unsigned int)pciDevs[n]->venId,
 					(unsigned int)pciDevs[n]->devId,
 					(unsigned int)pciDevs[n]->subSysVenId);
@@ -2436,7 +2437,7 @@ static int32 Z100_VmeInit(
 									OSS_VME_A24 | OSS_VME_D16,
 									MAP_REG_SIZE )) )
 	{
-		printf("*** ERROR: OSS_BusToPhysAddr failed (0x%x)\n", error);
+		printf("*** ERROR: OSS_BusToPhysAddr failed (0x%x)\n", (unsigned int)error);
 		goto VMEINITEND;
 	}
 #endif  /* OSS_HAS_MAP_VME_ADDR */
