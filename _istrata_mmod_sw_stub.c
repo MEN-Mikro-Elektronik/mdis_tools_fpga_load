@@ -15,22 +15,6 @@
  /*---------------------------[ Public Functions ]----------------------------
  *
  *
- *-------------------------------[ History ]---------------------------------
- *
- * $Log: _istrata_mmod_sw_stub.c,v $
- * Revision 2.3  2009/03/05 09:53:00  CKauntz
- * R: Compiler warning internFunc declared but not defined
- * M: Added undef to reduce compiler warning
- *
- * Revision 2.2  2009/01/22 17:53:33  CKauntz
- * Added fpga_load.h to solve compiler warnings
- *
- * Revision 2.1  2007/07/09 20:13:02  CKauntz
- * Initial Revision
- *
- *
- *
- *
  *---------------------------------------------------------------------------
  * (c) Copyright 2007 by MEN Mikro Elektronik GmbH, Nuremberg, Germany
  *

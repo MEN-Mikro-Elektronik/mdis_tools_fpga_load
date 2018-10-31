@@ -11,26 +11,7 @@
  *
  *    \switches
  */
- /*-------------------------------[ History ]--------------------------------
- *
- * $Log: fpga_load_flash.h,v $
- * Revision 2.5  2008/03/19 16:10:59  CKauntz
- * added: STM25P32_Trys
- *
- * Revision 2.4  2007/07/09 20:10:53  CKauntz
- * added: Try-functions for the swapped versions
- *
- * Revision 2.3  2005/12/12 11:05:03  cschuster
- * Copyright string changed
- *
- * Revision 2.2  2005/11/24 18:21:42  cschuster
- * added defines for am29lvxxx_smb
- *
- * Revision 2.1  2004/12/23 15:10:42  cs
- * Initial Revision
- *
- *
- *
+ /*
  *---------------------------------------------------------------------------
  * (c) Copyright 2004 by MEN Mikro Elektronik GmbH, Nuremberg, Germany
  *

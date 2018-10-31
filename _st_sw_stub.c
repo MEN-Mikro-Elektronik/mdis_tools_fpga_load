@@ -15,24 +15,6 @@
  /*---------------------------[ Public Functions ]----------------------------
  *
  *
- *-------------------------------[ History ]---------------------------------
- *
- * $Log: _st_sw_stub.c,v $
- * Revision 2.4  2009/03/05 09:53:09  CKauntz
- * R: Compiler warning internFunc declared but not defined
- * M: Added undef to reduce compiler warning
- *
- * Revision 2.3  2009/01/22 17:53:49  CKauntz
- * Added fpga_load.h to solve compiler warnings
- *
- * Revision 2.2  2008/12/19 15:19:44  CKauntz
- * Added new line at the end
- *
- * Revision 2.1  2008/03/19 16:11:10  CKauntz
- * Initial Revision
- *
- *
- *
  *---------------------------------------------------------------------------
  * (c) Copyright 2008 by MEN Mikro Elektronik GmbH, Nuremberg, Germany
  *

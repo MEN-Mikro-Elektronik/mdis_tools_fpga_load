@@ -18,31 +18,6 @@
  *
  *  FLASH_Try                Check if this command set can handle the device
  *
- *-------------------------------[ History ]---------------------------------
- *
- * $Log: am29lvxxx_smb.c,v $
- * Revision 2.5  2009/01/12 16:58:35  CKauntz
- * R: 1. In non debugged version no flash name visible
- *    2. Write behind the flash size
- * M: 1.a: changed to printf to show name in verbose mode
- *      b: changed flash name to show size in MB
- *    2. No write or delete when address greater than flash size
- *       No write but delete of sectors when start within but end behind the size
- *
- * Revision 2.4  2007/10/17 17:27:35  CKauntz
- * Added Switch NO_IDPROM_CHECK for the A404 without assembled EEPROM
- *
- * Revision 2.3  2007/07/09 20:12:53  CKauntz
- * added switch Z100_CONFIG_SMB
- *
- * Revision 2.2  2006/02/08 12:07:51  cschuster
- * added swap macros
- * fixed: don't touch out bits in COMMAND register
- *
- * Revision 2.1  2005/12/12 11:05:20  cschuster
- * Initial Revision
- *
- *
  *---------------------------------------------------------------------------
  * (c) Copyright 2005 by MEN Mikro Elektronik GmbH, Nuremberg, Germany
  *

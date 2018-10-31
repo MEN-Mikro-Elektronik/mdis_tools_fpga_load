@@ -15,18 +15,6 @@
  /*---------------------------[ Public Functions ]----------------------------
  *
  *
- *-------------------------------[ History ]---------------------------------
- *
- * $Log: _amd_smb_sw_stub.c,v $
- * Revision 2.2  2009/03/05 09:52:52  CKauntz
- * R: Compiler warning internFunc declared but not defined
- * M: Added undef to reduce compiler warning
- *
- * Revision 2.1  2007/07/09 20:12:58  CKauntz
- * Initial Revision
- *
- *
- *
  *---------------------------------------------------------------------------
  * (c) Copyright 2007 by MEN Mikro Elektronik GmbH, Nuremberg, Germany
  *

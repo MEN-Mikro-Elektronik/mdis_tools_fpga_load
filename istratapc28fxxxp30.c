@@ -16,33 +16,6 @@
  *
  *  FLASH_Try                Check if this command set can handle the device
  *
- *-------------------------------[ History ]---------------------------------
- *
- * $Log: istratapc28fxxxp30.c,v $
- * Revision 2.5  2012/03/14 13:26:20  dpfeuffer
- * R: Windows compiler warning
- * M: cast added
- *
- * Revision 2.4  2009/01/12 16:58:37  CKauntz
- * R: 1. In non debugged version no flash name visible
- *    2. Write behind the flash size
- * M: 1.a: changed to printf to show name in verbose mode
- *      b: changed flash name to show size in MB
- *    2. No write or delete when address greater than flash size
- *       No write but delete of sectors when start within but end behind the size
- *
- * Revision 2.3  2008/03/19 16:11:05  CKauntz
- * fixed: delete next sector of the end of the sector
- *
- * Revision 2.2  2007/07/13 17:28:13  cs
- * added newline at end of file
- *
- * Revision 2.1  2007/07/09 20:12:56  CKauntz
- * Initial Revision
- *
- *
- *
- *
  *---------------------------------------------------------------------------
  * (c) Copyright 2007 by MEN Mikro Elektronik GmbH, Nuremberg, Germany
  *

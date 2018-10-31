@@ -16,42 +16,6 @@
  *
  *  Z100_FLASH_READ_BLOCK       read specified number of bytes from device
  *
- *-------------------------------[ History ]---------------------------------
- *
- * $Log: flash_com.c,v $
- * Revision 1.9  2009/03/05 09:52:48  CKauntz
- * R: 1. Compiler warning internFunc declared but not defined
- *    2. Copyright not up to date
- * M: 1. Added undef to reduce compiler warning
- *    2. Updated copyright
- *
- * Revision 1.8  2008/03/19 16:11:01  CKauntz
- * added:
- *  + swapped version for BIG and LITTLE endian for the AMD29GL064 flash
- *
- * Revision 1.7  2007/07/09 20:10:55  CKauntz
- * added: devHdl for Makro
- *
- * Revision 1.6  2005/12/09 17:21:48  cschuster
- * Copyright string changed
- *
- * Revision 1.5  2005/11/24 18:19:33  cschuster
- * changed FLASH_READ macro to function call Z100_FLASH_READ
- *
- * Revision 1.4  2005/07/08 17:49:46  cs
- * cosmetics
- *
- * Revision 1.3  2005/01/31 13:58:14  cs
- * added casts to printf to avoid warnings when compiling VxWorks tool
- * changed verbose printf to DBGOUT
- *
- * Revision 1.2  2004/12/23 15:10:43  cs
- * moved prototypes to include file
- *
- * Revision 1.1  2004/11/30 18:04:56  cs
- * Initial Revision
- *
- *
  *---------------------------------------------------------------------------
  * (c) Copyright 2004-2009 by MEN Mikro Elektronik GmbH, Nuremberg, Germany
  *

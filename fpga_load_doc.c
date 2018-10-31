@@ -12,38 +12,7 @@
  *
  *     \switches -
  */
- /*-------------------------------[ History ]--------------------------------
- *
- * $Log: fpga_load_doc.c,v $
- * Revision 1.8  2008/05/09 19:26:48  CKauntz
- * Added Description of the parameter -z
- *
- * Revision 1.7  2007/07/13 18:26:47  CKauntz
- * removed swapped variants
- * added new option for direct addressing
- *
- * Revision 1.6  2007/07/09 20:10:47  CKauntz
- *   changes: no (_sw) only one version
- *            example for direct addressing
- *
- * Revision 1.5  2006/02/08 12:18:31  cschuster
- * added docu for setting A500 bus switches
- *
- * Revision 1.4  2005/12/12 14:25:26  cschuster
- * added page Tool Usage
- *
- * Revision 1.3  2005/07/08 17:49:44  cs
- * use MACCESS macros and chameleon (+oss_usr, +dbg_usr) library
- * add VME bus support
- * cosmetics
- *
- * Revision 1.2  2004/12/23 15:10:40  cs
- * added documentation for the build process
- *
- * Revision 1.1  2004/11/30 18:04:55  cs
- * Initial Revision
- *
- *
+ /*
  *---------------------------------------------------------------------------
  * (c) Copyright 2004 by MEN Mikro Elektronik GmbH, Nuernberg, Germany
  *

@@ -16,59 +16,6 @@
  *
  *  FLASH_Try                Check if this command set can handle the device
  *
- *-------------------------------[ History ]---------------------------------
- *
- * $Log: am29lvxxx.c,v $
- * Revision 1.12  2009/01/12 16:58:33  CKauntz
- * R: 1. In non debugged version no flash name visible
- *    2. Write behind the flash size
- * M: 1.a: changed to printf to show name in verbose mode
- *      b: changed flash name to show size in MB
- *    2. No write or delete when address greater than flash size
- *       No write but delete of sectors when start within but end behind the size
- *
- * Revision 1.11  2008/12/19 15:19:40  CKauntz
- * Added support for AMD and MXIC 29LV320A/D Flash
- *
- * Revision 1.10  2008/03/19 16:11:03  CKauntz
- * added: support for the AMD29GL064 Flash
- * fixed: delete next sector of the end of the sector
- *
- * Revision 1.9  2007/07/09 20:10:58  CKauntz
- * added: function pointer to Read / Write function
- *        decision for 8Bit or 16Bit
- *
- * Revision 1.8  2006/02/07 19:34:43  cschuster
- * cosmetics
- *
- * Revision 1.7  2005/12/09 17:21:34  cschuster
- * Copyright string changed
- *
- * Revision 1.6  2005/11/24 18:20:51  cschuster
- * changed FLASH_READ/FLASH_WRITE macros to function calls Z100_FLASH_READ/WRITE
- * added casts to avoid warnings whith VxWorks compiler
- * cosmetics
- *
- * Revision 1.5  2005/07/08 17:49:48  cs
- * changed flash access size to the smallest possible value
- * (VME for example, would make 2 16bit reads out of 1 32 bit read)
- * cosmetics
- *
- * Revision 1.4  2005/01/31 13:58:16  cs
- * added casts to printf to avoid warnings when compiling VxWorks tool
- * changed verbose printf to DBGOUT
- *
- * Revision 1.3  2004/12/23 15:10:46  cs
- * moved prototypes to include file
- * cosmetics
- *
- * Revision 1.2  2004/12/13 18:03:33  cs
- * cosmetics for documentation and debug messages
- *
- * Revision 1.1  2004/11/30 18:04:57  cs
- * Initial Revision
- *
- *
  *---------------------------------------------------------------------------
  * (c) Copyright 2004 by MEN Mikro Elektronik GmbH, Nuremberg, Germany
  *

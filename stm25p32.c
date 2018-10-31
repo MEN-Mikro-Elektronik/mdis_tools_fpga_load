@@ -16,61 +16,6 @@
  *
  *  FLASH_Try                Check if this command set can handle the device
  *
- *-------------------------------[ History ]---------------------------------
- *
- * $Log: stm25p32.c,v $
- * Revision 2.12  2014/01/17 17:05:30  awerner
- * R: Merge error in 2.10 to 2.11 changes lost.
- * M: Re Checkin 2.10
- *
- * Revision 2.10  2013/05/13 11:21:10  ts
- * R: programming Flash on F75P failed at offset 0x80000
- * M: fixed typo in 16M Flash array, caused wrong size/sector to be calculated
- *
- * Revision 2.9  2013/04/17 19:02:07  ts
- * R: fpga_load didnt work on F75P with larger SPI flash
- * M: added support of 128Mbit device SSTF016P
- *
- * Revision 2.8  2012/03/14 13:26:22  dpfeuffer
- * R: Windows compiler warning
- * M: cast added
- *
- * Revision 2.7  2010/08/26 09:57:03  CKauntz
- * R:1. Flash update took very long on LINUX, UOS_MikroDelayInit took 600ms
- *   2. No write status
- * M:1. Moved UOS_MikroDelayIni to the ini routine
- *   2. Added current write status in verbose mode
- *
- * Revision 2.6  2010/05/17 16:55:18  CKauntz
- * R: Last byte in flash not programmed
- * M: Removed redundant check for length against the flash size
- *
- * Revision 2.5  2009/01/12 16:58:39  CKauntz
- * R: 1. In non debugged version no flash name visible
- *    2. Write behind the flash size
- * M: 1.a: changed to printf to show name in verbose mode
- *      b: changed flash name to show size in MB
- *    2. No write or delete when address greater than flash size
- *       No write but delete of sectors when start within but end behind the size
- *
- * Revision 2.4  2008/12/19 15:19:42  CKauntz
- * Added support for STMICROM25P64 Flash
- *
- * Revision 2.3  2008/06/19 17:10:13  CKauntz
- * R: WriteBlock writes too fast at F607
- * M: Delay at DataPolling
- * R: ReadBlock reads wrong byte when length ends with 1, 2 or 3 bytes
- * M: Fixed assignment to buffer
- *
- * Revision 2.2  2008/05/09 19:26:50  CKauntz
- * Fixed: + Flash suppoort up to 4MB
- *        + Read and write at all offsets and length
- *
- * Revision 2.1  2008/03/19 16:11:08  CKauntz
- * Initial Revision
- *
- *
- *
  *---------------------------------------------------------------------------
  * (c) Copyright 2008 by MEN Mikro Elektronik GmbH, Nuremberg, Germany
  *
