@@ -14,171 +14,24 @@
  *
  *
  */
-/*---------------------------[ Public Functions ]-------------------------------
- * none
- *
- *---------------------------------[ History ]----------------------------------
- *
- * $Log: fpga_load.c,v $
- * Revision 1.28  2014/02/04 13:10:05  awerner
- * R: Minor Revision still displayed wrong
- * M: Added seperate filed in CHAMELEONV2_TABLE for minor Revision
- *    and add it to fpga_load.
- *
- * Revision 1.27  2014/01/20 10:20:24  awerner
- * R: 1. Wrong flash type in combination with -d (direct specify flash address)
- *       caused fpga flash corruption
- *    2. Default Write Offset mentioned in usage is wrong.
- * M: 1. Added parameter for seriell and parallel (-z -j) flash. The parameter
- *       MUST be specified.
- *    2. Change default offset in WriteBlock from 0x40000 to 0x00
- *
- * Revision 1.26  2014/01/09 15:37:26  awerner
- * R: busId interpreted as Minor FPGA Revision
- * M: Changed printf to print Minor Revision instead of busID
- *
- * Revision 1.25  2013/06/21 16:43:22  MRoth
- * R: no support for Windows7 64bit
- * M: added WIN64 specific address mapping
- *
- * Revision 1.24 2013/04/18 10:09:06  ts
- * R: printed revision string looked chopped off
- * M: corrected printf in usage text
- *
- * Revision 1.23  2012/09/10 16:41:13  sy
- * Add OSS_VXBUS_SUPPORT to support multiple PCI domains
- *
- * Revision 1.22  2012/03/14 13:26:18  dpfeuffer
- * R:1. FPGA@LPCbus introduction (SC24)
- *   2. usage information dubious
- *   3. console output inconsistent
- *   4. option -u doesn't work with serial flash
- * M:1. option -k <tbl-addr> added to support access over ISA/LPC bus
- *   2. usage information completely revised
- *   3. printfs revised
- *   4. option -u copies FPGA header from file for serial flashes
- *
- * Revision 1.21  2012/03/09 15:47:23  ts
- * R: 1. verify failed on EM10A with file EM10AIC002A2.bin
- *    2. unresolved symbol CHAM_InitMemSw
- * M: 1. bugfix in flash verify: loop must end < len instead <= len
- *    2. make call of function dependent if
- *
- * Revision 1.20  2010/08/26 09:57:00  CKauntz
- * R: PCI Config Space Command Register not reset after changes
- * M: Added Reset command register to the old value
- *
- * Revision 1.19  2009/03/05 09:52:43  CKauntz
- * R: Execution order incorrect at BIG Endian SMB flash type
- * M: Added switches for BIG and LITTLE Endian at SMB flas types
- *
- * Revision 1.18  2009/01/22 17:55:16  CKauntz
- * Added Dummy_Routine to solve compiler warnings and add
- *   OSS_AlarmCreate and OSS_SmbHdl to MDIS object for VxWorks BSPs
- *
- * Revision 1.17  2008/07/30 15:54:11  gvarlet
- * R: No support for QNX
- * M: Support for QNX added
- *
- * Revision 1.16  2008/06/19 17:09:28  CKauntz
- * R: Verify_FpgaConfig just compared first index
- * M: Fixed buffer incremets to compare the whole buffer
- *
- * Revision 1.15  2008/05/09 19:26:45  CKauntz
- * Added:   Parameter -z to switch between parallel and spi flash types
- * Changed: Parameter -z determines the IP Core 16Z045_FLASH or 16Z126_SPI_FLACH
- * Fixed:   Go to end when no Chameleon device found
- *
- * Revision 1.14  2008/03/19 16:10:54  CKauntz
- * added:
- *  + STM25P32_Trys
- *  + flash interface 16Z126_SPI_FLASH
- *
- * Revision 1.13  2007/07/13 17:26:34  cs
- * removed option to access SMBus over OSS_GetSmbHdl when used in user space
- * cosmetics
- *
- * Revision 1.12  2007/07/09 20:10:45  CKauntz
- *  + changed: renamed goto end commands
- *             Chameleon table outlook
- *             Decision 8Bit, 16Bit moved to AD29LVxxx_TRY function
- *  + added :  Z100_ISTRATAPC28FXXXP30_TRY versions,
- * 	    Option -t for a list of all Chameleon tables
- * 	    Option -d for direct addressing
- *
- * Revision 1.11  2006/09/18 11:34:39  cschuster
- * added error check for WriteBlock
- *
- * Revision 1.10  2006/03/24 14:59:57  cschuster
- * print return value of CHAM.InitPci on error
- *
- * Revision 1.9  2006/02/08 12:24:22  cschuster
- * added option to set bus switches of A500 (-x)
- *
- * Revision 1.8  2005/12/12 14:29:49  cschuster
- * changed FLASH_READ/WRITE macros to Z100_FLASH_READ/WRITE functions
- * moved VME and PCI init out of main function
- * added support for am29lvxxx_smb (flash access over SMBus and PLD)
- * added casts to avoid warnings with VxWorks compiler
- * added Chameleon Lib exit call (Term)
- * docu: added references between related functions
- * Copyright string changed
- *
- * Revision 1.7  2005/07/14 12:27:47  cs
- * minor bugfixes
- * cosmetics
- * OSS_DbgLevel set considering the verbose level (0/1)
- *
- * Revision 1.6  2005/07/08 17:49:42  cs
- * use MACCESS macros and chameleon (+oss_usr, +dbg_usr) library
- * add VME bus support
- * cosmetics
- *
- * Revision 1.5  2005/01/31 13:58:11  cs
- * changed parameters -ec to -c and -es to -e
- * added casts (printf + sscanf) to avoid warnings when compiling VxWorks tool
- * added CHAM_ENT structure to DEV_HDL structure
- * cosmetics
- *
- * Revision 1.4  2005/01/21 13:36:44  cs
- * added support for new chameleon structure (magic 0xCDEF)
- * bugfixes:
- *   vendor and device ID of PCI devices where printed in decimal form
- *   parameters are now checked before beeing parsed
- * additional error handling
- * cosmetics
- * changed parameter -bar to -b
- * added VxWorks parameters -m (pci to memory offset) and -i (pci to io offset)
- *
- * Revision 1.3  2004/12/23 15:10:38  cs
- * minor bugfixes
- * cosmetics
- * removed duplicate code
- *
- * Revision 1.2  2004/12/13 18:03:30  cs
- * bugfix: if config Nr. is omitted with -u option, 0 is assumed correctly
- * cosmetics in documentation and debug messages
- *
- * Revision 1.1  2004/11/30 18:04:53  cs
- * Initial Revision
- *
- *
- *------------------------------------------------------------------------------
+/*
+ *-----------------------------------------------------------------------------
  * (c) Copyright 2004-2005 by MEN Mikro Elektronik GmbH, Nuremberg, Germany
- *
+ ****************************************************************************/
+ /*
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 2 of the License, or
  * (at your option) any later version.
- *
+ * 
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- ******************************************************************************/
+ */
 
 static char RCSid[]="$Header: /dd2/CVSR/COM/TOOLS/FPGA_LOAD/COM/fpga_load.c,v 1.28 2014/02/04 13:10:05 awerner Exp $";
 

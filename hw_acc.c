@@ -16,40 +16,10 @@
  *
  *
  *
- */
-/*---------------------------[ Public Functions ]-------------------------------
- * none
- *
- *---------------------------------[ History ]----------------------------------
- *
- * $Log: hw_acc.c,v $
- * Revision 2.7  2013/06/21 16:45:57  MRoth
- * R: include path for fpga_load header not in default paths
- * M: change include to current path
- *
- * Revision 2.5  2008/03/19 16:10:57  CKauntz
- * cosmetics
- *
- * Revision 2.4  2007/08/07 14:06:58  JWu
- * changed:
- *   type of arguments in Z100_Mwrite_MEN_D8, Z100_Mwrite_MEN_D16
- *
- * Revision 2.3  2007/07/09 20:10:49  CKauntz
- * changes: all functions to static cause of including in the stubs
- *          Mread / Mwrite adapted to swapped and m-module swapped versions
- *          Decision for IO or Mem version moved to Identyfy functions
- *
- * Revision 2.2  2006/03/16 12:32:50  cs
- * fixed: D16 and D32 read access
- *
- * Revision 2.1  2005/12/12 11:05:22  cschuster
- * Initial Revision
- *
- *
- *
- *------------------------------------------------------------------------------
+ *----------------------------------------------------------------------------
  * (c) Copyright 2005 by MEN Mikro Elektronik GmbH, Nuremberg, Germany
- *
+ ****************************************************************************/
+ /*
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 2 of the License, or
@@ -62,7 +32,7 @@
  * 
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- ******************************************************************************/
+ */
 /*-----------------------------------------+
  |  GLOBALS                                |
  +-----------------------------------------*/

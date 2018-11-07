@@ -13,53 +13,11 @@
  *     Required:
  *
  *
- */
-/*---------------------------[ Public Functions ]-------------------------------
- * none
- *
- *---------------------------------[ History ]----------------------------------
- *
- * $Log: hw_acc_io.c,v $
- * Revision 2.10  2014/01/20 10:17:15  awerner
- * R: <sys/io.h> not available in Windows
- * M: Added ifdef to not include the header in Windows
- *
- * Revision 2.9  2014/01/17 17:27:22  awerner
- * R: 1. Merge error 2.7->2.8
- *    2. compile failed on PPC platform
- * M: 1. Manuell merge 2.7->2.8
- *    2. on PPC platforms io.h doesnt exist, include conditional
- *
- * Revision 2.8  2013/06/21 16:46:04  MRoth
- * R: no support for Windows7 64bit
- * M: 1a) added WIN64 specific men_genacc WRITE/Read macros
- *    1b) changed pcigenacc interface to men_genacc interface
- *
- * Revision 2.6  2009/03/05 09:52:45  CKauntz
- * R: Compiler warning internFunc declared but not defined
- * M: Added undef to reduce compiler warning
- *
- * Revision 2.5  2009/01/22 17:55:59  CKauntz
- * Changed compile order of header files to solve compiler warnings
- *
- * Revision 2.4  2007/08/07 14:10:48  JWu
- * changed:
- *   type of arguments in Z100_Mwrite_Io_D8*, Z100_Mwrite_Io_D16*
- *
- * Revision 2.3  2007/07/09 20:10:51  CKauntz
- * added: swapped versions of the Read / Write functions
- *
- * Revision 2.2  2006/03/24 15:00:54  cschuster
- * access IO-mapped addresses with VXWORKS + PPC just like memory mapped
- *
- * Revision 2.1  2005/12/12 11:05:24  cschuster
- * Initial Revision
- *
- *
  *
  *------------------------------------------------------------------------------
  * (c) Copyright 2005 by MEN Mikro Elektronik GmbH, Nuremberg, Germany
- *
+ ****************************************************************************/
+ /*
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 2 of the License, or
@@ -72,7 +30,7 @@
  * 
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- ******************************************************************************/
+ */
 
 #ifdef Z100_IO_ACCESS_ENABLE
 
