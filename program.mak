@@ -148,6 +148,7 @@ MAK_INCL=$(MEN_INC_DIR)/men_typs.h \
 		 $(MEN_INC_DIR)/fpga_header.h \
 		 $(MEN_MOD_DIR)/fpga_load.h \
 		 $(MEN_MOD_DIR)/hw_acc.c \
+		 $(MEN_MOD_DIR)/hw_acc_mmod.c \
 		 $(MEN_MOD_DIR)/istratapc28fxxxp30.c \
 		 $(MEN_MOD_DIR)/am29lvxxx.c \
 		 $(MEN_MOD_DIR)/am29lvxxx_smb.c \
@@ -178,6 +179,6 @@ MAK_INP=$(MAK_INP1)\
 		$(MAK_INP9)\
 		$(MAK_INP10)\
 		$(MAK_INP11)\
-        $(MAK_INP12)\
+		$(MAK_INP12)\
 		$(MAK_INP13)\
 

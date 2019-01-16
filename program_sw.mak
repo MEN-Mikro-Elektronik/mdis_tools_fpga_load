@@ -55,12 +55,12 @@
 MAK_NAME=fpga_load_sw
 
 MAK_SWITCH= \
-            $(SW_PREFIX)MAC_BYTESWAP\
-			$(SW_PREFIX)FPGA_LOAD_SW\
-			$(SW_PREFIX)FLASH_SW\
-			$(SW_PREFIX)FL_SWAP_SW\
-            $(SW_PREFIX)Z100_CONFIG_VME \
-            $(SW_PREFIX)MAC_USERSPACE\
+        $(SW_PREFIX)MAC_BYTESWAP\
+	$(SW_PREFIX)FPGA_LOAD_SW\
+	$(SW_PREFIX)FLASH_SW\
+	$(SW_PREFIX)FL_SWAP_SW\
+        $(SW_PREFIX)Z100_CONFIG_VME \
+        $(SW_PREFIX)MAC_USERSPACE\
 			
 			
 # $(SW_PREFIX)Z100_CONFIG_SMB \
@@ -88,15 +88,6 @@ MAK_INCL=$(MEN_INC_DIR)/men_typs.h \
 		 $(MEN_INC_DIR)/fpga_header.h \
          $(MEN_MOD_DIR)/../COM/fpga_load.h \
 
-#MAK_INP3=am29lvxxx$(INP_SUFFIX)
-#MAK_INP4=am29lvxxx_smb$(INP_SUFFIX)
-#MAK_INP6=fpga_load$(INP_SUFFIX)
-#MAK_INP5=flash_com$(INP_SUFFIX)
-#MAK_INP1=hw_acc$(INP_SUFFIX)
-#MAK_INP2=hw_acc_io$(INP_SUFFIX)
-#MAK_INP7=
-
-
 MAK_INP1 =_amd_smb_stub$(INP_SUFFIX)
 MAK_INP2 =_amd_smb_sw_stub$(INP_SUFFIX)
 MAK_INP3 =_amd_stub$(INP_SUFFIX)
@@ -113,17 +104,17 @@ MAK_INP13=hw_acc$(INP_SUFFIX)
 MAK_INP14=hw_acc_io$(INP_SUFFIX)
 
 MAK_INP=$(MAK_INP1)\
-		$(MAK_INP2)\
-		$(MAK_INP3)\
-		$(MAK_INP4)\
-		$(MAK_INP5)\
-		$(MAK_INP6)\
-		$(MAK_INP7)\
-		$(MAK_INP8)\
-		$(MAK_INP9)\
-		$(MAK_INP10)\
-		$(MAK_INP11)\
-		$(MAK_INP12)\
-		$(MAK_INP13)\
-		$(MAK_INP14)
+	$(MAK_INP2)\
+	$(MAK_INP3)\
+	$(MAK_INP4)\
+	$(MAK_INP5)\
+	$(MAK_INP6)\
+	$(MAK_INP7)\
+	$(MAK_INP8)\
+	$(MAK_INP9)\
+	$(MAK_INP10)\
+	$(MAK_INP11)\
+	$(MAK_INP12)\
+	$(MAK_INP13)\
+	$(MAK_INP14)
 
