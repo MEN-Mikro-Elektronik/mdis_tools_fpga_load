@@ -306,8 +306,10 @@ extern int32 Z100_AM29LVXXX_TRY(DEV_HDL *devHdl,
 
 	DBGOUT(( "FLASH::am29lvxxx::Try\n" ));
 
-
 	if(devHdl->mapType){
+		if(devHdl->interfacemmod){
+			printf( " IO mapped access not supported\n");
+		} else {
 #ifdef Z100_IO_ACCESS_ENABLE
 		#ifdef MAC_BYTESWAP
 			devHdl->Mread_D8   = Z100_Mread_Io_D8_Sw;
@@ -324,25 +326,40 @@ extern int32 Z100_AM29LVXXX_TRY(DEV_HDL *devHdl,
 			devHdl->Mwrite_D16 = Z100_Mwrite_Io_D16;
 			devHdl->Mwrite_D32 = Z100_Mwrite_Io_D32;
 		#endif
+		}
 	} else {
 #else
 		printf( " IO mapped access not supported\n");
 	}
 #endif /* Z100_IO_ACCESS_ENABLE */
 
-	/*--- get read / write function pointer ---*/
-	devHdl->Mread_D8   = Z100_Mread_Mem_D8;
-	devHdl->Mread_D16  = Z100_Mread_Mem_D16;
-	devHdl->Mread_D32  = Z100_Mread_Mem_D32;
-	devHdl->Mwrite_D8  = Z100_Mwrite_Mem_D8;
-	devHdl->Mwrite_D16 = Z100_Mwrite_Mem_D16;
-	devHdl->Mwrite_D32 = Z100_Mwrite_Mem_D32;
+		/*--- get read / write function pointer ---*/
+		if(devHdl->interfacemmod){
+			devHdl->Mread_D8   = MMOD_Mread_Mem_D8;
+			devHdl->Mread_D16  = MMOD_Mread_Mem_D16;
+			devHdl->Mread_D32  = MMOD_Mread_Mem_D32;
+			devHdl->Mwrite_D8  = MMOD_Mwrite_Mem_D8;
+			devHdl->Mwrite_D16 = MMOD_Mwrite_Mem_D16;
+			devHdl->Mwrite_D32 = MMOD_Mwrite_Mem_D32;
+		} else {
+			devHdl->Mread_D8   = Z100_Mread_Mem_D8;
+			devHdl->Mread_D16  = Z100_Mread_Mem_D16;
+			devHdl->Mread_D32  = Z100_Mread_Mem_D32;
+			devHdl->Mwrite_D8  = Z100_Mwrite_Mem_D8;
+			devHdl->Mwrite_D16 = Z100_Mwrite_Mem_D16;
+			devHdl->Mwrite_D32 = Z100_Mwrite_Mem_D32;
+		}
 #ifdef Z100_IO_ACCESS_ENABLE
 	}
 #endif /* Z100_IO_ACCESS_ENABLE */
 
-	devHdl->Read  = Z100_Flash_Read;
-	devHdl->Write = Z100_Flash_Write;
+	if(devHdl->interfacemmod){
+		devHdl->Read  = MMOD_Flash_Read;
+		devHdl->Write = MMOD_Flash_Write;
+	} else {
+		devHdl->Read  = Z100_Flash_Read;
+		devHdl->Write = Z100_Flash_Write;
+	}
 
 	/* get device identification from flash */
 	Identify( devHdl );

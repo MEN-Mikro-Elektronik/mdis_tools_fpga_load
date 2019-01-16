@@ -1,13 +1,13 @@
 /************************  F P G A _ L O A D  *********************************/
 /*!
  *
- *        \file  hw_acc.c
+ *        \file  hw_acc_mmod.c
  *
  *      \author  andreas.geissler@men.de
  *        $Date: 2019-01-16 $
  *    $Revision: 1.0 $
  *
- *       \brief  HW access functions, \n
+ *       \brief  HW access functions for M-Modules, \n
  *        To be included by each stub and set switches for the swapped versions
  *
  *    \switches FL_SWAP_SW       - for swapped Version\n
@@ -38,12 +38,6 @@
 /*-----------------------------------------+
  |  DEFINES                                |
  +-----------------------------------------*/
-#ifdef DBG
-#define DBGOUT(_x_) printf _x_
-#else
-#define DBGOUT(_x_)
-#endif /* DBG */
-
 #ifndef MAC_MEM_MAPPED
 #  define MAC_MEM_MAPPED
 #endif

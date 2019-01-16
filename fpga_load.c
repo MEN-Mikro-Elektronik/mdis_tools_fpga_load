@@ -1370,8 +1370,8 @@ static int Init_Flash(
 								 h->pciDev.bus,
 								 (void**)&h->mappedAddr)) )
 			{
-				printf("*** ERROR: Init_Flash: can't map address 0x%x (0x%x)\n",
-						(unsigned int)h->physAddr, (int)error);
+				printf("*** ERROR: Init_Flash: can't map address 0x%lx (0x%x)\n",
+						(unsigned long)h->physAddr, (int)error);
 				return( ERR_NO_SUPPORTED_FLASH_DEVICE_FOUND );
 			}
 
@@ -1592,8 +1592,8 @@ static int32 Get_Chameleon( OSS_HANDLE *osHdl,
 			chaFktTbl = &chaSwFktTbl;
 		}
 		else {
-			printf("*** ERROR: no chameleon table found at address 0x%x (0x%x)\n",
-				(unsigned int)tblAddr, (unsigned int)ret);
+			printf("*** ERROR: no chameleon table found at address 0x%lx (0x%x)\n",
+				(unsigned long)tblAddr, (unsigned int)ret);
 			goto ERROR_END;
 		}
 	}
@@ -1663,8 +1663,8 @@ static int32 Get_Chameleon( OSS_HANDLE *osHdl,
 	if( chaFktTbl->Info( chaHdl, chamInfo ) != 0 )	{
 		/* ISA/LPC */
 		if( tblAddr ){
-			printf("*** ERROR: Cham_Info failed for device 0x%x\n",
-					(unsigned int)tblAddr);
+			printf("*** ERROR: Cham_Info failed for device 0x%lx\n",
+					(unsigned long)tblAddr);
 		}
 		/* PCI */
 		else
@@ -1677,8 +1677,8 @@ static int32 Get_Chameleon( OSS_HANDLE *osHdl,
 	if (flags & (CF_DEBUG | CF_ALL_TABLES)) {
 		/* ISA/LPC */
 		if( tblAddr ){
-			printf("\nChameleon FPGA table for device 0x%x:\n",
-					(unsigned int)tblAddr);
+			printf("\nChameleon FPGA table for device 0x%lx:\n",
+					(unsigned long)tblAddr);
 		}
 		/* PCI */
 		else
@@ -1706,8 +1706,8 @@ static int32 Get_Chameleon( OSS_HANDLE *osHdl,
 		if(ret != 0) {
 			/* ISA/LPC */
 			if( tblAddr ){
-				printf("*** ERROR: Cham_TableIdent failed for device 0x%x\n",
-						(unsigned int)tblAddr);
+				printf("*** ERROR: Cham_TableIdent failed for device 0x%lx\n",
+						(unsigned long)tblAddr);
 			}
 			/* PCI */
 			else
@@ -1759,8 +1759,8 @@ static int32 Get_Chameleon( OSS_HANDLE *osHdl,
 		if(ret != 0) {
 			/* ISA/LPC */
 			if( tblAddr ){
-				printf("*** ERROR: Cham_UnitIdent failed for device 0x%x\n",
-						(unsigned int)tblAddr);
+				printf("*** ERROR: Cham_UnitIdent failed for device 0x%lx\n",
+						(unsigned long)tblAddr);
 			}
 			/* PCI */
 			else
