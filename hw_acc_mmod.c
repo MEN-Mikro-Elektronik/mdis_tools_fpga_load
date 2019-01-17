@@ -131,8 +131,8 @@ static void MMOD_Mwrite_Mem_D16(
    temp = val;
    MMOD_SWAP_VALUE(temp);
    DBGOUT(("%s off: 0x%x write: 0x%x\n", __func__, (int)offs, (int)temp));
-   MWRITE_D8( (MACCESS)ma, offs,   temp     );
    MWRITE_D8( (MACCESS)ma, offs+2, temp>>8  );
+   MWRITE_D8( (MACCESS)ma, offs,   temp     );
    return;
 }
 
@@ -147,10 +147,10 @@ static void MMOD_Mwrite_Mem_D32(
    temp = val;
    MMOD_SWAP_OFFS(temp);
    DBGOUT(("%s off: 0x%x write: 0x%x\n", __func__, (int)offs, (int)temp));
-   MWRITE_D8( (MACCESS)ma, offs,   temp     );
-   MWRITE_D8( (MACCESS)ma, offs+2, temp>>8  );
-   MWRITE_D8( (MACCESS)ma, offs+4, temp>>16 );
    MWRITE_D8( (MACCESS)ma, offs+6, temp>>24 );
+   MWRITE_D8( (MACCESS)ma, offs+4, temp>>16 );
+   MWRITE_D8( (MACCESS)ma, offs+2, temp>>8  );
+   MWRITE_D8( (MACCESS)ma, offs,   temp     );
    return;
 }
 
@@ -164,11 +164,11 @@ static void MMOD_Flash_Write( DEV_HDL *h, u_int32 offs, u_int32 val )
                    offs);
       if(h->flash_acc_size) /* access 16 bit data bus */
          Z100_MWRITE_D16( h->mappedAddr,
-                      Z045_FLASH_DATA_REG_OFFSET+2,
+                      Z045_FLASH_DATA_REG_OFFSET,
                       (u_int16)val);
       else           /* access 8 bit data bus */
          Z100_MWRITE_D8( h->mappedAddr,
-                     Z045_FLASH_DATA_REG_OFFSET+3,
+                     Z045_FLASH_DATA_REG_OFFSET,
                      (u_int8)val);
    } else { /* access over smb */
       printf( "MMOD_FLASH_WRITE: SMB access not implemented here\n");
