@@ -6,85 +6,8 @@
 #
 #    Description: linux makefile descriptor file for fpga_load
 #
-#---------------------------------[ History ]---------------------------------
-#
-#   $Log: program.mak,v $
-#   Revision 2.19  2014/01/09 15:38:00  awerner
-#   R: Only an Library include example for ELINOS Project
-#   M: Added example for MDIS Selfhosted project
-#
-#   Revision 2.18  2013/06/21 16:46:08  MRoth
-#   R: changes for compiling as part of an MDIS project
-#
-#   Revision 2.16  2009/06/03 08:43:43  CRuff
-#   R: libsmb2_all_usr only relevant for VxWorks
-#   M: Removed libsmb2_all_usr from MAK_LIBS and added additional section
-#      for VxWorks
-#
-#   Revision 2.15  2009/03/05 09:53:11  CKauntz
-#   R: Commented line in middle of compiling order
-#   M: Set commented line at end of block
-#
-#   Revision 2.14  2009/01/12 16:58:41  CKauntz
-#   R: QNX section can not be used in other OS
-#   M: Commented QNX section
-#
-#   Revision 2.13  2008/11/28 18:04:36  gvarlet
-#   R : Do not call the right men-oss library to build statically
-#   M : change the path and the library called from men_oss to ../men-oss
-#
-#   Revision 2.12  2008/09/01 14:27:40  gvarlet
-#   R: USE_VME_SERVER not defined in every case
-#   M: Check USE_VME_SERVER is set to yes (work in every cases)
-#
-#   Revision 2.11  2008/07/30 15:54:23  gvarlet
-#   R: No support for QNX
-#   M: Support for QNX added
-#
-#   Revision 2.10  2008/03/19 16:11:11  CKauntz
-#   added: st_stubs and stm25p32.c for the SPI Flash M25P32
-#
-#   Revision 2.9  2007/10/17 17:21:55  CKauntz
-#   Added Switch NO_IDPROM_CHECK for A404 without EEPROM assembled
-#
-#   Revision 2.8  2007/08/07 14:13:49  JWu
-#   removed smb2_all_usr lib
-#
-#   Revision 2.7  2007/07/13 17:42:01  cs
-#   added:
-#     - SMB support by default
-#     - smb2_all_usr lib (use SMB21 lib with MAC_USER_SPACE switch set)
-#   removed DBG switch
-#
-#   Revision 2.6  2007/07/09 20:13:06  CKauntz
-#   added: stubs for swapped and non-swapped versions
-#          istratapc28fxxxp30 flash source files
-#
-#   Revision 2.5  2005/12/12 14:25:40  cschuster
-#   Copyright line changed
-#
-#   Revision 2.4  2005/11/24 18:17:45  cschuster
-#   Added support for A404/A500 (Flash access over SMBus and PLD)
-#
-#   Revision 2.3  2005/07/08 17:49:52  cs
-#   use chameleon (+oss_usr, +dbg_usr) library
-#   add VME bus support
-#
-#   Revision 2.2  2005/01/21 13:36:46  cs
-#   switch Z100_IO_MAPPED_EN moved to library.mak
-#
-#   Revision 2.1  2004/12/23 15:10:48  cs
-#   Initial Revision
-#
-#   Revision 1.2  2004/12/13 18:03:37  cs
-#   added comment for MAC_IO_MAPPED_EN switch
-#
-#   Revision 1.1  2004/11/30 18:04:59  cs
-#   Initial Revision
-#
-#
 #-----------------------------------------------------------------------------
-# (c) Copyright 2004 by MEN Mikro Elektronik GmbH, Nuremberg, Germany
+#   Copyright (c) 2004-2019, MEN Mikro Elektronik GmbH
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by

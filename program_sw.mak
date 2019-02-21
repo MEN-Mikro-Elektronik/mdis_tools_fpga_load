@@ -6,37 +6,8 @@
 #
 #    Description: linux makefile descriptor file for fpga_load
 #
-#---------------------------------[ History ]---------------------------------
-#
-#   $Log: program_sw.mak,v $
-#   Revision 2.6  2013/04/17 19:00:56  ts
-#   R: changes for compiling as part of an MDIS project
-#
-#   Revision 2.5  2005/12/12 14:25:51  cschuster
-#   Copyright line changed
-#
-#   Revision 2.4  2005/11/24 18:18:33  cschuster
-#   Added support for A404/A500 (Flash access over SMBus and PLD)
-#
-#   Revision 2.3  2005/07/08 17:49:54  cs
-#   use chameleon (+oss_usr, +dbg_usr) library
-#   add VME bus support
-#
-#   Revision 2.2  2005/01/21 13:36:48  cs
-#   switch Z100_IO_MAPPED_EN moved to library.mak
-#
-#   Revision 2.1  2004/12/23 15:10:49  cs
-#   Initial Revision
-#
-#   Revision 1.2  2004/12/13 18:03:39  cs
-#   added comment for MAC_IO_MAPPED_EN switch
-#
-#   Revision 1.1  2004/11/30 18:05:00  cs
-#   Initial Revision
-#
-#
 #-----------------------------------------------------------------------------
-# (c) Copyright 2004 by MEN Mikro Elektronik GmbH, Nuremberg, Germany
+#   Copyright (c) 2004-2019, MEN Mikro Elektronik GmbH
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by

@@ -19,7 +19,7 @@
  *  FLASH_Try                Check if this command set can handle the device
  *
  *---------------------------------------------------------------------------
- * (c) Copyright 2005 by MEN Mikro Elektronik GmbH, Nuremberg, Germany
+ * Copyright (c) 2005-2019, MEN Mikro Elektronik GmbH
  ****************************************************************************/
  /*
  * This program is free software: you can redistribute it and/or modify
