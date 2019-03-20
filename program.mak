@@ -2,7 +2,6 @@
 #
 #         Author: Christian.Schuster@men.de
 #          $Date: 2014/01/09 15:38:00 $
-#      $Revision: 2.19 $
 #
 #    Description: linux makefile descriptor file for fpga_load
 #
@@ -25,56 +24,38 @@
 
 MAK_NAME=fpga_load
 
-MAK_SWITCH= \
-            $(SW_PREFIX)Z100_CONFIG_VME \
-            $(SW_PREFIX)MAC_USERSPACE \
-            $(SW_PREFIX)Z100_IO_ACCESS_ENABLE \
-#            $(SW_PREFIX)Z100_CONFIG_SMB \
-#            $(SW_PREFIX)DBG \
-#            $(SW_PREFIX)NO_IDPROM_CHECK
+MAK_SWITCH=	\
+		$(SW_PREFIX)Z100_CONFIG_VME \
+		$(SW_PREFIX)MAC_USERSPACE \
+		$(SW_PREFIX)Z100_IO_ACCESS_ENABLE \
+#		$(SW_PREFIX)Z100_CONFIG_SMB \
+#		$(SW_PREFIX)DBG \
+#		$(SW_PREFIX)NO_IDPROM_CHECK
 
-MAK_LIBS= 	$(LIB_PREFIX)$(MEN_LIB_DIR)/usr_oss$(LIB_SUFFIX)			\
-		$(LIB_PREFIX)$(MEN_LIB_DIR)/usr_utl$(LIB_SUFFIX)			\
-        	$(LIB_PREFIX)$(MEN_LIB_DIR)/chameleon_usr$(LIB_SUFFIX)		\
-        	$(LIB_PREFIX)$(MEN_LIB_DIR)/chameleon_usr_io$(LIB_SUFFIX)	\
-        	$(LIB_PREFIX)$(MEN_LIB_DIR)/chameleon_usr_sw$(LIB_SUFFIX)	\
-        	$(LIB_PREFIX)$(MEN_LIB_DIR)/chameleon_usr_io_sw$(LIB_SUFFIX)\
-        	$(LIB_PREFIX)$(MEN_LIB_DIR)/oss_usr$(LIB_SUFFIX)			\
-        	$(LIB_PREFIX)$(MEN_LIB_DIR)/dbg_usr$(LIB_SUFFIX)			\
-        	$(LIB_PREFIX)$(MEN_LIB_DIR)/vme4l_api$(LIB_SUFFIX)			\
-        	$(LIB_PREFIX)$(MEN_LIB_DIR)/pci$(LIB_SUFFIX)			\
+MAK_LIBS=	$(LIB_PREFIX)$(MEN_LIB_DIR)/usr_oss$(LIB_SUFFIX) \
+		$(LIB_PREFIX)$(MEN_LIB_DIR)/usr_utl$(LIB_SUFFIX) \
+		$(LIB_PREFIX)$(MEN_LIB_DIR)/chameleon_usr$(LIB_SUFFIX) \
+		$(LIB_PREFIX)$(MEN_LIB_DIR)/chameleon_usr_io$(LIB_SUFFIX) \
+		$(LIB_PREFIX)$(MEN_LIB_DIR)/chameleon_usr_sw$(LIB_SUFFIX) \
+		$(LIB_PREFIX)$(MEN_LIB_DIR)/chameleon_usr_io_sw$(LIB_SUFFIX) \
+		$(LIB_PREFIX)$(MEN_LIB_DIR)/oss_usr$(LIB_SUFFIX) \
+		$(LIB_PREFIX)$(MEN_LIB_DIR)/dbg_usr$(LIB_SUFFIX) \
+		$(LIB_PREFIX)$(MEN_LIB_DIR)/vme4l_api$(LIB_SUFFIX) \
+		$(LIB_PREFIX)$(MEN_LIB_DIR)/pci$(LIB_SUFFIX)
 
-# for VXWORKS, in case BSP does not include the SMB2 library:
-#MAK_LIBS+=	$(LIB_PREFIX)$(MEN_LIB_DIR)/smb2_all_usr$(LIB_SUFFIX) \
-
-# for LINUX (ELINOS)::
-#MAK_LIBS+=	$(LIB_PREFIX)$(ELINOS_PROJECT)/src/pciutils/lib/libpci$(LIB_SUFFIX)\
-#			$(LIB_PREFIX)$(MEN_LIB_DIR)/vme4l_api$(LIB_SUFFIX) \
-
-# for LINIX (SELFHOSTED)_
-#MAK_LIBS+=	$(LIB_PREFIX)$(MEN_LIB_DIR)/pciutils$(LIB_SUFFIX)\
-#			$(LIB_PREFIX)$(MEN_LIB_DIR)/vme4l_api$(LIB_SUFFIX) \
-
-# check for QNX:
-#ifdef MEN_QNX_DIR
-#	MAK_LIBS +=	$(LIB_PREFIX)$(MEN_LIB_DIR)/../men-oss$(DBGSUFFIX)$(LIB_SUFFIX)
-#	ifeq ($(USE_VME_SERVER),yes)
-#		MAK_LIBS +=	$(LIB_PREFIX)$(MEN_LIB_DIR)/../men-libc$(LIB_SUFFIX)
-#	endif
-#endif
-
-MAK_INCL=$(MEN_INC_DIR)/men_typs.h \
-		 $(MEN_INC_DIR)/smb2.h \
-		 $(MEN_INC_DIR)/usr_oss.h \
-		 $(MEN_INC_DIR)/usr_err.h \
-		 $(MEN_INC_DIR)/usr_utl.h \
-		 $(MEN_INC_DIR)/fpga_header.h \
-		 $(MEN_MOD_DIR)/fpga_load.h \
-		 $(MEN_MOD_DIR)/hw_acc.c \
-		 $(MEN_MOD_DIR)/istratapc28fxxxp30.c \
-		 $(MEN_MOD_DIR)/am29lvxxx.c \
-		 $(MEN_MOD_DIR)/am29lvxxx_smb.c \
-		 $(MEN_MOD_DIR)/stm25p32.c \
+MAK_INCL=	$(MEN_INC_DIR)/men_typs.h \
+		$(MEN_INC_DIR)/smb2.h \
+		$(MEN_INC_DIR)/usr_oss.h \
+		$(MEN_INC_DIR)/usr_err.h \
+		$(MEN_INC_DIR)/usr_utl.h \
+		$(MEN_INC_DIR)/fpga_header.h \
+		$(MEN_MOD_DIR)/fpga_load.h \
+		$(MEN_MOD_DIR)/hw_acc.c \
+		$(MEN_MOD_DIR)/hw_acc_mmod.c \
+		$(MEN_MOD_DIR)/istratapc28fxxxp30.c \
+		$(MEN_MOD_DIR)/am29lvxxx.c \
+		$(MEN_MOD_DIR)/am29lvxxx_smb.c \
+		$(MEN_MOD_DIR)/stm25p32.c
 
 MAK_INP1=_amd_stub$(INP_SUFFIX)
 MAK_INP2=_amd_sw_stub$(INP_SUFFIX)
@@ -90,17 +71,16 @@ MAK_INP11=hw_acc_io$(INP_SUFFIX)
 MAK_INP12=_st_stub$(INP_SUFFIX)
 MAK_INP13=_st_sw_stub$(INP_SUFFIX)
 
-MAK_INP=$(MAK_INP1)\
-		$(MAK_INP2)\
-		$(MAK_INP3)\
-		$(MAK_INP4)\
-		$(MAK_INP5)\
-		$(MAK_INP6)\
-		$(MAK_INP7)\
-		$(MAK_INP8)\
-		$(MAK_INP9)\
-		$(MAK_INP10)\
-		$(MAK_INP11)\
-        $(MAK_INP12)\
-		$(MAK_INP13)\
-
+MAK_INP=	$(MAK_INP1) \
+		$(MAK_INP2) \
+		$(MAK_INP3) \
+		$(MAK_INP4) \
+		$(MAK_INP5) \
+		$(MAK_INP6) \
+		$(MAK_INP7) \
+		$(MAK_INP8) \
+		$(MAK_INP9) \
+		$(MAK_INP10) \
+		$(MAK_INP11) \
+		$(MAK_INP12) \
+		$(MAK_INP13)

@@ -49,5 +49,6 @@
 #undef PROG_FILE_NAME
 #include "fpga_load.h"
 #include "hw_acc.c"
+#include "hw_acc_mmod.c"
 #include "stm25p32.c"
 

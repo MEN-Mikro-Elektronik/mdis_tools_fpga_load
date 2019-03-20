@@ -59,17 +59,18 @@ MAK_LIBS= 	$(LIB_PREFIX)$(MEN_LIB_DIR)/usr_oss$(LIB_SUFFIX)			\
 #endif
 
 MAK_INCL=$(MEN_INC_DIR)/men_typs.h \
-		 $(MEN_INC_DIR)/smb2.h \
-		 $(MEN_INC_DIR)/usr_oss.h \
-		 $(MEN_INC_DIR)/usr_err.h \
-		 $(MEN_INC_DIR)/usr_utl.h \
-		 $(MEN_INC_DIR)/fpga_header.h \
-         $(MEN_MOD_DIR)/../COM/fpga_load.h \
-         $(MEN_MOD_DIR)/../COM/hw_acc.c \
-         $(MEN_MOD_DIR)/../COM/istratapc28fxxxp30.c \
-		 $(MEN_MOD_DIR)/../COM/am29lvxxx.c \
-		 $(MEN_MOD_DIR)/../COM/am29lvxxx_smb.c \
-         $(MEN_MOD_DIR)/../COM/stm25p32.c \
+		$(MEN_INC_DIR)/smb2.h \
+		$(MEN_INC_DIR)/usr_oss.h \
+		$(MEN_INC_DIR)/usr_err.h \
+		$(MEN_INC_DIR)/usr_utl.h \
+		$(MEN_INC_DIR)/fpga_header.h \
+		$(MEN_MOD_DIR)/../COM/fpga_load.h \
+		$(MEN_MOD_DIR)/../COM/hw_acc.c \
+		$(MEN_MOD_DIR)/../COM/hw_acc_mmod.c \
+		$(MEN_MOD_DIR)/../COM/istratapc28fxxxp30.c \
+		$(MEN_MOD_DIR)/../COM/am29lvxxx.c \
+		$(MEN_MOD_DIR)/../COM/am29lvxxx_smb.c \
+		$(MEN_MOD_DIR)/../COM/stm25p32.c \
 
 MAK_INP1=_amd_stub$(INP_SUFFIX)
 MAK_INP2=_amd_sw_stub$(INP_SUFFIX)
@@ -96,6 +97,6 @@ MAK_INP=$(MAK_INP1)\
 		$(MAK_INP9)\
 		$(MAK_INP10)\
 		$(MAK_INP11)\
-        $(MAK_INP12)\
+		$(MAK_INP12)\
 		$(MAK_INP13)\
 
