@@ -41,7 +41,8 @@ MAK_LIBS=	$(LIB_PREFIX)$(MEN_LIB_DIR)/usr_oss$(LIB_SUFFIX) \
 		$(LIB_PREFIX)$(MEN_LIB_DIR)/oss_usr$(LIB_SUFFIX) \
 		$(LIB_PREFIX)$(MEN_LIB_DIR)/dbg_usr$(LIB_SUFFIX) \
 		$(LIB_PREFIX)$(MEN_LIB_DIR)/vme4l_api$(LIB_SUFFIX) \
-		$(LIB_PREFIX)$(MEN_LIB_DIR)/pci$(LIB_SUFFIX)
+		$(LS_PATH)/pciutils/lib/libpci$(LIB_SUFFIX)
+
 
 MAK_INCL=	$(MEN_INC_DIR)/men_typs.h \
 		$(MEN_INC_DIR)/smb2.h \
