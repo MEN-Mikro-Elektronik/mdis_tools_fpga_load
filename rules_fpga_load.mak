@@ -65,6 +65,8 @@ endif
 LIN_KERNEL_COMMON_DIR ?= $(LIN_KERNEL_DIR)
 
 
+_ALL_USR_LIBS 	=  $(ALL_USR_LIBS) \
+					MDIS_API/library.mak
 #ifndef NO_STD_ALL_COM_TOOLS
 _ALL_COM_TOOLS	=  $(ALL_COM_TOOLS) #\
 
@@ -118,6 +120,8 @@ export LIN_KERNEL_COMMON_DIR
 export LIN_INC_DIR
 export DEBUG
 
+export CONFIG_NAME 	:= $(notdir $(THIS_DIR))
+export USRLIB_MAK  	:= $(TPL_DIR)usrlib_$(LIB_MODE).mak
 export USRPROG_MAK 	:= $(TPL_DIR)usrprog_$(LIB_MODE).mak
 
 MOD_OUTPUT_DIR 	   := MODULES
@@ -133,15 +137,20 @@ endif
 #----------------------------------------
 # Rules
 #
-.PHONY: all_com_tools $(_ALL_COM_TOOLS)
+.PHONY: buildfpgaload all_usr_libs all_com_tools $(_ALL_USR_LIBS) $(_ALL_COM_TOOLS)
 
-#kernelsettings
-all_com_tools: buildpciutils $(_ALL_COM_TOOLS)
+buildfpgaload: buildpciutils all_usr_libs all_com_tools
 
-
-# rule to make pciutils 
+# rule to make pciutils
 buildpciutils:
 	$(MAKE) -C $(LS_PATH)/pciutils
+
+#kernelsettings
+
+$(_ALL_USR_LIBS):
+	$(MAKEIT) -f $(USRLIB_MAK) $(RULE) \
+		COMMAKE=$(LS_PATH)/$@ \
+		COMP_PREFIX=
 
 #
 $(_ALL_COM_TOOLS):
@@ -150,6 +159,9 @@ $(_ALL_COM_TOOLS):
 		COMP_PREFIX=
 
 -include $(THIS_DIR)/.kernelsettings
+
+all_usr_libs: kernelsettings $(_ALL_USR_LIBS)
+all_com_tools:	kernelsettings $(_ALL_COM_TOOLS)
 
 #
 # Rule to get settings from Linux Kernel

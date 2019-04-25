@@ -121,5 +121,5 @@ ALL_COM_TOOLS = \
 
 #ALL_DESC = system
 
-include rules.mak
+include rules_fpga_load.mak
 
