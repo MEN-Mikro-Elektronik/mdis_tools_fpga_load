@@ -237,6 +237,6 @@
 	  \endverbatim
 */
 
-/*! \page dummy
+/*! \page fpgadummy MEN logo
   \menimages
  */
