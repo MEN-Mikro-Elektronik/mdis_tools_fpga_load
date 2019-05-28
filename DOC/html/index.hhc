@@ -26,9 +26,8 @@
   <LI><OBJECT type="text/sitemap"><param name="Name" value="fpga_load_flash.h"><param name="Local" value="fpga__load__flash_8h.html"><param name="ImageNumber" value="11"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="hw_acc.c"><param name="Local" value="hw__acc_8c.html"><param name="ImageNumber" value="11"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="hw_acc_io.c"><param name="Local" value="hw__acc__io_8c.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="hw_acc_mmod.c"><param name="Local" value="hw__acc__mmod_8c.html"><param name="ImageNumber" value="11"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="istratapc28fxxxp30.c"><param name="Local" value="istratapc28fxxxp30_8c.html"><param name="ImageNumber" value="11"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Name" value="maccess_io.h"><param name="Local" value="maccess__io_8h.html"><param name="ImageNumber" value="11"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Name" value="maccess_mem.h"><param name="Local" value="maccess__mem_8h.html"><param name="ImageNumber" value="11"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="stm25p32.c"><param name="Local" value="stm25p32_8c.html"><param name="ImageNumber" value="11"></OBJECT>
   </UL>
 <LI><OBJECT type="text/sitemap"><param name="Name" value="Data Structures"><param name="Local" value="annotated.html"><param name="ImageNumber" value="1"></OBJECT>
@@ -44,6 +43,6 @@
 <LI><OBJECT type="text/sitemap"><param name="Name" value="Related Pages"><param name="Local" value="pages.html"><param name="ImageNumber" value="1"></OBJECT>
   <UL>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="Tool Usage"><param name="Local" value="pageUsage.html"><param name="ImageNumber" value="11"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Name" value="dummy"><param name="Local" value="dummy.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="MEN logo"><param name="Local" value="fpgadummy.html"><param name="ImageNumber" value="11"></OBJECT>
   </UL>
 </UL>

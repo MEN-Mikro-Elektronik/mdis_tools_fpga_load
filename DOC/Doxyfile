@@ -1,7 +1,7 @@
 @INCLUDE_PATH = $(MEN_DOXYGENTMPL)
 @INCLUDE = DoxyfileCommon
 
-#MDIS_COMMIT=
+#MDIS_COMMIT=c29dc26cdaa3ab571c3d8f5b6e04dcd5267929ae
 
 PROJECT_NAME           = "Z100 FPGA update tool"
 INPUT                  = ../
