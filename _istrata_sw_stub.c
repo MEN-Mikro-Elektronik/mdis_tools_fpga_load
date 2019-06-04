@@ -3,8 +3,6 @@
  *         \file  _istrata_sw_stub.c
  *
  *       \author  Christian.Kauntz@men.de
- *        $Date: 2009/03/05 09:53:05 $
- *    $Revision: 2.3 $
  *
  *        \brief  instance for IntelStrata Flash swapped version
  *

@@ -3,8 +3,6 @@
  *         \file  _amd_sw_stub.c
  *
  *       \author  Christian.Kauntz@men.de
- *        $Date: 2009/03/05 09:52:56 $
- *    $Revision: 2.3 $
  *
  *        \brief  instance for AMD Flash swapped version
  *

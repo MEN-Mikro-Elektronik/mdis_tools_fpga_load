@@ -3,8 +3,6 @@
  *         \file  am29lvxxx.c
  *
  *       \author  Christian.Schuster@men.de
- *        $Date: 2009/01/12 16:58:33 $
- *    $Revision: 1.12 $
  *
  *        \brief  command set for AMD 29lv160 and compatible flashes
  *

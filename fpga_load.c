@@ -4,8 +4,6 @@
  *        \file  fpga_load.c
  *
  *      \author  Christian.Schuster@men.de
- *        $Date: 2014/02/04 13:10:05 $
- *    $Revision: 1.28 $
  *
  *       \brief  Tool to load FPGA configurations into flash over PCI bus
  *
@@ -33,7 +31,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-static char RCSid[]="$Header: /dd2/CVSR/COM/TOOLS/FPGA_LOAD/COM/fpga_load.c,v 1.28 2014/02/04 13:10:05 awerner Exp $";
 
 #include "fpga_load.h"
 #include "fpga_load_flash.h"
@@ -42,6 +39,8 @@ static char RCSid[]="$Header: /dd2/CVSR/COM/TOOLS/FPGA_LOAD/COM/fpga_load.c,v 1.
 #include <sys/mman.h>
 #include <fcntl.h>
 #include <unistd.h>
+
+static const char IdentString[]=MENT_XSTR(MAK_REVISION);
 
 /*-----------------------------------------+
  |  GLOBALS                                |
@@ -305,7 +304,7 @@ static void Usage(void)
 			" WARNING: Please be aware that you do FPGA configuration updates at your own risk.\n"
 			"          After an incorrect update your hardware may no longer be accessible.\n"
 			"\n"
-		   "(c) 2004-2013 MEN Mikro Elektronik GmbH. File revision:\n%s",RCSid);
+		   "Copyright (c) 2004-2019, MEN Mikro Elektronik GmbH\n%s\n",IdentString);
 	printf("\nBuilt: %s %s\n",__DATE__, __TIME__);
 }
 

@@ -3,8 +3,6 @@
  *         \file  _st_stub.c
  *
  *       \author  Christian.Kauntz@men.de
- *        $Date: 2009/03/05 09:53:07 $
- *    $Revision: 2.3 $
  *
  *        \brief  instance for STMicroelektronics Flash
  *

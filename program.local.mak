@@ -1,8 +1,6 @@
 #***************************  M a k e f i l e  *******************************
 #
 #         Author: Christian.Schuster@men.de
-#          $Date: 2009/06/03 08:43:43 $
-#      $Revision: 2.16 $
 #
 #    Description: linux makefile descriptor file for fpga_load
 #
@@ -24,8 +22,13 @@
 #*****************************************************************************
 
 MAK_NAME=fpga_load
+# the next line is updated during the MDIS installation
+STAMPED_REVISION="mdis_tools_fpga_load_01_22-16-g4f1b677-dirty_2019-05-29"
+
+DEF_REVISION=MAK_REVISION=$(STAMPED_REVISION)
 
 MAK_SWITCH= \
+		$(SW_PREFIX)$(DEF_REVISION) \
 
 #            $(SW_PREFIX)Z100_CONFIG_VME \
 #            $(SW_PREFIX)MAC_USERSPACE\

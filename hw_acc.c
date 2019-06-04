@@ -4,8 +4,6 @@
  *        \file  hw_acc.c
  *
  *      \author  Christian.Schuster@men.de
- *        $Date: 2013/06/21 16:45:57 $
- *    $Revision: 2.7 $
  *
  *       \brief  HW access functions, \n
  *				 To be included by each stub and set switches for the swapped versions

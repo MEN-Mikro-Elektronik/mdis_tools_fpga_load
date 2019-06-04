@@ -3,8 +3,6 @@
  *         \file  _amd_smb_stub.c
  *
  *       \author  Christian.Kauntz@men.de
- *        $Date: 2009/03/05 09:52:50 $
- *    $Revision: 2.2 $
  *
  *        \brief  instance for AMD Flash with SMB normal version
  *

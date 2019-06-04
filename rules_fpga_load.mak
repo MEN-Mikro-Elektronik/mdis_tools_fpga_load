@@ -2,8 +2,6 @@
 #
 #        \file  rules.mak
 #
-#        $Date: 2019/04/24 $
-#    $Revision: 1.0 $
 #
 #        \brief This rules.mak file should be used only by fpga_load tool
 #               File is based on MDIS rules.mak file
@@ -85,7 +83,8 @@ ifndef DEBUG
 endif
 
 # set default MAK_SWITCH
-MAK_SWITCH=-DMAC_MEM_MAPPED
+MAK_SWITCH=-DMAC_MEM_MAPPED \
+		$(SW_PREFIX)$(DEF_REVISION)
 
 # Get the linux version
 ifdef LIN_INC_DIR

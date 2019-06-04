@@ -3,8 +3,6 @@
  *         \file  flash_com.c
  *
  *       \author  Christian.Schuster@men.de
- *        $Date: 2009/03/05 09:52:48 $
- *    $Revision: 1.9 $
  *
  *        \brief  common command set for all flash memory devices
  *

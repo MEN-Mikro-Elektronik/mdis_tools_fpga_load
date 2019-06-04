@@ -4,8 +4,6 @@
  *        \file  hw_acc_mmod.c
  *
  *      \author  andreas.geissler@men.de
- *        $Date: 2019-01-16 $
- *    $Revision: 1.0 $
  *
  *       \brief  HW access functions for M-Modules, \n
  *        To be included by each stub and set switches for the swapped versions

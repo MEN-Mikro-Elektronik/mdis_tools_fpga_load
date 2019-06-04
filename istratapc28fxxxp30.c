@@ -3,8 +3,6 @@
  *         \file  istratapc28fxxxp30.c
  *
  *       \author  Christian.Kauntz@men.de
- *        $Date: 2012/03/14 13:26:20 $
- *    $Revision: 2.5 $
  *
  *        \brief  command set for IntelStrata PC28F640P30 and compatible flashes
  *

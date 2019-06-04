@@ -3,8 +3,6 @@
  *        \file  fpga_load.h
  *
  *      \author  Christian.Schuster@men.de
- *        $Date: 2014/01/17 17:18:24 $
- *    $Revision: 2.19 $
  *
  *       \brief  Header file for FPGA_LOAD tool containing:
  *               specific function prototypes,

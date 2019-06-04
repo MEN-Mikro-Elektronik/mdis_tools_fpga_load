@@ -3,8 +3,6 @@
  *         \file  stm25p30.c
  *
  *       \author  Christian.Kauntz@men.de
- *        $Date: 2014/01/17 17:05:30 $
- *    $Revision: 2.12 $
  *
  *        \brief  command set for STMikroelektronics M25P32 flashes
  *

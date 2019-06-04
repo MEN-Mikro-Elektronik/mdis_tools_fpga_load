@@ -3,8 +3,6 @@
  *        \file  fpga_load_doc.c
  *
  *      \author  Christian.Schuster@men.de
- *        $Date: 2008/05/09 19:26:48 $
- *    $Revision: 1.8 $
  *
  *      \brief   User documentation for Z100 FPGA_LOAD tool
  *

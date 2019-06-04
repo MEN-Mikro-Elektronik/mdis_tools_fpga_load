@@ -1,7 +1,6 @@
 #***************************  M a k e f i l e  *******************************
 #
 #         Author: Christian.Schuster@men.de
-#          $Date: 2013/04/17 19:00:56 $
 #
 #    Description: linux makefile descriptor file for fpga_load
 #
@@ -30,3 +29,8 @@
 include $(MEN_MOD_DIR)/program.mak
 
 MAK_NAME=fpga_load_sw
+# the next line is updated during the MDIS installation
+STAMPED_REVISION="mdis_tools_fpga_load_01_22-16-g4f1b677-dirty_2019-05-29"
+
+DEF_REVISION=MAK_REVISION=$(STAMPED_REVISION)
+MAK_SWITCH=$(SW_PREFIX)$(DEF_REVISION)
