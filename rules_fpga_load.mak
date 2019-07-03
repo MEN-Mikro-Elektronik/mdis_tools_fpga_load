@@ -185,6 +185,6 @@ $(ALL_DBGS):
 
 clean: 
 	@$(ECHO) "Removing all objects, modules, binaries, libraries, descriptors"
-	rm -rf .kernelsettings .kernelsubdirs OBJ BIN 
+	rm -rf .kernelsettings .kernelsubdirs OBJ BIN LIB fpga_load
 	(cd $(LS_PATH)/pciutils && $(MAKE) clean)
 
