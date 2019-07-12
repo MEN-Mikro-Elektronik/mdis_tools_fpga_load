@@ -659,7 +659,7 @@ static int32 WriteBlock(
 	for( i = 0; i < nWrite ; i++){
 
         if( !(i % 32768 )&& ( i != 0 ) && h->dbgLevel) /* write status all 128KB */
-            printf("Current write status: %d bytes written from %d bytes !\n",i*4, len);
+            printf("Current write status: %d bytes written from %d bytes !\n",(int)i*4, (int)len);
 
 		if( (!(i % 64)) && ( i != 0 ) ){
 			/*--- write the address register and the write bit every 256 bytes ---*/
