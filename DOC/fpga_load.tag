@@ -616,8 +616,8 @@
       <arglist>(int argc, char *argv[])</arglist>
     </member>
     <member kind="variable" static="yes">
-      <type>char</type>
-      <name>RCSid</name>
+      <type>const char</type>
+      <name>IdentString</name>
       <anchor>a4</anchor>
       <arglist>[]</arglist>
     </member>

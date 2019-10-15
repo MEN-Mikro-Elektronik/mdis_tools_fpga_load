@@ -23,96 +23,96 @@
 <center>
 <a class="qindex" href="index.html">Main Page</a> &nbsp; <a class="qindex" href="annotated.html">Data Structures</a> &nbsp; <a class="qindex" href="files.html">File List</a> &nbsp; <a class="qindex" href="functions.html">Data Fields</a> &nbsp; <a class="qindex" href="globals.html">Globals</a> &nbsp; <a class="qindex" href="pages.html">Related Pages</a> &nbsp; </center>
 <hr><h1>fpga_load_flash.h</h1><a href="fpga__load__flash_8h.html">Go to the documentation of this file.</a><div class="fragment"><pre>00001 <span class="comment">/***********************  I n c l u d e  -  F i l e  ***********************/</span>
-00017  <span class="comment">/*</span>
-00018 <span class="comment"> * This program is free software: you can redistribute it and/or modify</span>
-00019 <span class="comment"> * it under the terms of the GNU General Public License as published by</span>
-00020 <span class="comment"> * the Free Software Foundation, either version 2 of the License, or</span>
-00021 <span class="comment"> * (at your option) any later version.</span>
-00022 <span class="comment"> * </span>
-00023 <span class="comment"> * This program is distributed in the hope that it will be useful,</span>
-00024 <span class="comment"> * but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
-00025 <span class="comment"> * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
-00026 <span class="comment"> * GNU General Public License for more details.</span>
-00027 <span class="comment"> * </span>
-00028 <span class="comment"> * You should have received a copy of the GNU General Public License</span>
-00029 <span class="comment"> * along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
-00030 <span class="comment"> */</span>
-00031 
-00032 <span class="preprocessor">#ifndef _FPGA_LOAD_FLASH_H</span>
-00033 <span class="preprocessor"></span><span class="preprocessor">#define _FPGA_LOAD_FLASH_H</span>
-00034 <span class="preprocessor"></span>
-00035 <span class="preprocessor">#ifdef __cplusplus</span>
-00036 <span class="preprocessor"></span>      <span class="keyword">extern</span> <span class="stringliteral">"C"</span> {
-00037 <span class="preprocessor">#endif</span>
-00038 <span class="preprocessor"></span>
-00039 <span class="comment">/*-----------------------------------------+</span>
-00040 <span class="comment">|  TYPEDEFS                                |</span>
-00041 <span class="comment">+-----------------------------------------*/</span>
-00042 <span class="comment">/* Flash specific functions */</span>
-<a name="l00043"></a><a class="code" href="fpga__load__flash_8h.html#a0">00043</a> <span class="keyword">typedef</span> int32 (*FLASH_READ_BLOCKP)(<a class="code" href="struct__FLASH__DEVS.html">FLASH_DEVS</a> *, u_int32, u_int32, u_int8 *);
-<a name="l00044"></a><a class="code" href="fpga__load__flash_8h.html#a1">00044</a> <span class="keyword">typedef</span> int32 (*FLASH_INITP)(<a class="code" href="struct__DEV__HDL.html">DEV_HDL</a> *h);
-<a name="l00045"></a><a class="code" href="fpga__load__flash_8h.html#a2">00045</a> <span class="keyword">typedef</span> int32 (*FLASH_TRYP)(<a class="code" href="struct__DEV__HDL.html">DEV_HDL</a> *, <a class="code" href="fpga__load__flash_8h.html#a1">FLASH_INITP</a> *, u_int32);
-00046 
-00047 <span class="comment">/*-----------------------------------------+</span>
-00048 <span class="comment">|  DEFINES                                 |</span>
-00049 <span class="comment">+-----------------------------------------*/</span>
-00050 
-00051 <span class="comment">/*-----------------------------------------+</span>
-00052 <span class="comment">|  PROTOTYPES                              |</span>
-00053 <span class="comment">+-----------------------------------------*/</span>
-00054 
-00055 <span class="keyword">extern</span> int32 <a class="code" href="__amd__stub_8c.html#a0">Z100_AM29LVXXX_TRY</a>(<a class="code" href="struct__DEV__HDL.html">DEV_HDL</a> *devHdl,
-00056                                     FLASH_INITP *flash_initP,
-00057                                     u_int32 dbgLevel);
-00058 <span class="keyword">extern</span> int32 <a class="code" href="fpga__load__flash_8h.html#a4">Z100_AM29LVXXX_TRY_sw</a>(<a class="code" href="struct__DEV__HDL.html">DEV_HDL</a> *devHdl,
-00059                                        FLASH_INITP *flash_initP,
-00060                                        u_int32 dbgLevel);
-00061 <span class="keyword">extern</span> int32 <a class="code" href="fpga__load__flash_8h.html#a5">Z100_AM29LVXXX_TRY_mmod</a>(<a class="code" href="struct__DEV__HDL.html">DEV_HDL</a> *devHdl,
-00062                                        FLASH_INITP *flash_initP,
-00063                                        u_int32 dbgLevel);
-00064 <span class="keyword">extern</span> int32 <a class="code" href="fpga__load__flash_8h.html#a6">Z100_AM29LVXXX_TRY_mmod_sw</a>(<a class="code" href="struct__DEV__HDL.html">DEV_HDL</a> *devHdl,
-00065                                           FLASH_INITP *flash_initP,
-00066                                           u_int32 dbgLevel);
-00067 
-00068 <span class="keyword">extern</span> int32 <a class="code" href="__amd__smb__stub_8c.html#a0">Z100_AM29LVXXX_SMB_TRY</a>(<a class="code" href="struct__DEV__HDL.html">DEV_HDL</a> *devHdl,
-00069                                     FLASH_INITP *flash_initP,
-00070                                     u_int32 dbgLevel);
-00071 <span class="keyword">extern</span> int32 <a class="code" href="fpga__load__flash_8h.html#a8">Z100_AM29LVXXX_SMB_TRY_sw</a>(<a class="code" href="struct__DEV__HDL.html">DEV_HDL</a> *devHdl,
-00072                                        FLASH_INITP *flash_initP,
-00073                                        u_int32 dbgLevel);
-00074 
-00075 <span class="keyword">extern</span> int32 <a class="code" href="flash__com_8c.html#a0">Z100_FLASH_READ_BLOCK</a>( <a class="code" href="struct__FLASH__DEVS.html">FLASH_DEVS</a> *fDev,
-00076                                     u_int32 offs,
-00077                                     u_int32 len,
-00078                                     u_int8  *buf);
-00079 
-00080 <span class="keyword">extern</span> int32 <a class="code" href="__istrata__mmod__stub_8c.html#a0">Z100_ISTRATAPC28FXXXP30_TRY</a> (<a class="code" href="struct__DEV__HDL.html">DEV_HDL</a> *devHdl,
-00081                                              FLASH_INITP *flash_initP,
-00082                                              u_int32 dbgLevel);
-00083 <span class="keyword">extern</span> int32 <a class="code" href="fpga__load__flash_8h.html#a11">Z100_ISTRATAPC28FXXXP30_TRY_sw</a>(<a class="code" href="struct__DEV__HDL.html">DEV_HDL</a> *devHdl,
-00084                                                 FLASH_INITP *flash_initP,
-00085                                                 u_int32 dbgLevel);
-00086 <span class="keyword">extern</span> int32 <a class="code" href="fpga__load__flash_8h.html#a12">Z100_ISTRATAPC28FXXXP30_TRY_mmod</a>(<a class="code" href="struct__DEV__HDL.html">DEV_HDL</a> *devHdl,
-00087                                                 FLASH_INITP *flash_initP,
-00088                                                 u_int32 dbgLevel);
-00089 <span class="keyword">extern</span> int32 <a class="code" href="fpga__load__flash_8h.html#a13">Z100_ISTRATAPC28FXXXP30_TRY_mmod_sw</a>(<a class="code" href="struct__DEV__HDL.html">DEV_HDL</a> *devHdl,
-00090                                                    FLASH_INITP *flash_initP,
-00091                                                    u_int32 dbgLevel);
-00092 
-00093 <span class="keyword">extern</span> int32 <a class="code" href="__st__stub_8c.html#a0">Z100_STM25P32_TRY</a>(<a class="code" href="struct__DEV__HDL.html">DEV_HDL</a> *devHdl,
-00094                                FLASH_INITP *flash_initP,
-00095                                u_int32 dbgLevel);
-00096 <span class="keyword">extern</span> int32 <a class="code" href="fpga__load__flash_8h.html#a15">Z100_STM25P32_TRY_sw</a>(<a class="code" href="struct__DEV__HDL.html">DEV_HDL</a> *devHdl,
-00097                                   FLASH_INITP *flash_initP,
-00098                                   u_int32 dbgLevel);
-00099 
-00100 <span class="preprocessor">#ifdef __cplusplus</span>
-00101 <span class="preprocessor"></span>      }
-00102 <span class="preprocessor">#endif</span>
-00103 <span class="preprocessor"></span>
-00104 <span class="preprocessor">#endif </span><span class="comment">/* _FPGA_LOAD_FLASH_H */</span>
-00105 
-00106 
+00015  <span class="comment">/*</span>
+00016 <span class="comment"> * This program is free software: you can redistribute it and/or modify</span>
+00017 <span class="comment"> * it under the terms of the GNU General Public License as published by</span>
+00018 <span class="comment"> * the Free Software Foundation, either version 2 of the License, or</span>
+00019 <span class="comment"> * (at your option) any later version.</span>
+00020 <span class="comment"> * </span>
+00021 <span class="comment"> * This program is distributed in the hope that it will be useful,</span>
+00022 <span class="comment"> * but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+00023 <span class="comment"> * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+00024 <span class="comment"> * GNU General Public License for more details.</span>
+00025 <span class="comment"> * </span>
+00026 <span class="comment"> * You should have received a copy of the GNU General Public License</span>
+00027 <span class="comment"> * along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+00028 <span class="comment"> */</span>
+00029 
+00030 <span class="preprocessor">#ifndef _FPGA_LOAD_FLASH_H</span>
+00031 <span class="preprocessor"></span><span class="preprocessor">#define _FPGA_LOAD_FLASH_H</span>
+00032 <span class="preprocessor"></span>
+00033 <span class="preprocessor">#ifdef __cplusplus</span>
+00034 <span class="preprocessor"></span>      <span class="keyword">extern</span> <span class="stringliteral">"C"</span> {
+00035 <span class="preprocessor">#endif</span>
+00036 <span class="preprocessor"></span>
+00037 <span class="comment">/*-----------------------------------------+</span>
+00038 <span class="comment">|  TYPEDEFS                                |</span>
+00039 <span class="comment">+-----------------------------------------*/</span>
+00040 <span class="comment">/* Flash specific functions */</span>
+<a name="l00041"></a><a class="code" href="fpga__load__flash_8h.html#a0">00041</a> <span class="keyword">typedef</span> int32 (*FLASH_READ_BLOCKP)(<a class="code" href="struct__FLASH__DEVS.html">FLASH_DEVS</a> *, u_int32, u_int32, u_int8 *);
+<a name="l00042"></a><a class="code" href="fpga__load__flash_8h.html#a1">00042</a> <span class="keyword">typedef</span> int32 (*FLASH_INITP)(<a class="code" href="struct__DEV__HDL.html">DEV_HDL</a> *h);
+<a name="l00043"></a><a class="code" href="fpga__load__flash_8h.html#a2">00043</a> <span class="keyword">typedef</span> int32 (*FLASH_TRYP)(<a class="code" href="struct__DEV__HDL.html">DEV_HDL</a> *, <a class="code" href="fpga__load__flash_8h.html#a1">FLASH_INITP</a> *, u_int32);
+00044 
+00045 <span class="comment">/*-----------------------------------------+</span>
+00046 <span class="comment">|  DEFINES                                 |</span>
+00047 <span class="comment">+-----------------------------------------*/</span>
+00048 
+00049 <span class="comment">/*-----------------------------------------+</span>
+00050 <span class="comment">|  PROTOTYPES                              |</span>
+00051 <span class="comment">+-----------------------------------------*/</span>
+00052 
+00053 <span class="keyword">extern</span> int32 <a class="code" href="__amd__stub_8c.html#a0">Z100_AM29LVXXX_TRY</a>(<a class="code" href="struct__DEV__HDL.html">DEV_HDL</a> *devHdl,
+00054                                     FLASH_INITP *flash_initP,
+00055                                     u_int32 dbgLevel);
+00056 <span class="keyword">extern</span> int32 <a class="code" href="fpga__load__flash_8h.html#a4">Z100_AM29LVXXX_TRY_sw</a>(<a class="code" href="struct__DEV__HDL.html">DEV_HDL</a> *devHdl,
+00057                                        FLASH_INITP *flash_initP,
+00058                                        u_int32 dbgLevel);
+00059 <span class="keyword">extern</span> int32 <a class="code" href="fpga__load__flash_8h.html#a5">Z100_AM29LVXXX_TRY_mmod</a>(<a class="code" href="struct__DEV__HDL.html">DEV_HDL</a> *devHdl,
+00060                                        FLASH_INITP *flash_initP,
+00061                                        u_int32 dbgLevel);
+00062 <span class="keyword">extern</span> int32 <a class="code" href="fpga__load__flash_8h.html#a6">Z100_AM29LVXXX_TRY_mmod_sw</a>(<a class="code" href="struct__DEV__HDL.html">DEV_HDL</a> *devHdl,
+00063                                           FLASH_INITP *flash_initP,
+00064                                           u_int32 dbgLevel);
+00065 
+00066 <span class="keyword">extern</span> int32 <a class="code" href="__amd__smb__stub_8c.html#a0">Z100_AM29LVXXX_SMB_TRY</a>(<a class="code" href="struct__DEV__HDL.html">DEV_HDL</a> *devHdl,
+00067                                     FLASH_INITP *flash_initP,
+00068                                     u_int32 dbgLevel);
+00069 <span class="keyword">extern</span> int32 <a class="code" href="fpga__load__flash_8h.html#a8">Z100_AM29LVXXX_SMB_TRY_sw</a>(<a class="code" href="struct__DEV__HDL.html">DEV_HDL</a> *devHdl,
+00070                                        FLASH_INITP *flash_initP,
+00071                                        u_int32 dbgLevel);
+00072 
+00073 <span class="keyword">extern</span> int32 <a class="code" href="flash__com_8c.html#a0">Z100_FLASH_READ_BLOCK</a>( <a class="code" href="struct__FLASH__DEVS.html">FLASH_DEVS</a> *fDev,
+00074                                     u_int32 offs,
+00075                                     u_int32 len,
+00076                                     u_int8  *buf);
+00077 
+00078 <span class="keyword">extern</span> int32 <a class="code" href="__istrata__mmod__stub_8c.html#a0">Z100_ISTRATAPC28FXXXP30_TRY</a> (<a class="code" href="struct__DEV__HDL.html">DEV_HDL</a> *devHdl,
+00079                                              FLASH_INITP *flash_initP,
+00080                                              u_int32 dbgLevel);
+00081 <span class="keyword">extern</span> int32 <a class="code" href="fpga__load__flash_8h.html#a11">Z100_ISTRATAPC28FXXXP30_TRY_sw</a>(<a class="code" href="struct__DEV__HDL.html">DEV_HDL</a> *devHdl,
+00082                                                 FLASH_INITP *flash_initP,
+00083                                                 u_int32 dbgLevel);
+00084 <span class="keyword">extern</span> int32 <a class="code" href="fpga__load__flash_8h.html#a12">Z100_ISTRATAPC28FXXXP30_TRY_mmod</a>(<a class="code" href="struct__DEV__HDL.html">DEV_HDL</a> *devHdl,
+00085                                                 FLASH_INITP *flash_initP,
+00086                                                 u_int32 dbgLevel);
+00087 <span class="keyword">extern</span> int32 <a class="code" href="fpga__load__flash_8h.html#a13">Z100_ISTRATAPC28FXXXP30_TRY_mmod_sw</a>(<a class="code" href="struct__DEV__HDL.html">DEV_HDL</a> *devHdl,
+00088                                                    FLASH_INITP *flash_initP,
+00089                                                    u_int32 dbgLevel);
+00090 
+00091 <span class="keyword">extern</span> int32 <a class="code" href="__st__stub_8c.html#a0">Z100_STM25P32_TRY</a>(<a class="code" href="struct__DEV__HDL.html">DEV_HDL</a> *devHdl,
+00092                                FLASH_INITP *flash_initP,
+00093                                u_int32 dbgLevel);
+00094 <span class="keyword">extern</span> int32 <a class="code" href="fpga__load__flash_8h.html#a15">Z100_STM25P32_TRY_sw</a>(<a class="code" href="struct__DEV__HDL.html">DEV_HDL</a> *devHdl,
+00095                                   FLASH_INITP *flash_initP,
+00096                                   u_int32 dbgLevel);
+00097 
+00098 <span class="preprocessor">#ifdef __cplusplus</span>
+00099 <span class="preprocessor"></span>      }
+00100 <span class="preprocessor">#endif</span>
+00101 <span class="preprocessor"></span>
+00102 <span class="preprocessor">#endif </span><span class="comment">/* _FPGA_LOAD_FLASH_H */</span>
+00103 
+00104 
 </pre></div>
 	</div>
 </div>
@@ -120,8 +120,7 @@
 <div class="footer">
 <!-- Footer -->
 	<p class="footer">
-	Generated for Z100 FPGA update tool using <a href="http://www.doxygen.org">doxygen</a>.<br>
-	Copyright &copy; 2019 <a href="http://www.men.de">MEN Mikro Elektronik GmbH</a>. All Rights Reserved.
+	Generated for Z100 FPGA update tool using <a href="http://www.doxygen.org">doxygen</a>. All Rights Reserved.
 	</p>
 </div>
 

@@ -655,13 +655,13 @@
     <LI><OBJECT type="text/sitemap"><param name="Local" value="fpga__load_8c.html#a19"><param name="Name" value="Get_Chameleon"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="fpga__load_8c.html#a17"><param name="Name" value="Get_file"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="fpga__load_8c.html#a21"><param name="Name" value="Get_FpgaHeader"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="fpga__load_8c.html#a4"><param name="Name" value="IdentString"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="fpga__load_8c.html#a16"><param name="Name" value="Init_Flash"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="fpga__load_8c.html#a35"><param name="Name" value="main"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="fpga__load_8c.html#a2"><param name="Name" value="MAP_REG_SIZE"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="fpga__load_8c.html#a33"><param name="Name" value="OSS_AlarmCreate"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="fpga__load_8c.html#a23"><param name="Name" value="Print_PciDeviceInfo"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="fpga__load_8c.html#a18"><param name="Name" value="Put_file"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="fpga__load_8c.html#a4"><param name="Name" value="RCSid"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="fpga__load_8c.html#a11"><param name="Name" value="Read_block"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="fpga__load_8c.html#a13"><param name="Name" value="Set_BusSwitch"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="fpga__load_8c.html#a14"><param name="Name" value="Trigger_fpga_load"></OBJECT>
@@ -803,6 +803,10 @@
     <LI><OBJECT type="text/sitemap"><param name="Local" value="am29lvxxx_8c.html#a29"><param name="Name" value="am29lvxxx.c"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="istratapc28fxxxp30_8c.html#a30"><param name="Name" value="istratapc28fxxxp30.c"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="stm25p32_8c.html#a18"><param name="Name" value="stm25p32.c"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="IdentString"><param name="Name" value="IdentString"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="fpga__load_8c.html#a4"><param name="Name" value="fpga_load.c"></OBJECT>
   </UL>
   <LI><OBJECT type="text/sitemap"><param name="See Also" value="Init"><param name="Name" value="Init"></OBJECT>
   <UL>
@@ -1046,10 +1050,6 @@
   <LI><OBJECT type="text/sitemap"><param name="See Also" value="Put_file"><param name="Name" value="Put_file"></OBJECT>
   <UL>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="fpga__load_8c.html#a18"><param name="Name" value="fpga_load.c"></OBJECT>
-  </UL>
-  <LI><OBJECT type="text/sitemap"><param name="See Also" value="RCSid"><param name="Name" value="RCSid"></OBJECT>
-  <UL>
-    <LI><OBJECT type="text/sitemap"><param name="Local" value="fpga__load_8c.html#a4"><param name="Name" value="fpga_load.c"></OBJECT>
   </UL>
   <LI><OBJECT type="text/sitemap"><param name="See Also" value="Read"><param name="Name" value="Read"></OBJECT>
   <UL>
