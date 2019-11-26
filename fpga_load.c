@@ -14,7 +14,7 @@
  */
 /*
  *-----------------------------------------------------------------------------
- * Copyright (c) 2004-2019, MEN Mikro Elektronik GmbH
+ * Copyright 2004-2019, MEN Mikro Elektronik GmbH
  ****************************************************************************/
  /*
  * This program is free software: you can redistribute it and/or modify
@@ -304,7 +304,7 @@ static void Usage(void)
 			" WARNING: Please be aware that you do FPGA configuration updates at your own risk.\n"
 			"          After an incorrect update your hardware may no longer be accessible.\n"
 			"\n"
-		   "Copyright (c) 2004-2019, MEN Mikro Elektronik GmbH\n%s\n",IdentString);
+		   "Copyright 2004-2019, MEN Mikro Elektronik GmbH\n%s\n",IdentString);
 	printf("\nBuilt: %s %s\n",__DATE__, __TIME__);
 }
 
