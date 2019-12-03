@@ -83,7 +83,7 @@ ifndef DEBUG
 endif
 
 # set default MAK_SWITCH
-MAK_SWITCH=-DMAC_MEM_MAPPED \
+MAK_SWITCH=-DLINUX -DMAC_MEM_MAPPED \
 		$(SW_PREFIX)$(DEF_REVISION)
 
 # Get the linux version
