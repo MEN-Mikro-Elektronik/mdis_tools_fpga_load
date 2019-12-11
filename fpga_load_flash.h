@@ -3,8 +3,6 @@
  *        \file  fpga_load_flash.h
  *
  *      \author  Christian.Schuster@men.de
- *        $Date: 2008/03/19 16:10:59 $
- *    $Revision: 2.5 $
  *
  *       \brief  Header file for FPGA_LOAD tool
  *               containing Flash specific functions
@@ -12,7 +10,7 @@
  *    \switches
  *
  *---------------------------------------------------------------------------
- * Copyright (c) 2004-2019, MEN Mikro Elektronik GmbH
+ * Copyright 2004-2019, MEN Mikro Elektronik GmbH
  ****************************************************************************/
  /*
  * This program is free software: you can redistribute it and/or modify

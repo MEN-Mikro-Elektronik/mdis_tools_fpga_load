@@ -3,8 +3,6 @@
  *         \file  flash_com.c
  *
  *       \author  Christian.Schuster@men.de
- *        $Date: 2009/03/05 09:52:48 $
- *    $Revision: 1.9 $
  *
  *        \brief  common command set for all flash memory devices
  *
@@ -17,7 +15,7 @@
  *  Z100_FLASH_READ_BLOCK       read specified number of bytes from device
  *
  *---------------------------------------------------------------------------
- * Copyright (c) 2004-2019, MEN Mikro Elektronik GmbH
+ * Copyright 2004-2019, MEN Mikro Elektronik GmbH
  ****************************************************************************/
  /*
  * This program is free software: you can redistribute it and/or modify

@@ -4,8 +4,6 @@
  *        \file  hw_acc_io.c
  *
  *      \author  Christian.Schuster@men.de
- *        $Date: 2014/01/20 10:17:15 $
- *    $Revision: 2.10 $
  *
  *       \brief  HW access functions for I/O mapped HW
  *
@@ -15,7 +13,7 @@
  *
  *
  *------------------------------------------------------------------------------
- * Copyright (c) 2005-2019, MEN Mikro Elektronik GmbH
+ * Copyright 2005-2019, MEN Mikro Elektronik GmbH
  ****************************************************************************/
  /*
  * This program is free software: you can redistribute it and/or modify

@@ -11,7 +11,7 @@
 
 <div class="left_to_right" style="padding-top: 6px; background-color: #F0F0F0; height: 110px; border-bottom: 2px solid #D1D1D2;">
 	<!-- Titel -->
-	<img src="menlogo.gif" alt="MEN" style="float: left; height: 103px; width: 155px; margin: 0px;"></a>
+	<img src="menlogo.gif" alt="MEN" style="float: left; height: 103px; width: 155px; margin: 0px;">
 	<h1 style="margin: 0px; padding-top: 35px; padding-bottom: 0px;">Z100 FPGA update tool &nbsp; </h1>
 	<h3>fpga_load.c File Reference</h3>
 </div>
@@ -31,71 +31,97 @@
 <tr><td nowrap align=right valign=top>#define&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a0">FPGA_P_HELP</a>&nbsp;&nbsp;&nbsp;"           type fpga_load -h for help\n"</td></tr>
 <tr><td nowrap align=right valign=top>#define&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a1">Z100_OSS_DBG_LEVEL</a>&nbsp;&nbsp;&nbsp;DBG_LEVERR</td></tr>
 <tr><td nowrap align=right valign=top>#define&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a2">MAP_REG_SIZE</a>&nbsp;&nbsp;&nbsp;0x10</td></tr>
-<tr><td nowrap align=right valign=top>#define&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a3">SHOW_ALL_CHAMTABLES</a>&nbsp;&nbsp;&nbsp;0xff</td></tr>
+<tr><td nowrap align=right valign=top>#define&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a3">CHAM_TBL_FILE_LEN</a>&nbsp;&nbsp;&nbsp;12</td></tr>
+<tr><td colspan=2><br><h2>Enumerations</h2></td></tr>
+<tr><td nowrap align=right valign=top>enum &nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a36">CHAM_FLAGS</a> { <a class="el" href="fpga__load_8c.html#a36a6">CF_ALL_TABLES</a> =  0x01, 
+<a class="el" href="fpga__load_8c.html#a36a7">CF_DEBUG</a> =  0x02, 
+<a class="el" href="fpga__load_8c.html#a36a8">CF_VERSION</a> =  0x04
+ }</td></tr>
 <tr><td colspan=2><br><h2>Functions</h2></td></tr>
-<tr><td nowrap align=right valign=top>int&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a6">Erase_chip</a> (int argc, char *argv[], <a class="el" href="struct__DEV__HDL.html">DEV_HDL</a> *h, u_int8 *retCnt)</td></tr>
-<tr><td>&nbsp;</td><td><em class="mdesc">Reads neccessary command line parameters and initiates EraseChip command.</em> <a href="#a6"></a><em></em><br><br></td></tr>
-<tr><td nowrap align=right valign=top>int&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a7">Erase_sectors</a> (int argc, char *argv[], <a class="el" href="struct__DEV__HDL.html">DEV_HDL</a> *h, u_int8 *retCnt)</td></tr>
-<tr><td>&nbsp;</td><td><em class="mdesc">reads neccessary command line parameters and initiates EraseSectors command</em> <a href="#a7"></a><em></em><br><br></td></tr>
-<tr><td nowrap align=right valign=top>int&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a8">Read_block</a> (int argc, char *argv[], <a class="el" href="struct__DEV__HDL.html">DEV_HDL</a> *h, OSS_HANDLE *osHdl, u_int8 *retCnt)</td></tr>
-<tr><td>&nbsp;</td><td><em class="mdesc">reads neccessary command line parameters and initiates ReadBlock command</em> <a href="#a8"></a><em></em><br><br></td></tr>
-<tr><td nowrap align=right valign=top>int&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a9">Write_block</a> (int argc, char *argv[], <a class="el" href="struct__DEV__HDL.html">DEV_HDL</a> *h, OSS_HANDLE *osHdl, u_int8 *retCnt)</td></tr>
-<tr><td>&nbsp;</td><td><em class="mdesc">reads neccessary command line parameters and initiates WriteBlock command</em> <a href="#a9"></a><em></em><br><br></td></tr>
-<tr><td nowrap align=right valign=top>int&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a10">Set_BusSwitch</a> (int largc, char *largv[], <a class="el" href="struct__DEV__HDL.html">DEV_HDL</a> *h, OSS_HANDLE *osHdl, u_int8 *retCnt)</td></tr>
-<tr><td>&nbsp;</td><td><em class="mdesc">Set bus switches (A500) in flash.</em> <a href="#a10"></a><em></em><br><br></td></tr>
-<tr><td nowrap align=right valign=top>void&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a11">Trigger_fpga_load</a> (<a class="el" href="struct__DEV__HDL.html">DEV_HDL</a> *h)</td></tr>
-<tr><td>&nbsp;</td><td><em class="mdesc">initiates the reload of the FPGA after all other functions finished</em> <a href="#a11"></a><em></em><br><br></td></tr>
-<tr><td nowrap align=right valign=top>int&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a12">Update_fpga</a> (int argc, char *argv[], <a class="el" href="struct__DEV__HDL.html">DEV_HDL</a> *h, OSS_HANDLE *osHdl, u_int8 *retCnt)</td></tr>
-<tr><td>&nbsp;</td><td><em class="mdesc">reads neccessary command line parameters and performs the FPGA update</em> <a href="#a12"></a><em></em><br><br></td></tr>
-<tr><td nowrap align=right valign=top>int&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a13">Init_Flash</a> (<a class="el" href="struct__DEV__HDL.html">DEV_HDL</a> *h, OSS_HANDLE *osHdl, u_int32 flashInterf)</td></tr>
-<tr><td>&nbsp;</td><td><em class="mdesc">find flash type used and initiate Flash_init function</em> <a href="#a13"></a><em></em><br><br></td></tr>
-<tr><td nowrap align=right valign=top>int32&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a14">Get_file</a> (OSS_HANDLE *osHdl, char *fName, char **buf, u_int32 *memGot)</td></tr>
-<tr><td>&nbsp;</td><td><em class="mdesc">read file</em> <a href="#a14"></a><em></em><br><br></td></tr>
-<tr><td nowrap align=right valign=top>int32&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a15">Put_file</a> (char *fName, char *buf, u_int32 size)</td></tr>
-<tr><td>&nbsp;</td><td><em class="mdesc">read file</em> <a href="#a15"></a><em></em><br><br></td></tr>
-<tr><td nowrap align=right valign=top>int32&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a16">Get_Chameleon</a> (OSS_HANDLE *osHdl, <a class="el" href="struct__PCI__DEVS.html">PCI_DEVS</a> *pciDev, void *tblAddr, u_int16 mod_id, u_int16 mod_group, CHAMELEONV2_INFO *chamInfo, CHAMELEONV2_UNIT *chamUnit, u_int8 verbose)</td></tr>
-<tr><td>&nbsp;</td><td><em class="mdesc">Get entry from chameleon table.</em> <a href="#a16"></a><em></em><br><br></td></tr>
-<tr><td nowrap align=right valign=top>int32&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a17">FindFlashSect</a> (<a class="el" href="struct__FLASH__DEVS.html">FLASH_DEVS</a> *fDev, u_int32 phyAddr, u_int32 *sectAddr, u_int32 *sectSize)</td></tr>
-<tr><td>&nbsp;</td><td><em class="mdesc">Get start Address and size of sector from physical address.</em> <a href="#a17"></a><em></em><br><br></td></tr>
-<tr><td nowrap align=right valign=top>void&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a18">Get_FpgaHeader</a> (<a class="el" href="struct__FLASH__DEVS.html">FLASH_DEVS</a> *fDev, u_int32 offset, FPGA_LONGHEADER *header)</td></tr>
-<tr><td>&nbsp;</td><td><em class="mdesc">Get FPGA header.</em> <a href="#a18"></a><em></em><br><br></td></tr>
-<tr><td nowrap align=right valign=top>int32&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a19">Verify_FpgaConfig</a> (<a class="el" href="struct__DEV__HDL.html">DEV_HDL</a> *h, OSS_HANDLE *osHdl, u_int32 offset, u_int32 len, u_int8 *buf)</td></tr>
-<tr><td>&nbsp;</td><td><em class="mdesc">Verify FPGA configuration in flash with configuration in buffer.</em> <a href="#a19"></a><em></em><br><br></td></tr>
-<tr><td nowrap align=right valign=top>void&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a20">Print_PciDeviceInfo</a> (<a class="el" href="struct__PCI__DEVS.html">PCI_DEVS</a> **pciDevs, u_int32 numDevs, u_int8 id)</td></tr>
-<tr><td>&nbsp;</td><td><em class="mdesc">Print information of PCI devices.</em> <a href="#a20"></a><em></em><br><br></td></tr>
-<tr><td nowrap align=right valign=top>int32&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a21">FindPciDevice</a> (OSS_HANDLE *osHdl, <a class="el" href="struct__PCI__DEVS.html">PCI_DEVS</a> *dev, <a class="el" href="struct__PCI__DEVS.html">PCI_DEVS</a> *allPciDevs[], u_int32 *numDevs, int show_all)</td></tr>
-<tr><td>&nbsp;</td><td><em class="mdesc">find PCI device specified by vendor and device ID and get parameters</em> <a href="#a21"></a><em></em><br><br></td></tr>
-<tr><td nowrap align=right valign=top>int32&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a22">Z100_VmeInit</a> (OSS_HANDLE *osHdl, <a class="el" href="struct__DEV__HDL.html">DEV_HDL</a> *h, int argc, char **argv, void **addrWinHdl)</td></tr>
-<tr><td>&nbsp;</td><td><em class="mdesc">Initialize access over VME bus.</em> <a href="#a22"></a><em></em><br><br></td></tr>
-<tr><td nowrap align=right valign=top>int32&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a23">Z100_VmeExit</a> (OSS_HANDLE *osHdl, void *addrWinHdl)</td></tr>
-<tr><td>&nbsp;</td><td><em class="mdesc">Deinitialize access over VME bus.</em> <a href="#a23"></a><em></em><br><br></td></tr>
-<tr><td nowrap align=right valign=top>int32&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a24">Z100_PciInit</a> (OSS_HANDLE *osHdl, <a class="el" href="struct__DEV__HDL.html">DEV_HDL</a> *h, u_int32 flashInterf, int argc, char **argv)</td></tr>
-<tr><td>&nbsp;</td><td><em class="mdesc">Initialize access over PCI bus.</em> <a href="#a24"></a><em></em><br><br></td></tr>
-<tr><td nowrap align=right valign=top>int32&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a25">Z100_PciExit</a> (OSS_HANDLE *osHdl, <a class="el" href="struct__DEV__HDL.html">DEV_HDL</a> *h)</td></tr>
-<tr><td>&nbsp;</td><td><em class="mdesc">Deinitialize access over PCI bus.</em> <a href="#a25"></a><em></em><br><br></td></tr>
-<tr><td nowrap align=right valign=top>int32&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a26">Z100_IsaInit</a> (OSS_HANDLE *osHdl, <a class="el" href="struct__DEV__HDL.html">DEV_HDL</a> *h, u_int32 flashInterf, int argc, char **argv)</td></tr>
-<tr><td>&nbsp;</td><td><em class="mdesc">Initialize access over ISA/LPC bus.</em> <a href="#a26"></a><em></em><br><br></td></tr>
-<tr><td nowrap align=right valign=top>int32&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a27">Z100_SmbInit</a> (OSS_HANDLE *osHdl, <a class="el" href="struct__DEV__HDL.html">DEV_HDL</a> *h)</td></tr>
-<tr><td>&nbsp;</td><td><em class="mdesc">Initialize access over SMB bus (init SMB library).</em> <a href="#a27"></a><em></em><br><br></td></tr>
-<tr><td nowrap align=right valign=top>int32&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a28">Z100_SmbExit</a> (OSS_HANDLE *osHdl, <a class="el" href="struct__DEV__HDL.html">DEV_HDL</a> *h)</td></tr>
-<tr><td>&nbsp;</td><td><em class="mdesc">Deinitialize access over SMB bus (deinitialize SMB library).</em> <a href="#a28"></a><em></em><br><br></td></tr>
-<tr><td nowrap align=right valign=top>void&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a29">Usage</a> (void)</td></tr>
-<tr><td>&nbsp;</td><td><em class="mdesc">Print program usage.</em> <a href="#a29"></a><em></em><br><br></td></tr>
-<tr><td nowrap align=right valign=top>int&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a30">main</a> (int argc, char *argv[])</td></tr>
-<tr><td>&nbsp;</td><td><em class="mdesc">Program main function.</em> <a href="#a30"></a><em></em><br><br></td></tr>
-<tr><td nowrap align=right valign=top>void&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a31">Dummy_Routine</a> (void)</td></tr>
+<tr><td nowrap align=right valign=top>int&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a9">Erase_chip</a> (int argc, char *argv[], <a class="el" href="struct__DEV__HDL.html">DEV_HDL</a> *h, u_int8 *retCnt)</td></tr>
+<tr><td>&nbsp;</td><td><em class="mdesc">Reads neccessary command line parameters and initiates EraseChip command.</em> <a href="#a9"></a><em></em><br><br></td></tr>
+<tr><td nowrap align=right valign=top>int&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a10">Erase_sectors</a> (int argc, char *argv[], <a class="el" href="struct__DEV__HDL.html">DEV_HDL</a> *h, u_int8 *retCnt)</td></tr>
+<tr><td>&nbsp;</td><td><em class="mdesc">reads neccessary command line parameters and initiates EraseSectors command</em> <a href="#a10"></a><em></em><br><br></td></tr>
+<tr><td nowrap align=right valign=top>int&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a11">Read_block</a> (int argc, char *argv[], <a class="el" href="struct__DEV__HDL.html">DEV_HDL</a> *h, OSS_HANDLE *osHdl, u_int8 *retCnt)</td></tr>
+<tr><td>&nbsp;</td><td><em class="mdesc">reads neccessary command line parameters and initiates ReadBlock command</em> <a href="#a11"></a><em></em><br><br></td></tr>
+<tr><td nowrap align=right valign=top>int&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a12">Write_block</a> (int argc, char *argv[], <a class="el" href="struct__DEV__HDL.html">DEV_HDL</a> *h, OSS_HANDLE *osHdl, u_int8 *retCnt)</td></tr>
+<tr><td>&nbsp;</td><td><em class="mdesc">reads neccessary command line parameters and initiates WriteBlock command</em> <a href="#a12"></a><em></em><br><br></td></tr>
+<tr><td nowrap align=right valign=top>int&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a13">Set_BusSwitch</a> (int largc, char *largv[], <a class="el" href="struct__DEV__HDL.html">DEV_HDL</a> *h, OSS_HANDLE *osHdl, u_int8 *retCnt)</td></tr>
+<tr><td>&nbsp;</td><td><em class="mdesc">Set bus switches (A500) in flash.</em> <a href="#a13"></a><em></em><br><br></td></tr>
+<tr><td nowrap align=right valign=top>void&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a14">Trigger_fpga_load</a> (<a class="el" href="struct__DEV__HDL.html">DEV_HDL</a> *h)</td></tr>
+<tr><td>&nbsp;</td><td><em class="mdesc">initiates the reload of the FPGA after all other functions finished</em> <a href="#a14"></a><em></em><br><br></td></tr>
+<tr><td nowrap align=right valign=top>int&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a15">Update_fpga</a> (int argc, char *argv[], <a class="el" href="struct__DEV__HDL.html">DEV_HDL</a> *h, OSS_HANDLE *osHdl, u_int8 *retCnt)</td></tr>
+<tr><td>&nbsp;</td><td><em class="mdesc">reads neccessary command line parameters and performs the FPGA update</em> <a href="#a15"></a><em></em><br><br></td></tr>
+<tr><td nowrap align=right valign=top>int&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a16">Init_Flash</a> (<a class="el" href="struct__DEV__HDL.html">DEV_HDL</a> *h, OSS_HANDLE *osHdl, u_int32 flashInterf)</td></tr>
+<tr><td>&nbsp;</td><td><em class="mdesc">find flash type used and initiate Flash_init function</em> <a href="#a16"></a><em></em><br><br></td></tr>
+<tr><td nowrap align=right valign=top>int32&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a17">Get_file</a> (OSS_HANDLE *osHdl, char *fName, char **buf, u_int32 *memGot)</td></tr>
+<tr><td>&nbsp;</td><td><em class="mdesc">read file</em> <a href="#a17"></a><em></em><br><br></td></tr>
+<tr><td nowrap align=right valign=top>int32&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a18">Put_file</a> (char *fName, char *buf, u_int32 size)</td></tr>
+<tr><td>&nbsp;</td><td><em class="mdesc">read file</em> <a href="#a18"></a><em></em><br><br></td></tr>
+<tr><td nowrap align=right valign=top>int32&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a19">Get_Chameleon</a> (OSS_HANDLE *osHdl, <a class="el" href="struct__PCI__DEVS.html">PCI_DEVS</a> *pciDev, void *tblAddr, u_int16 mod_id, u_int16 mod_group, CHAMELEONV2_INFO *chamInfo, CHAMELEONV2_UNIT *chamUnit, u_int8 flags, u_int32 pciDomain)</td></tr>
+<tr><td>&nbsp;</td><td><em class="mdesc">Get entry from chameleon table.</em> <a href="#a19"></a><em></em><br><br></td></tr>
+<tr><td nowrap align=right valign=top>int32&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a20">FindFlashSect</a> (<a class="el" href="struct__FLASH__DEVS.html">FLASH_DEVS</a> *fDev, u_int32 phyAddr, u_int32 *sectAddr, u_int32 *sectSize)</td></tr>
+<tr><td>&nbsp;</td><td><em class="mdesc">Get start Address and size of sector from physical address.</em> <a href="#a20"></a><em></em><br><br></td></tr>
+<tr><td nowrap align=right valign=top>void&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a21">Get_FpgaHeader</a> (<a class="el" href="struct__FLASH__DEVS.html">FLASH_DEVS</a> *fDev, u_int32 offset, FPGA_LONGHEADER *header)</td></tr>
+<tr><td>&nbsp;</td><td><em class="mdesc">Get FPGA header.</em> <a href="#a21"></a><em></em><br><br></td></tr>
+<tr><td nowrap align=right valign=top>int32&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a22">Verify_FpgaConfig</a> (<a class="el" href="struct__DEV__HDL.html">DEV_HDL</a> *h, OSS_HANDLE *osHdl, u_int32 offset, u_int32 len, u_int8 *buf)</td></tr>
+<tr><td>&nbsp;</td><td><em class="mdesc">Verify FPGA configuration in flash with configuration in buffer.</em> <a href="#a22"></a><em></em><br><br></td></tr>
+<tr><td nowrap align=right valign=top>void&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a23">Print_PciDeviceInfo</a> (<a class="el" href="struct__PCI__DEVS.html">PCI_DEVS</a> **pciDevs, u_int32 numDevs, u_int8 id, u_int32 pciDomain)</td></tr>
+<tr><td>&nbsp;</td><td><em class="mdesc">Print information of PCI devices.</em> <a href="#a23"></a><em></em><br><br></td></tr>
+<tr><td nowrap align=right valign=top>int32&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a24">FindPciDevice</a> (OSS_HANDLE *osHdl, <a class="el" href="struct__PCI__DEVS.html">PCI_DEVS</a> *dev, <a class="el" href="struct__PCI__DEVS.html">PCI_DEVS</a> *allPciDevs[], u_int32 *numDevs, int show_all, u_int32 pciCtrlNum)</td></tr>
+<tr><td>&nbsp;</td><td><em class="mdesc">find PCI device specified by vendor and device ID and get parameters</em> <a href="#a24"></a><em></em><br><br></td></tr>
+<tr><td nowrap align=right valign=top>int32&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a25">Z100_VmeInit</a> (OSS_HANDLE *osHdl, <a class="el" href="struct__DEV__HDL.html">DEV_HDL</a> *h, int argc, char **argv, void **addrWinHdl)</td></tr>
+<tr><td>&nbsp;</td><td><em class="mdesc">Initialize access over VME bus.</em> <a href="#a25"></a><em></em><br><br></td></tr>
+<tr><td nowrap align=right valign=top>int32&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a26">Z100_VmeExit</a> (OSS_HANDLE *osHdl, void *addrWinHdl)</td></tr>
+<tr><td>&nbsp;</td><td><em class="mdesc">Deinitialize access over VME bus.</em> <a href="#a26"></a><em></em><br><br></td></tr>
+<tr><td nowrap align=right valign=top>int32&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a27">Z100_PciInit</a> (OSS_HANDLE *osHdl, <a class="el" href="struct__DEV__HDL.html">DEV_HDL</a> *h, u_int32 flashInterf, int argc, char **argv, u_int32 pciDomain)</td></tr>
+<tr><td>&nbsp;</td><td><em class="mdesc">Initialize access over PCI bus.</em> <a href="#a27"></a><em></em><br><br></td></tr>
+<tr><td nowrap align=right valign=top>int32&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a28">Z100_PciExit</a> (OSS_HANDLE *osHdl, <a class="el" href="struct__DEV__HDL.html">DEV_HDL</a> *h)</td></tr>
+<tr><td>&nbsp;</td><td><em class="mdesc">Deinitialize access over PCI bus.</em> <a href="#a28"></a><em></em><br><br></td></tr>
+<tr><td nowrap align=right valign=top>int32&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a29">Z100_IsaInit</a> (OSS_HANDLE *osHdl, <a class="el" href="struct__DEV__HDL.html">DEV_HDL</a> *h, u_int32 flashInterf, int argc, char **argv)</td></tr>
+<tr><td>&nbsp;</td><td><em class="mdesc">Initialize access over ISA/LPC bus.</em> <a href="#a29"></a><em></em><br><br></td></tr>
+<tr><td nowrap align=right valign=top>int32&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a30">Z100_SmbInit</a> (OSS_HANDLE *osHdl, <a class="el" href="struct__DEV__HDL.html">DEV_HDL</a> *h)</td></tr>
+<tr><td>&nbsp;</td><td><em class="mdesc">Initialize access over SMB bus (init SMB library).</em> <a href="#a30"></a><em></em><br><br></td></tr>
+<tr><td nowrap align=right valign=top>int32&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a31">Z100_SmbExit</a> (OSS_HANDLE *osHdl, <a class="el" href="struct__DEV__HDL.html">DEV_HDL</a> *h)</td></tr>
+<tr><td>&nbsp;</td><td><em class="mdesc">Deinitialize access over SMB bus (deinitialize SMB library).</em> <a href="#a31"></a><em></em><br><br></td></tr>
+<tr><td nowrap align=right valign=top>void&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a32">Usage</a> (void)</td></tr>
+<tr><td>&nbsp;</td><td><em class="mdesc">Print program usage.</em> <a href="#a32"></a><em></em><br><br></td></tr>
+<tr><td nowrap align=right valign=top>IMPORT int32&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a33">OSS_AlarmCreate</a> (OSS_HANDLE *, void(*funct)(), void *, OSS_ALARM_HANDLE **alarmP)</td></tr>
+<tr><td nowrap align=right valign=top>void&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a34">Dummy_Routine</a> (void)</td></tr>
+<tr><td nowrap align=right valign=top>int&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a35">main</a> (int argc, char *argv[])</td></tr>
+<tr><td>&nbsp;</td><td><em class="mdesc">Program main function.</em> <a href="#a35"></a><em></em><br><br></td></tr>
 <tr><td colspan=2><br><h2>Variables</h2></td></tr>
-<tr><td nowrap align=right valign=top>char&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a4">RCSid</a> [] = "$Header: /dd2/CVSR/COM/TOOLS/FPGA_LOAD/DOC/html/fpga__load_8c.html,v 1.23 2013/06/21 17:06:27 MRoth Exp $"</td></tr>
+<tr><td nowrap align=right valign=top>const char&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a4">IdentString</a> [] = MENT_XSTR(MAK_REVISION)</td></tr>
 <tr><td nowrap align=right valign=top><a class="el" href="fpga__load__flash_8h.html#a2">FLASH_TRYP</a>&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a5">fpga_flash_trys</a> []</td></tr>
 </table>
 <hr><a name="_details"></a><h2>Detailed Description</h2>
 Tool to load FPGA configurations into flash over PCI bus.
 <p>
-<dl compact><dt><b>Author:</b></dt><dd><a href="mailto:Christian.Schuster@men.de">Christian.Schuster@men.de</a> <dl compact><dt><b>Date</b></dt><dd>2013/06/21 16:43:22 </dd></dl>
-<dl compact><dt><b>Revision</b></dt><dd>1.25 </dd></dl>
-</dd></dl>
+<dl compact><dt><b>Author:</b></dt><dd><a href="mailto:Christian.Schuster@men.de">Christian.Schuster@men.de</a></dd></dl>
 <p>
 Required: uti.l (under OS-9), libuti.a (under Linux)<hr><h2>Define Documentation</h2>
+<a name="a3" doxytag="fpga_load.c::CHAM_TBL_FILE_LEN"></a><p>
+<table width="100%" cellpadding="2" cellspacing="0" border="0">
+  <tr>
+    <td class="md">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> #define CHAM_TBL_FILE_LEN&nbsp;&nbsp;&nbsp;12
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+    </td>
+  </tr>
+</table>
 <a name="a0" doxytag="fpga_load.c::FPGA_P_HELP"></a><p>
 <table width="100%" cellpadding="2" cellspacing="0" border="0">
   <tr>
@@ -140,28 +166,6 @@ Required: uti.l (under OS-9), libuti.a (under Linux)<hr><h2>Define Documentation
     </td>
   </tr>
 </table>
-<a name="a3" doxytag="fpga_load.c::SHOW_ALL_CHAMTABLES"></a><p>
-<table width="100%" cellpadding="2" cellspacing="0" border="0">
-  <tr>
-    <td class="md">
-      <table cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td class="md" nowrap valign="top"> #define SHOW_ALL_CHAMTABLES&nbsp;&nbsp;&nbsp;0xff
-      </table>
-    </td>
-  </tr>
-</table>
-<table cellspacing=5 cellpadding=0 border=0>
-  <tr>
-    <td>
-      &nbsp;
-    </td>
-    <td>
-
-<p>
-    </td>
-  </tr>
-</table>
 <a name="a1" doxytag="fpga_load.c::Z100_OSS_DBG_LEVEL"></a><p>
 <table width="100%" cellpadding="2" cellspacing="0" border="0">
   <tr>
@@ -184,8 +188,41 @@ Required: uti.l (under OS-9), libuti.a (under Linux)<hr><h2>Define Documentation
     </td>
   </tr>
 </table>
+<hr><h2>Enumeration Type Documentation</h2>
+<a name="a36" doxytag="fpga_load.c::CHAM_FLAGS"></a><p>
+<table width="100%" cellpadding="2" cellspacing="0" border="0">
+  <tr>
+    <td class="md">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> enum CHAM_FLAGS
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+<dl compact><dt><b>Enumeration values: </b></dt><dd>
+<table border=0 cellspacing=2 cellpadding=0>
+<tr><td valign=top><em><a name="a36a6" doxytag="CF_ALL_TABLES"></a><em>CF_ALL_TABLES</em></em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign=top><em><a name="a36a7" doxytag="CF_DEBUG"></a><em>CF_DEBUG</em></em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign=top><em><a name="a36a8" doxytag="CF_VERSION"></a><em>CF_VERSION</em></em>&nbsp;</td><td>
+</td></tr>
+</table>
+</dl>
+    </td>
+  </tr>
+</table>
 <hr><h2>Function Documentation</h2>
-<a name="a31" doxytag="fpga_load.c::Dummy_Routine"></a><p>
+<a name="a34" doxytag="fpga_load.c::Dummy_Routine"></a><p>
 <table width="100%" cellpadding="2" cellspacing="0" border="0">
   <tr>
     <td class="md">
@@ -214,7 +251,7 @@ Required: uti.l (under OS-9), libuti.a (under Linux)<hr><h2>Define Documentation
     </td>
   </tr>
 </table>
-<a name="a6" doxytag="fpga_load.c::Erase_chip"></a><p>
+<a name="a9" doxytag="fpga_load.c::Erase_chip"></a><p>
 <table width="100%" cellpadding="2" cellspacing="0" border="0">
   <tr>
     <td class="md">
@@ -275,7 +312,7 @@ Reads neccessary command line parameters and initiates EraseChip command.
     </td>
   </tr>
 </table>
-<a name="a7" doxytag="fpga_load.c::Erase_sectors"></a><p>
+<a name="a10" doxytag="fpga_load.c::Erase_sectors"></a><p>
 <table width="100%" cellpadding="2" cellspacing="0" border="0">
   <tr>
     <td class="md">
@@ -336,7 +373,7 @@ reads neccessary command line parameters and initiates EraseSectors command
     </td>
   </tr>
 </table>
-<a name="a17" doxytag="fpga_load.c::FindFlashSect"></a><p>
+<a name="a20" doxytag="fpga_load.c::FindFlashSect"></a><p>
 <table width="100%" cellpadding="2" cellspacing="0" border="0">
   <tr>
     <td class="md">
@@ -397,7 +434,7 @@ Get start Address and size of sector from physical address.
     </td>
   </tr>
 </table>
-<a name="a21" doxytag="fpga_load.c::FindPciDevice"></a><p>
+<a name="a24" doxytag="fpga_load.c::FindPciDevice"></a><p>
 <table width="100%" cellpadding="2" cellspacing="0" border="0">
   <tr>
     <td class="md">
@@ -430,7 +467,13 @@ Get start Address and size of sector from physical address.
           <td></td>
           <td></td>
           <td class="md" nowrap>int&nbsp;</td>
-          <td class="mdname" nowrap> <em>show_all</em></td>
+          <td class="mdname" nowrap> <em>show_all</em>, </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td class="md" nowrap>u_int32&nbsp;</td>
+          <td class="mdname" nowrap> <em>pciCtrlNum</em></td>
         </tr>
         <tr>
           <td></td>
@@ -465,7 +508,7 @@ find PCI device specified by vendor and device ID and get parameters
     </td>
   </tr>
 </table>
-<a name="a16" doxytag="fpga_load.c::Get_Chameleon"></a><p>
+<a name="a19" doxytag="fpga_load.c::Get_Chameleon"></a><p>
 <table width="100%" cellpadding="2" cellspacing="0" border="0">
   <tr>
     <td class="md">
@@ -516,7 +559,13 @@ find PCI device specified by vendor and device ID and get parameters
           <td></td>
           <td></td>
           <td class="md" nowrap>u_int8&nbsp;</td>
-          <td class="mdname" nowrap> <em>verbose</em></td>
+          <td class="mdname" nowrap> <em>flags</em>, </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td class="md" nowrap>u_int32&nbsp;</td>
+          <td class="mdname" nowrap> <em>pciDomain</em></td>
         </tr>
         <tr>
           <td></td>
@@ -547,14 +596,14 @@ Get entry from chameleon table.
     <tr><td valign=top><em>mod_group</em>&nbsp;</td><td><b>IN</b> Module group of module to get </td></tr>
     <tr><td valign=top><em>chamInfo</em>&nbsp;</td><td><b>IN</b> chameleon info to be filled </td></tr>
     <tr><td valign=top><em>chamUnit</em>&nbsp;</td><td><b>IN</b> chameleon unit to be filled </td></tr>
-    <tr><td valign=top><em>verbose</em>&nbsp;</td><td><b>IN</b> flag, print detailed debug messages</td></tr>
+    <tr><td valign=top><em>flags</em>&nbsp;</td><td><b>IN</b> flags affecting the output format</td></tr>
   </table>
 </dl>
 <dl compact><dt><b>Returns:</b></dt><dd>0 on success or -1 if failed </dd></dl>
     </td>
   </tr>
 </table>
-<a name="a14" doxytag="fpga_load.c::Get_file"></a><p>
+<a name="a17" doxytag="fpga_load.c::Get_file"></a><p>
 <table width="100%" cellpadding="2" cellspacing="0" border="0">
   <tr>
     <td class="md">
@@ -613,7 +662,7 @@ read file
     </td>
   </tr>
 </table>
-<a name="a18" doxytag="fpga_load.c::Get_FpgaHeader"></a><p>
+<a name="a21" doxytag="fpga_load.c::Get_FpgaHeader"></a><p>
 <table width="100%" cellpadding="2" cellspacing="0" border="0">
   <tr>
     <td class="md">
@@ -667,7 +716,7 @@ Get FPGA header.
     </td>
   </tr>
 </table>
-<a name="a13" doxytag="fpga_load.c::Init_Flash"></a><p>
+<a name="a16" doxytag="fpga_load.c::Init_Flash"></a><p>
 <table width="100%" cellpadding="2" cellspacing="0" border="0">
   <tr>
     <td class="md">
@@ -721,7 +770,7 @@ find flash type used and initiate Flash_init function
     </td>
   </tr>
 </table>
-<a name="a30" doxytag="fpga_load.c::main"></a><p>
+<a name="a35" doxytag="fpga_load.c::main"></a><p>
 <table width="100%" cellpadding="2" cellspacing="0" border="0">
   <tr>
     <td class="md">
@@ -768,7 +817,57 @@ Program main function.
     </td>
   </tr>
 </table>
-<a name="a20" doxytag="fpga_load.c::Print_PciDeviceInfo"></a><p>
+<a name="a33" doxytag="fpga_load.c::OSS_AlarmCreate"></a><p>
+<table width="100%" cellpadding="2" cellspacing="0" border="0">
+  <tr>
+    <td class="md">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> IMPORT int32 OSS_AlarmCreate </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">OSS_HANDLE *&nbsp;</td>
+          <td class="mdname" nowrap>, </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td class="md" nowrap>void(*&nbsp;</td>
+          <td class="mdname" nowrap> <em>funct</em>)(), </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td class="md" nowrap>void *&nbsp;</td>
+          <td class="mdname" nowrap>, </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td class="md" nowrap>OSS_ALARM_HANDLE **&nbsp;</td>
+          <td class="mdname" nowrap> <em>alarmP</em></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="md">)&nbsp;</td>
+          <td class="md" colspan="2"></td>
+        </tr>
+
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+    </td>
+  </tr>
+</table>
+<a name="a23" doxytag="fpga_load.c::Print_PciDeviceInfo"></a><p>
 <table width="100%" cellpadding="2" cellspacing="0" border="0">
   <tr>
     <td class="md">
@@ -789,7 +888,13 @@ Program main function.
           <td></td>
           <td></td>
           <td class="md" nowrap>u_int8&nbsp;</td>
-          <td class="mdname" nowrap> <em>id</em></td>
+          <td class="mdname" nowrap> <em>id</em>, </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td class="md" nowrap>u_int32&nbsp;</td>
+          <td class="mdname" nowrap> <em>pciDomain</em></td>
         </tr>
         <tr>
           <td></td>
@@ -822,7 +927,7 @@ Print information of PCI devices.
     </td>
   </tr>
 </table>
-<a name="a15" doxytag="fpga_load.c::Put_file"></a><p>
+<a name="a18" doxytag="fpga_load.c::Put_file"></a><p>
 <table width="100%" cellpadding="2" cellspacing="0" border="0">
   <tr>
     <td class="md">
@@ -876,7 +981,7 @@ read file
     </td>
   </tr>
 </table>
-<a name="a8" doxytag="fpga_load.c::Read_block"></a><p>
+<a name="a11" doxytag="fpga_load.c::Read_block"></a><p>
 <table width="100%" cellpadding="2" cellspacing="0" border="0">
   <tr>
     <td class="md">
@@ -943,7 +1048,7 @@ reads neccessary command line parameters and initiates ReadBlock command
     </td>
   </tr>
 </table>
-<a name="a10" doxytag="fpga_load.c::Set_BusSwitch"></a><p>
+<a name="a13" doxytag="fpga_load.c::Set_BusSwitch"></a><p>
 <table width="100%" cellpadding="2" cellspacing="0" border="0">
   <tr>
     <td class="md">
@@ -1012,7 +1117,7 @@ The A500 has two bus switches which are initialized from the first two bytes in 
     </td>
   </tr>
 </table>
-<a name="a11" doxytag="fpga_load.c::Trigger_fpga_load"></a><p>
+<a name="a14" doxytag="fpga_load.c::Trigger_fpga_load"></a><p>
 <table width="100%" cellpadding="2" cellspacing="0" border="0">
   <tr>
     <td class="md">
@@ -1050,7 +1155,7 @@ initiates the reload of the FPGA after all other functions finished
     </td>
   </tr>
 </table>
-<a name="a12" doxytag="fpga_load.c::Update_fpga"></a><p>
+<a name="a15" doxytag="fpga_load.c::Update_fpga"></a><p>
 <table width="100%" cellpadding="2" cellspacing="0" border="0">
   <tr>
     <td class="md">
@@ -1114,11 +1219,11 @@ reads neccessary command line parameters and performs the FPGA update
   </table>
 </dl>
 <dl compact><dt><b>Returns:</b></dt><dd>success (number of parameters used from command line) or error (-error)</dd></dl>
-<dl compact><dt><b>See also:</b></dt><dd><a class="el" href="fpga__load_8c.html#a9">Write_block()</a> </dd></dl>
+<dl compact><dt><b>See also:</b></dt><dd><a class="el" href="fpga__load_8c.html#a12">Write_block()</a> </dd></dl>
     </td>
   </tr>
 </table>
-<a name="a29" doxytag="fpga_load.c::Usage"></a><p>
+<a name="a32" doxytag="fpga_load.c::Usage"></a><p>
 <table width="100%" cellpadding="2" cellspacing="0" border="0">
   <tr>
     <td class="md">
@@ -1149,7 +1254,7 @@ Print program usage.
     </td>
   </tr>
 </table>
-<a name="a19" doxytag="fpga_load.c::Verify_FpgaConfig"></a><p>
+<a name="a22" doxytag="fpga_load.c::Verify_FpgaConfig"></a><p>
 <table width="100%" cellpadding="2" cellspacing="0" border="0">
   <tr>
     <td class="md">
@@ -1216,7 +1321,7 @@ Verify FPGA configuration in flash with configuration in buffer.
     </td>
   </tr>
 </table>
-<a name="a9" doxytag="fpga_load.c::Write_block"></a><p>
+<a name="a12" doxytag="fpga_load.c::Write_block"></a><p>
 <table width="100%" cellpadding="2" cellspacing="0" border="0">
   <tr>
     <td class="md">
@@ -1280,11 +1385,11 @@ reads neccessary command line parameters and initiates WriteBlock command
   </table>
 </dl>
 <dl compact><dt><b>Returns:</b></dt><dd>success (number of parameters used from command line) or error (-error)</dd></dl>
-<dl compact><dt><b>See also:</b></dt><dd><a class="el" href="fpga__load_8c.html#a12">Update_fpga()</a> </dd></dl>
+<dl compact><dt><b>See also:</b></dt><dd><a class="el" href="fpga__load_8c.html#a15">Update_fpga()</a> </dd></dl>
     </td>
   </tr>
 </table>
-<a name="a26" doxytag="fpga_load.c::Z100_IsaInit"></a><p>
+<a name="a29" doxytag="fpga_load.c::Z100_IsaInit"></a><p>
 <table width="100%" cellpadding="2" cellspacing="0" border="0">
   <tr>
     <td class="md">
@@ -1352,7 +1457,7 @@ Initialize access over ISA/LPC bus.
     </td>
   </tr>
 </table>
-<a name="a25" doxytag="fpga_load.c::Z100_PciExit"></a><p>
+<a name="a28" doxytag="fpga_load.c::Z100_PciExit"></a><p>
 <table width="100%" cellpadding="2" cellspacing="0" border="0">
   <tr>
     <td class="md">
@@ -1396,11 +1501,11 @@ Deinitialize access over PCI bus.
   </table>
 </dl>
 <dl compact><dt><b>Returns:</b></dt><dd>0</dd></dl>
-<dl compact><dt><b>See also:</b></dt><dd><a class="el" href="fpga__load_8c.html#a24">Z100_PciInit()</a> </dd></dl>
+<dl compact><dt><b>See also:</b></dt><dd><a class="el" href="fpga__load_8c.html#a27">Z100_PciInit()</a> </dd></dl>
     </td>
   </tr>
 </table>
-<a name="a24" doxytag="fpga_load.c::Z100_PciInit"></a><p>
+<a name="a27" doxytag="fpga_load.c::Z100_PciInit"></a><p>
 <table width="100%" cellpadding="2" cellspacing="0" border="0">
   <tr>
     <td class="md">
@@ -1433,7 +1538,13 @@ Deinitialize access over PCI bus.
           <td></td>
           <td></td>
           <td class="md" nowrap>char **&nbsp;</td>
-          <td class="mdname" nowrap> <em>argv</em></td>
+          <td class="mdname" nowrap> <em>argv</em>, </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td class="md" nowrap>u_int32&nbsp;</td>
+          <td class="mdname" nowrap> <em>pciDomain</em></td>
         </tr>
         <tr>
           <td></td>
@@ -1465,11 +1576,11 @@ Initialize access over PCI bus.
   </table>
 </dl>
 <dl compact><dt><b>Returns:</b></dt><dd>0</dd></dl>
-<dl compact><dt><b>See also:</b></dt><dd><a class="el" href="fpga__load_8c.html#a25">Z100_PciExit()</a> </dd></dl>
+<dl compact><dt><b>See also:</b></dt><dd><a class="el" href="fpga__load_8c.html#a28">Z100_PciExit()</a> </dd></dl>
     </td>
   </tr>
 </table>
-<a name="a28" doxytag="fpga_load.c::Z100_SmbExit"></a><p>
+<a name="a31" doxytag="fpga_load.c::Z100_SmbExit"></a><p>
 <table width="100%" cellpadding="2" cellspacing="0" border="0">
   <tr>
     <td class="md">
@@ -1513,11 +1624,11 @@ Deinitialize access over SMB bus (deinitialize SMB library).
   </table>
 </dl>
 <dl compact><dt><b>Returns:</b></dt><dd>0</dd></dl>
-<dl compact><dt><b>See also:</b></dt><dd><a class="el" href="fpga__load_8c.html#a27">Z100_SmbInit()</a> </dd></dl>
+<dl compact><dt><b>See also:</b></dt><dd><a class="el" href="fpga__load_8c.html#a30">Z100_SmbInit()</a> </dd></dl>
     </td>
   </tr>
 </table>
-<a name="a27" doxytag="fpga_load.c::Z100_SmbInit"></a><p>
+<a name="a30" doxytag="fpga_load.c::Z100_SmbInit"></a><p>
 <table width="100%" cellpadding="2" cellspacing="0" border="0">
   <tr>
     <td class="md">
@@ -1562,11 +1673,11 @@ currently supported SMB host controllers are: menz001<p>
   </table>
 </dl>
 <dl compact><dt><b>Returns:</b></dt><dd>0</dd></dl>
-<dl compact><dt><b>See also:</b></dt><dd><a class="el" href="fpga__load_8c.html#a28">Z100_SmbExit()</a> </dd></dl>
+<dl compact><dt><b>See also:</b></dt><dd><a class="el" href="fpga__load_8c.html#a31">Z100_SmbExit()</a> </dd></dl>
     </td>
   </tr>
 </table>
-<a name="a23" doxytag="fpga_load.c::Z100_VmeExit"></a><p>
+<a name="a26" doxytag="fpga_load.c::Z100_VmeExit"></a><p>
 <table width="100%" cellpadding="2" cellspacing="0" border="0">
   <tr>
     <td class="md">
@@ -1610,11 +1721,11 @@ Deinitialize access over VME bus.
   </table>
 </dl>
 <dl compact><dt><b>Returns:</b></dt><dd>0 or error returned from OSS_UnMapVmeAddr</dd></dl>
-<dl compact><dt><b>See also:</b></dt><dd><a class="el" href="fpga__load_8c.html#a22">Z100_VmeInit()</a> </dd></dl>
+<dl compact><dt><b>See also:</b></dt><dd><a class="el" href="fpga__load_8c.html#a25">Z100_VmeInit()</a> </dd></dl>
     </td>
   </tr>
 </table>
-<a name="a22" doxytag="fpga_load.c::Z100_VmeInit"></a><p>
+<a name="a25" doxytag="fpga_load.c::Z100_VmeInit"></a><p>
 <table width="100%" cellpadding="2" cellspacing="0" border="0">
   <tr>
     <td class="md">
@@ -1679,7 +1790,7 @@ Initialize access over VME bus.
   </table>
 </dl>
 <dl compact><dt><b>Returns:</b></dt><dd>0</dd></dl>
-<dl compact><dt><b>See also:</b></dt><dd><a class="el" href="fpga__load_8c.html#a23">Z100_VmeExit()</a> </dd></dl>
+<dl compact><dt><b>See also:</b></dt><dd><a class="el" href="fpga__load_8c.html#a26">Z100_VmeExit()</a> </dd></dl>
     </td>
   </tr>
 </table>
@@ -1733,13 +1844,13 @@ Initialize access over VME bus.
 </pre></div>    </td>
   </tr>
 </table>
-<a name="a4" doxytag="fpga_load.c::RCSid"></a><p>
+<a name="a4" doxytag="fpga_load.c::IdentString"></a><p>
 <table width="100%" cellpadding="2" cellspacing="0" border="0">
   <tr>
     <td class="md">
       <table cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td class="md" nowrap valign="top"> char RCSid[] = "$Header: /dd2/CVSR/COM/TOOLS/FPGA_LOAD/DOC/html/fpga__load_8c.html,v 1.23 2013/06/21 17:06:27 MRoth Exp $"<code> [static]</code>
+          <td class="md" nowrap valign="top"> const char IdentString[] = MENT_XSTR(MAK_REVISION)<code> [static]</code>
       </table>
     </td>
   </tr>
@@ -1762,8 +1873,7 @@ Initialize access over VME bus.
 <div class="footer">
 <!-- Footer -->
 	<p class="footer">
-	Generated for Z100 FPGA update tool using <a href="http://www.doxygen.org">doxygen</a>.<br>
-	Copyright &copy; 2012 <a href="http://www.men.de">MEN Mikro Elektronik GmbH</a>. All Rights Reserved.
+	Generated for Z100 FPGA update tool using <a href="http://www.doxygen.org">doxygen</a>. All Rights Reserved.
 	</p>
 </div>
 

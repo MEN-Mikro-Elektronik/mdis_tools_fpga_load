@@ -16,8 +16,6 @@ index.html
 files.html
 fpga__load_8h-source.html
 fpga__load__flash_8h-source.html
-maccess__io_8h-source.html
-maccess__mem_8h-source.html
 __amd__smb__stub_8c.html
 __amd__smb__sw__stub_8c.html
 __amd__stub_8c.html
@@ -37,9 +35,8 @@ fpga__load__doc_8c.html
 fpga__load__flash_8h.html
 hw__acc_8c.html
 hw__acc__io_8c.html
+hw__acc__mmod_8c.html
 istratapc28fxxxp30_8c.html
-maccess__io_8h.html
-maccess__mem_8h.html
 stm25p32_8c.html
 annotated.html
 functions.html
@@ -49,6 +46,6 @@ struct__FLASH__ENTRY.html
 struct__PCI__DEVS.html
 struct__SMB__LOC__HDL.html
 pageUsage.html
-dummy.html
+fpgadummy.html
 globals.html
 pages.html

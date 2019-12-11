@@ -3,8 +3,6 @@
  *        \file  fpga_load.h
  *
  *      \author  Christian.Schuster@men.de
- *        $Date: 2014/01/17 17:18:24 $
- *    $Revision: 2.19 $
  *
  *       \brief  Header file for FPGA_LOAD tool containing:
  *               specific function prototypes,
@@ -14,7 +12,7 @@
  *
  *
  *---------------------------------------------------------------------------
- * Copyright (c) 2004-2019, MEN Mikro Elektronik GmbH
+ * Copyright 2004-2019, MEN Mikro Elektronik GmbH
  ****************************************************************************/
  /*
  * This program is free software: you can redistribute it and/or modify
@@ -104,13 +102,11 @@
 |  DEFINES                                 |
 +-----------------------------------------*/
 /** \name  Defines */
-
 #ifdef DBG
 #define DBGOUT(_x_) printf _x_
 #else
 #define DBGOUT(_x_)
 #endif /* DBG */
-
 
 #define WB2FLASH_INTERFACE_ID 0x2D	  /* since we use CHAM_V2 functions we have
 									   * to use this ID, until now (CHAM_V0/1) 0x1f */
@@ -278,6 +274,7 @@ typedef struct _DEV_HDL {
 	void (*Write)( struct _DEV_HDL *h, u_int32 offs, u_int32 val);	/**< Writes Value to Flash */
 	u_int8	            dbgLevel;       /**< debug level */
 	u_int8              interfacespi;   /**< Serial flash interface */
+	u_int8              interfacemmod;   /**< MMOD interface */
 } DEV_HDL;
 /**@}*/
 /*-----------------------------------------+

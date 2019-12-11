@@ -4,8 +4,6 @@
  *        \file  hw_acc.c
  *
  *      \author  Christian.Schuster@men.de
- *        $Date: 2013/06/21 16:45:57 $
- *    $Revision: 2.7 $
  *
  *       \brief  HW access functions, \n
  *				 To be included by each stub and set switches for the swapped versions
@@ -17,7 +15,7 @@
  *
  *
  *----------------------------------------------------------------------------
- * Copyright (c) 2005-2019, MEN Mikro Elektronik GmbH
+ * Copyright 2005-2019, MEN Mikro Elektronik GmbH
  ****************************************************************************/
  /*
  * This program is free software: you can redistribute it and/or modify

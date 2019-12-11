@@ -4,8 +4,6 @@
  *        \file  fpga_load.c
  *
  *      \author  Christian.Schuster@men.de
- *        $Date: 2014/02/04 13:10:05 $
- *    $Revision: 1.28 $
  *
  *       \brief  Tool to load FPGA configurations into flash over PCI bus
  *
@@ -16,7 +14,7 @@
  */
 /*
  *-----------------------------------------------------------------------------
- * Copyright (c) 2004-2019, MEN Mikro Elektronik GmbH
+ * Copyright 2004-2019, MEN Mikro Elektronik GmbH
  ****************************************************************************/
  /*
  * This program is free software: you can redistribute it and/or modify
@@ -33,7 +31,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-static char RCSid[]="$Header: /dd2/CVSR/COM/TOOLS/FPGA_LOAD/COM/fpga_load.c,v 1.28 2014/02/04 13:10:05 awerner Exp $";
 
 #include "fpga_load.h"
 #include "fpga_load_flash.h"
@@ -42,6 +39,8 @@ static char RCSid[]="$Header: /dd2/CVSR/COM/TOOLS/FPGA_LOAD/COM/fpga_load.c,v 1.
 #include <sys/mman.h>
 #include <fcntl.h>
 #include <unistd.h>
+
+static const char IdentString[]=MENT_XSTR(MAK_REVISION);
 
 /*-----------------------------------------+
  |  GLOBALS                                |
@@ -208,6 +207,10 @@ static int32 Z100_SmbExit( OSS_HANDLE *osHdl,
 static void Usage(void)
 {
 	printf("\n\n"
+#ifdef LINUX
+			"In order to run fpga_load correctly under Linux\n"
+			"make sure that mcb and mcb_pci drivers are not loaded!\n\n"
+#endif
             "Usage   : fpga_load [options]\n"
 			"Function: Manage FPGA configurations\n"
 			"Options :\n"
@@ -235,7 +238,9 @@ static void Usage(void)
 			" -g=<PCI domain>     #of PCI ctrl. to use (PCI domain). currently only A21 [0x0]\n"
 #endif
 			"\n"
-
+			"----- MMODbus -----\n"
+			" -q                  change the access type to work with MMOD A8D16 mode\n"
+			" \n"
 			"----- VMEbus -----\n"
 			" -a <VME-addr>       directly specify VME address of flash interface\n"
 			" \n"
@@ -303,7 +308,7 @@ static void Usage(void)
 			" WARNING: Please be aware that you do FPGA configuration updates at your own risk.\n"
 			"          After an incorrect update your hardware may no longer be accessible.\n"
 			"\n"
-		   "(c) 2004-2013 MEN Mikro Elektronik GmbH. File revision:\n%s",RCSid);
+		   "Copyright 2004-2019, MEN Mikro Elektronik GmbH\n%s\n",IdentString);
 	printf("\nBuilt: %s %s\n",__DATE__, __TIME__);
 }
 
@@ -387,11 +392,9 @@ main(int argc, char *argv[ ])
 	/* find general settings */
 #ifdef VXWORKS
 	pOptstr = "abcdefg=hijknosurltwv?mpxz";
-	/* if ((errstr = UTL_ILLIOPT( ("abcdefg=hijkosurltwv?mpxz"), (void*)errbuf))) */
 	if ((errstr = UTL_ILLIOPT( pOptstr, (void*)errbuf)))
-
 #else
-	if ((errstr = UTL_ILLIOPT("abcdefnoksurltwv?hpxzj", errbuf)))
+	if ((errstr = UTL_ILLIOPT("abcdefnoksurltwv?hpxzjq", errbuf)))
 #endif
 	{
 		printf("*** ERROR: %s\n" FPGA_P_HELP, errstr);
@@ -406,6 +409,13 @@ main(int argc, char *argv[ ])
 
 	if ((str=UTL_TSTOPT("g="))) {
 		pcieCtrlNum=atoi(str);
+	}
+
+	/* MMOD interface */
+	if( UTL_TSTOPT("q") )
+	{
+		printf("MMOD A8D16 access!\n");
+		h->interfacemmod = 1;
 	}
 
 	h->dbgLevel	  = (UTL_TSTOPT("v") ? 1 : 0);
@@ -458,7 +468,7 @@ main(int argc, char *argv[ ])
 			break;
 		}
 	}
-
+	
 	/* serial flash */
 	if (UTL_TSTOPT("z")) {
 		h->interfacespi = 1;
@@ -535,14 +545,14 @@ main(int argc, char *argv[ ])
 	{
 		goto MAINEND;
 	}
-
+	
 	if( (error = Init_Flash( h, osHdl, flashInterf )) ) {
 		/* flash not initialized and/or init failed */
 		printf("*** ERROR: initializing FLASH interface: (0x%x)\n",
 			(unsigned int)error);
 		goto MAINEND;
 	}
-
+	
 	/* simple update? */
 	if( UTL_TSTOPT("u") )
 	{
@@ -1363,8 +1373,8 @@ static int Init_Flash(
 								 h->pciDev.bus,
 								 (void**)&h->mappedAddr)) )
 			{
-				printf("*** ERROR: Init_Flash: can't map address 0x%x (0x%x)\n",
-						(unsigned int)h->physAddr, (int)error);
+				printf("*** ERROR: Init_Flash: can't map address 0x%lx (0x%x)\n",
+						(unsigned long)h->physAddr, (int)error);
 				return( ERR_NO_SUPPORTED_FLASH_DEVICE_FOUND );
 			}
 
@@ -1374,7 +1384,6 @@ static int Init_Flash(
 
 		h->mappedSize = MAP_REG_SIZE;
 		h->smbLocHdl.smbHdl = NULL;
-
 
 	} else if ( flashInterf == 1 )
 	{
@@ -1409,8 +1418,10 @@ static int Init_Flash(
 
 		Flash_try++;
 	}
-	if( !(*Flash_try) )  /* reach end of try function array without success */
+	if( !(*Flash_try) ) {  /* reach end of try function array without success */
+		printf("*** ERROR: no supported flash interface\n");
 		return( ERR_NO_SUPPORTED_FLASH_DEVICE_FOUND );
+    }
 
 	/* Initialize flash specific functions for found device */
 	Flash_init(h);
@@ -1584,8 +1595,8 @@ static int32 Get_Chameleon( OSS_HANDLE *osHdl,
 			chaFktTbl = &chaSwFktTbl;
 		}
 		else {
-			printf("*** ERROR: no chameleon table found at address 0x%x (0x%x)\n",
-				(unsigned int)tblAddr, (unsigned int)ret);
+			printf("*** ERROR: no chameleon table found at address 0x%lx (0x%x)\n",
+				(unsigned long)tblAddr, (unsigned int)ret);
 			goto ERROR_END;
 		}
 	}
@@ -1655,8 +1666,8 @@ static int32 Get_Chameleon( OSS_HANDLE *osHdl,
 	if( chaFktTbl->Info( chaHdl, chamInfo ) != 0 )	{
 		/* ISA/LPC */
 		if( tblAddr ){
-			printf("*** ERROR: Cham_Info failed for device 0x%x\n",
-					(unsigned int)tblAddr);
+			printf("*** ERROR: Cham_Info failed for device 0x%lx\n",
+					(unsigned long)tblAddr);
 		}
 		/* PCI */
 		else
@@ -1669,8 +1680,8 @@ static int32 Get_Chameleon( OSS_HANDLE *osHdl,
 	if (flags & (CF_DEBUG | CF_ALL_TABLES)) {
 		/* ISA/LPC */
 		if( tblAddr ){
-			printf("\nChameleon FPGA table for device 0x%x:\n",
-					(unsigned int)tblAddr);
+			printf("\nChameleon FPGA table for device 0x%lx:\n",
+					(unsigned long)tblAddr);
 		}
 		/* PCI */
 		else
@@ -1698,8 +1709,8 @@ static int32 Get_Chameleon( OSS_HANDLE *osHdl,
 		if(ret != 0) {
 			/* ISA/LPC */
 			if( tblAddr ){
-				printf("*** ERROR: Cham_TableIdent failed for device 0x%x\n",
-						(unsigned int)tblAddr);
+				printf("*** ERROR: Cham_TableIdent failed for device 0x%lx\n",
+						(unsigned long)tblAddr);
 			}
 			/* PCI */
 			else
@@ -1751,8 +1762,8 @@ static int32 Get_Chameleon( OSS_HANDLE *osHdl,
 		if(ret != 0) {
 			/* ISA/LPC */
 			if( tblAddr ){
-				printf("*** ERROR: Cham_UnitIdent failed for device 0x%x\n",
-						(unsigned int)tblAddr);
+				printf("*** ERROR: Cham_UnitIdent failed for device 0x%lx\n",
+						(unsigned long)tblAddr);
 			}
 			/* PCI */
 			else
@@ -2360,6 +2371,11 @@ static int32 Z100_PciInit(
 										 * accesses to PCI memory mapped devs*/
 	int32 cpu_to_pci_io_offset = 0;		/* specifies an offset to be added for
 										 * accesses to PCI IO-mapped devs */
+#endif
+
+#ifdef LINUX
+		printf("In order to run fpga_load correctly under Linux\n"
+			"make sure that mcb and mcb_pci drivers are not loaded!\n");
 #endif
 
 	if( h->dbgLevel )

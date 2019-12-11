@@ -3,8 +3,6 @@
  *        \file  fpga_load_doc.c
  *
  *      \author  Christian.Schuster@men.de
- *        $Date: 2008/05/09 19:26:48 $
- *    $Revision: 1.8 $
  *
  *      \brief   User documentation for Z100 FPGA_LOAD tool
  *
@@ -13,7 +11,7 @@
  *     \switches -
  *
  *---------------------------------------------------------------------------
- * Copyright (c) 2004-2019, MEN Mikro Elektronik GmbH
+ * Copyright 2004-2019, MEN Mikro Elektronik GmbH
  ****************************************************************************/
  /*
  * This program is free software: you can redistribute it and/or modify
@@ -237,6 +235,6 @@
 	  \endverbatim
 */
 
-/*! \page dummy
+/*! \page fpgadummy MEN logo
   \menimages
  */

@@ -32,3 +32,6 @@ tags
 *.out
 *.app
 # add all your specific ignores here
+/.kernelsettings
+/LIB/
+/fpga_load

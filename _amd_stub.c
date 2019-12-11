@@ -3,8 +3,6 @@
  *         \file  _amd_stub.c
  *
  *       \author  Christian.Kauntz@men.de
- *        $Date: 2009/03/05 09:52:54 $
- *    $Revision: 2.3 $
  *
  *        \brief  instance for AMD Flash normal version
  *
@@ -16,7 +14,7 @@
  *
  *
  *---------------------------------------------------------------------------
- * Copyright (c) 2007-2019, MEN Mikro Elektronik GmbH
+ * Copyright 2007-2019, MEN Mikro Elektronik GmbH
  ****************************************************************************/
  /*
  * This program is free software: you can redistribute it and/or modify
@@ -47,4 +45,5 @@
 #undef PROG_FILE_NAME
 #include "fpga_load.h"
 #include "hw_acc.c"
+#include "hw_acc_mmod.c"
 #include "am29lvxxx.c"

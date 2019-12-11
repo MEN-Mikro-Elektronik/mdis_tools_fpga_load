@@ -1,13 +1,11 @@
 #***************************  M a k e f i l e  *******************************
 #
 #         Author: Christian.Schuster@men.de
-#          $Date: 2009/06/03 08:43:43 $
-#      $Revision: 2.16 $
 #
 #    Description: linux makefile descriptor file for fpga_load
 #
 #-----------------------------------------------------------------------------
-#   Copyright (c) 2004-2019, MEN Mikro Elektronik GmbH
+#   Copyright 2004-2019, MEN Mikro Elektronik GmbH
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,8 +22,13 @@
 #*****************************************************************************
 
 MAK_NAME=fpga_load
+# the next line is updated during the MDIS installation
+STAMPED_REVISION="mdis_tools_fpga_load_01_22-16-g4f1b677-dirty_2019-05-29"
+
+DEF_REVISION=MAK_REVISION=$(STAMPED_REVISION)
 
 MAK_SWITCH= \
+		$(SW_PREFIX)$(DEF_REVISION) \
 
 #            $(SW_PREFIX)Z100_CONFIG_VME \
 #            $(SW_PREFIX)MAC_USERSPACE\
@@ -59,17 +62,18 @@ MAK_LIBS= 	$(LIB_PREFIX)$(MEN_LIB_DIR)/usr_oss$(LIB_SUFFIX)			\
 #endif
 
 MAK_INCL=$(MEN_INC_DIR)/men_typs.h \
-		 $(MEN_INC_DIR)/smb2.h \
-		 $(MEN_INC_DIR)/usr_oss.h \
-		 $(MEN_INC_DIR)/usr_err.h \
-		 $(MEN_INC_DIR)/usr_utl.h \
-		 $(MEN_INC_DIR)/fpga_header.h \
-         $(MEN_MOD_DIR)/../COM/fpga_load.h \
-         $(MEN_MOD_DIR)/../COM/hw_acc.c \
-         $(MEN_MOD_DIR)/../COM/istratapc28fxxxp30.c \
-		 $(MEN_MOD_DIR)/../COM/am29lvxxx.c \
-		 $(MEN_MOD_DIR)/../COM/am29lvxxx_smb.c \
-         $(MEN_MOD_DIR)/../COM/stm25p32.c \
+		$(MEN_INC_DIR)/smb2.h \
+		$(MEN_INC_DIR)/usr_oss.h \
+		$(MEN_INC_DIR)/usr_err.h \
+		$(MEN_INC_DIR)/usr_utl.h \
+		$(MEN_INC_DIR)/fpga_header.h \
+		$(MEN_MOD_DIR)/../COM/fpga_load.h \
+		$(MEN_MOD_DIR)/../COM/hw_acc.c \
+		$(MEN_MOD_DIR)/../COM/hw_acc_mmod.c \
+		$(MEN_MOD_DIR)/../COM/istratapc28fxxxp30.c \
+		$(MEN_MOD_DIR)/../COM/am29lvxxx.c \
+		$(MEN_MOD_DIR)/../COM/am29lvxxx_smb.c \
+		$(MEN_MOD_DIR)/../COM/stm25p32.c \
 
 MAK_INP1=_amd_stub$(INP_SUFFIX)
 MAK_INP2=_amd_sw_stub$(INP_SUFFIX)
@@ -96,6 +100,6 @@ MAK_INP=$(MAK_INP1)\
 		$(MAK_INP9)\
 		$(MAK_INP10)\
 		$(MAK_INP11)\
-        $(MAK_INP12)\
+		$(MAK_INP12)\
 		$(MAK_INP13)\
 

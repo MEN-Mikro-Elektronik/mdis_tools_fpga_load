@@ -3,8 +3,6 @@
  *         \file  am29lvxxx_smb.c
  *
  *       \author  Christian.Schuster@men.de
- *        $Date: 2009/01/12 16:58:35 $
- *    $Revision: 2.5 $
  *
  *        \brief  command set for AMD 29lv160 and compatible flashes
  *                this version is used for accessing the flash over I2C through
@@ -19,7 +17,7 @@
  *  FLASH_Try                Check if this command set can handle the device
  *
  *---------------------------------------------------------------------------
- * Copyright (c) 2005-2019, MEN Mikro Elektronik GmbH
+ * Copyright 2005-2019, MEN Mikro Elektronik GmbH
  ****************************************************************************/
  /*
  * This program is free software: you can redistribute it and/or modify
