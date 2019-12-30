@@ -1557,7 +1557,7 @@ static int32 Get_Chameleon( OSS_HANDLE *osHdl,
 
 	memset( tblfile, 0x0, sizeof(tblfile) );
 
-#if LINUX
+#ifdef LINUX
 	// Check if setpci tool is available in system.
 	// "setpci" is part of MDIS package - pciutils
 	ret = system( "setpci --version > /dev/null 2>&1" );
