@@ -207,11 +207,7 @@ static int32 Z100_SmbExit( OSS_HANDLE *osHdl,
 static void Usage(void)
 {
 	printf("\n\n"
-#ifdef LINUX
-			"In order to run fpga_load correctly under Linux\n"
-			"make sure that mcb and mcb_pci drivers are not loaded!\n\n"
-#endif
-            "Usage   : fpga_load [options]\n"
+			"Usage   : fpga_load [options]\n"
 			"Function: Manage FPGA configurations\n"
 			"Options :\n"
 			" \n"
@@ -2411,11 +2407,6 @@ static int32 Z100_PciInit(
 										 * accesses to PCI memory mapped devs*/
 	int32 cpu_to_pci_io_offset = 0;		/* specifies an offset to be added for
 										 * accesses to PCI IO-mapped devs */
-#endif
-
-#ifdef LINUX
-		printf("In order to run fpga_load correctly under Linux\n"
-			"make sure that mcb and mcb_pci drivers are not loaded!\n");
 #endif
 
 	if( h->dbgLevel )
