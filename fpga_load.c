@@ -1557,6 +1557,46 @@ static int32 Get_Chameleon( OSS_HANDLE *osHdl,
 
 	memset( tblfile, 0x0, sizeof(tblfile) );
 
+#if LINUX
+	// Check if setpci tool is available in system.
+	// "setpci" is part of MDIS package - pciutils
+	ret = system( "setpci --version > /dev/null 2>&1" );
+	if ( ret == 0 ) {
+		// Enable memory regions only for MEN boards:
+		if ( (((unsigned int)pciDev->venId == 0x1172) &&
+			((unsigned int)pciDev->devId == 0x4d45)) ||
+			((unsigned int)pciDev->venId == 0x1a88) ) {
+				FILE *fp;
+				char setPciCmd[128];
+				memset( setPciCmd, 0x0, sizeof(setPciCmd) );
+				snprintf( setPciCmd, sizeof(setPciCmd), "setpci -s %x:%x.%x COMMAND",
+						pciDev->bus, pciDev->dev, pciDev->fun );
+				if ( (fp = popen( setPciCmd, "r" ) ) == NULL ) {
+					printf("ERROR %s\n", setPciCmd);
+				}
+				if ( fgets( setPciCmd, sizeof(setPciCmd), fp ) == NULL ) {
+					printf("ERROR setpci output read from file\n");
+				}
+				if ( pclose( fp ) ) {
+					printf("ERROR setpci output close file\n");
+				}
+				int setPci=(int)strtol( setPciCmd, NULL, 16 );
+				// Enable "Memory Space" CMD register if disabled
+				if ( (setPci & 0x0002) != 0x0002 )
+				{
+					setPci = (setPci|0x0002);
+					memset( setPciCmd, 0x0, sizeof(setPciCmd) );
+					snprintf( setPciCmd, sizeof(setPciCmd), "setpci -s %x:%x.%x COMMAND=0x%04x",
+							pciDev->bus, pciDev->dev, pciDev->fun, setPci );
+					ret = system( setPciCmd );
+					if ( ret != 0 ) {
+						printf("ERROR setpci could not enable Memory Space register\n");
+					}
+				}
+		}
+	}
+#endif
+
 	/* use specified chameleon table address (ISA/LPC) */
 	if( tblAddr ){
 		CHAM_FUNCTBL chaNoswFktTbl, chaSwFktTbl;
