@@ -1556,8 +1556,7 @@ static int32 Get_Chameleon( OSS_HANDLE *osHdl,
 #ifdef LINUX
 	// Check if setpci tool is available in system.
 	// "setpci" is part of MDIS package - pciutils
-	ret = system( "setpci --version > /dev/null 2>&1" );
-	if ( ret == 0 ) {
+	if (pciDev && system("setpci --version > /dev/null 2>&1") == 0) {
 		// Enable memory regions only for MEN boards:
 		if ( (((unsigned int)pciDev->venId == 0x1172) &&
 			((unsigned int)pciDev->devId == 0x4d45)) ||
