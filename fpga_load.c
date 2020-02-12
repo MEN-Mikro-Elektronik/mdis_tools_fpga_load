@@ -1833,16 +1833,18 @@ static int32 Get_Chameleon( OSS_HANDLE *osHdl,
 		{ /* if we come across 16Z126_SERFLASH read out current running FPGA file */
 			int fd = open("/dev/mem", O_RDWR | O_SYNC );
 			int pgsz=getpagesize();
+			int bsrOffset=((chamUnit->offset + SFII_BSR) >> 2);
+			int mapLenght= ((pgsz * ((bsrOffset/pgsz) + 1)) << 2);
 			if (fd > 0) {
-			        pRegs = (char *)mmap( NULL, pgsz, PROT_READ | PROT_WRITE, MAP_SHARED, fd, (long)(chamUnit->addr) & ~(pgsz-1));
-			        if (pRegs == (void *)-1 ) {
-			        	printf("failed to mmap, errno=%d\n", errno );
-			        	close( fd );
-			        } else {
-			        	z126Status = ((u_int32*)pRegs)[ (chamUnit->offset + SFII_BSR) >> 2 ];
-			        	munmap( pRegs, pgsz );
-			        	close( fd );
-			        }
+				pRegs = (char *)mmap( NULL, mapLenght, PROT_READ | PROT_WRITE, MAP_SHARED, fd, (long)(chamUnit->addr) & ~(pgsz-1));
+				if (pRegs == (void *)-1 ) {
+					printf("failed to mmap, errno=%d\n", errno );
+					close( fd );
+				} else {
+					z126Status = ((u_int32*)pRegs)[ bsrOffset ];
+					munmap( pRegs, mapLenght );
+					close( fd );
+				}
 			}
 		}
 #endif
