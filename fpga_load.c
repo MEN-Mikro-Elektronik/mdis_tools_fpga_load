@@ -14,7 +14,7 @@
  */
 /*
  *-----------------------------------------------------------------------------
- * Copyright 2004-2019, MEN Mikro Elektronik GmbH
+ * Copyright 2004-2020, MEN Mikro Elektronik GmbH
  ****************************************************************************/
  /*
  * This program is free software: you can redistribute it and/or modify
@@ -207,11 +207,7 @@ static int32 Z100_SmbExit( OSS_HANDLE *osHdl,
 static void Usage(void)
 {
 	printf("\n\n"
-#ifdef LINUX
-			"In order to run fpga_load correctly under Linux\n"
-			"make sure that mcb and mcb_pci drivers are not loaded!\n\n"
-#endif
-            "Usage   : fpga_load [options]\n"
+			"Usage   : fpga_load [options]\n"
 			"Function: Manage FPGA configurations\n"
 			"Options :\n"
 			" \n"
@@ -1557,6 +1553,45 @@ static int32 Get_Chameleon( OSS_HANDLE *osHdl,
 
 	memset( tblfile, 0x0, sizeof(tblfile) );
 
+#ifdef LINUX
+	// Check if setpci tool is available in system.
+	// "setpci" is part of MDIS package - pciutils
+	if (pciDev && system("setpci --version > /dev/null 2>&1") == 0) {
+		// Enable memory regions only for MEN boards:
+		if ( (((unsigned int)pciDev->venId == 0x1172) &&
+			((unsigned int)pciDev->devId == 0x4d45)) ||
+			((unsigned int)pciDev->venId == 0x1a88) ) {
+				FILE *fp;
+				char setPciCmd[128];
+				memset( setPciCmd, 0x0, sizeof(setPciCmd) );
+				snprintf( setPciCmd, sizeof(setPciCmd), "setpci -s %x:%x.%x COMMAND",
+						pciDev->bus, pciDev->dev, pciDev->fun );
+				if ( (fp = popen( setPciCmd, "r" ) ) == NULL ) {
+					printf("ERROR %s\n", setPciCmd);
+				}
+				if ( fgets( setPciCmd, sizeof(setPciCmd), fp ) == NULL ) {
+					printf("ERROR setpci output read from file\n");
+				}
+				if ( pclose( fp ) ) {
+					printf("ERROR setpci output close file\n");
+				}
+				int setPci=(int)strtol( setPciCmd, NULL, 16 );
+				// Enable "Memory Space" CMD register if disabled
+				if ( (setPci & 0x0002) != 0x0002 )
+				{
+					setPci = (setPci|0x0002);
+					memset( setPciCmd, 0x0, sizeof(setPciCmd) );
+					snprintf( setPciCmd, sizeof(setPciCmd), "setpci -s %x:%x.%x COMMAND=0x%04x",
+							pciDev->bus, pciDev->dev, pciDev->fun, setPci );
+					ret = system( setPciCmd );
+					if ( ret != 0 ) {
+						printf("ERROR setpci could not enable Memory Space register\n");
+					}
+				}
+		}
+	}
+#endif
+
 	/* use specified chameleon table address (ISA/LPC) */
 	if( tblAddr ){
 		CHAM_FUNCTBL chaNoswFktTbl, chaSwFktTbl;
@@ -1798,16 +1833,18 @@ static int32 Get_Chameleon( OSS_HANDLE *osHdl,
 		{ /* if we come across 16Z126_SERFLASH read out current running FPGA file */
 			int fd = open("/dev/mem", O_RDWR | O_SYNC );
 			int pgsz=getpagesize();
+			int bsrOffset=((chamUnit->offset + SFII_BSR) >> 2);
+			int mapLenght= ((pgsz * ((bsrOffset/pgsz) + 1)) << 2);
 			if (fd > 0) {
-			        pRegs = (char *)mmap( NULL, pgsz, PROT_READ | PROT_WRITE, MAP_SHARED, fd, (long)(chamUnit->addr) & ~(pgsz-1));
-			        if (pRegs == (void *)-1 ) {
-			        	printf("failed to mmap, errno=%d\n", errno );
-			        	close( fd );
-			        } else {
-			        	z126Status = ((u_int32*)pRegs)[ (chamUnit->offset + SFII_BSR) >> 2 ];
-			        	munmap( pRegs, pgsz );
-			        	close( fd );
-			        }
+				pRegs = (char *)mmap( NULL, mapLenght, PROT_READ | PROT_WRITE, MAP_SHARED, fd, (long)(chamUnit->addr) & ~(pgsz-1));
+				if (pRegs == (void *)-1 ) {
+					printf("failed to mmap, errno=%d\n", errno );
+					close( fd );
+				} else {
+					z126Status = ((u_int32*)pRegs)[ bsrOffset ];
+					munmap( pRegs, mapLenght );
+					close( fd );
+				}
 			}
 		}
 #endif
@@ -2371,11 +2408,6 @@ static int32 Z100_PciInit(
 										 * accesses to PCI memory mapped devs*/
 	int32 cpu_to_pci_io_offset = 0;		/* specifies an offset to be added for
 										 * accesses to PCI IO-mapped devs */
-#endif
-
-#ifdef LINUX
-		printf("In order to run fpga_load correctly under Linux\n"
-			"make sure that mcb and mcb_pci drivers are not loaded!\n");
 #endif
 
 	if( h->dbgLevel )
