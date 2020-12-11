@@ -323,6 +323,29 @@ static void Dummy_Routine(void)
 }
 #endif /* VXWORKS */
 
+#if defined(LINUX)
+/** \brief Check if kernel is locked down
+ * \return 0 if kernel is not locked down
+ * \return non-zero if kernel is locked down
+ */
+int is_kernel_locked_down()
+{
+	char mode[6];
+	int ret = 0;
+
+	int fd = open("/sys/kernel/security/lockdown", O_RDONLY);
+	if (-1 != fd) {
+		if (read(fd, mode, 6) < 6 ||
+		    memcmp(mode, "[none]", 6)) {
+			ret = 1;
+		}
+		close(fd);
+	}
+
+	return ret;
+}
+#endif
+
 
 /********************************* main ***************************************/
 /** Program main function
@@ -355,6 +378,14 @@ main(int argc, char *argv[ ])
 	u_int32	addrOnVmeBus = 0;
 	u_int32 flashInterf = 0; /* 0 = 16Z045_FLASH interace
 	                            1 = PLD/SMB flash interface */
+
+#if defined(LINUX)
+	if (is_kernel_locked_down()) {
+		printf("*** WARNING: Linux kernel lockdown functionality is enabled. /dev/mem is not\n"
+		       "             accessible and fpga_load is not usable.\n");
+	}
+#endif
+
 #if defined(WINNT) || defined(LINUX)
 	if( OSS_Init( "FPGA_LOAD", &osHdl ) )
 #elif defined(VXWORKS)
