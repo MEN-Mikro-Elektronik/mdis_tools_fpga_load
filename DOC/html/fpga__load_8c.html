@@ -33,9 +33,9 @@
 <tr><td nowrap align=right valign=top>#define&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a2">MAP_REG_SIZE</a>&nbsp;&nbsp;&nbsp;0x10</td></tr>
 <tr><td nowrap align=right valign=top>#define&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a3">CHAM_TBL_FILE_LEN</a>&nbsp;&nbsp;&nbsp;12</td></tr>
 <tr><td colspan=2><br><h2>Enumerations</h2></td></tr>
-<tr><td nowrap align=right valign=top>enum &nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a36">CHAM_FLAGS</a> { <a class="el" href="fpga__load_8c.html#a36a6">CF_ALL_TABLES</a> =  0x01, 
-<a class="el" href="fpga__load_8c.html#a36a7">CF_DEBUG</a> =  0x02, 
-<a class="el" href="fpga__load_8c.html#a36a8">CF_VERSION</a> =  0x04
+<tr><td nowrap align=right valign=top>enum &nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a37">CHAM_FLAGS</a> { <a class="el" href="fpga__load_8c.html#a37a6">CF_ALL_TABLES</a> =  0x01, 
+<a class="el" href="fpga__load_8c.html#a37a7">CF_DEBUG</a> =  0x02, 
+<a class="el" href="fpga__load_8c.html#a37a8">CF_VERSION</a> =  0x04
  }</td></tr>
 <tr><td colspan=2><br><h2>Functions</h2></td></tr>
 <tr><td nowrap align=right valign=top>int&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a9">Erase_chip</a> (int argc, char *argv[], <a class="el" href="struct__DEV__HDL.html">DEV_HDL</a> *h, u_int8 *retCnt)</td></tr>
@@ -88,8 +88,10 @@
 <tr><td>&nbsp;</td><td><em class="mdesc">Print program usage.</em> <a href="#a32"></a><em></em><br><br></td></tr>
 <tr><td nowrap align=right valign=top>IMPORT int32&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a33">OSS_AlarmCreate</a> (OSS_HANDLE *, void(*funct)(), void *, OSS_ALARM_HANDLE **alarmP)</td></tr>
 <tr><td nowrap align=right valign=top>void&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a34">Dummy_Routine</a> (void)</td></tr>
-<tr><td nowrap align=right valign=top>int&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a35">main</a> (int argc, char *argv[])</td></tr>
-<tr><td>&nbsp;</td><td><em class="mdesc">Program main function.</em> <a href="#a35"></a><em></em><br><br></td></tr>
+<tr><td nowrap align=right valign=top>int&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a35">is_kernel_locked_down</a> ()</td></tr>
+<tr><td>&nbsp;</td><td><em class="mdesc">Check if kernel is locked down.</em> <a href="#a35"></a><em></em><br><br></td></tr>
+<tr><td nowrap align=right valign=top>int&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a36">main</a> (int argc, char *argv[])</td></tr>
+<tr><td>&nbsp;</td><td><em class="mdesc">Program main function.</em> <a href="#a36"></a><em></em><br><br></td></tr>
 <tr><td colspan=2><br><h2>Variables</h2></td></tr>
 <tr><td nowrap align=right valign=top>const char&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a4">IdentString</a> [] = MENT_XSTR(MAK_REVISION)</td></tr>
 <tr><td nowrap align=right valign=top><a class="el" href="fpga__load__flash_8h.html#a2">FLASH_TRYP</a>&nbsp;</td><td valign=bottom><a class="el" href="fpga__load_8c.html#a5">fpga_flash_trys</a> []</td></tr>
@@ -189,7 +191,7 @@ Required: uti.l (under OS-9), libuti.a (under Linux)<hr><h2>Define Documentation
   </tr>
 </table>
 <hr><h2>Enumeration Type Documentation</h2>
-<a name="a36" doxytag="fpga_load.c::CHAM_FLAGS"></a><p>
+<a name="a37" doxytag="fpga_load.c::CHAM_FLAGS"></a><p>
 <table width="100%" cellpadding="2" cellspacing="0" border="0">
   <tr>
     <td class="md">
@@ -210,11 +212,11 @@ Required: uti.l (under OS-9), libuti.a (under Linux)<hr><h2>Define Documentation
 <p>
 <dl compact><dt><b>Enumeration values: </b></dt><dd>
 <table border=0 cellspacing=2 cellpadding=0>
-<tr><td valign=top><em><a name="a36a6" doxytag="CF_ALL_TABLES"></a><em>CF_ALL_TABLES</em></em>&nbsp;</td><td>
+<tr><td valign=top><em><a name="a37a6" doxytag="CF_ALL_TABLES"></a><em>CF_ALL_TABLES</em></em>&nbsp;</td><td>
 </td></tr>
-<tr><td valign=top><em><a name="a36a7" doxytag="CF_DEBUG"></a><em>CF_DEBUG</em></em>&nbsp;</td><td>
+<tr><td valign=top><em><a name="a37a7" doxytag="CF_DEBUG"></a><em>CF_DEBUG</em></em>&nbsp;</td><td>
 </td></tr>
-<tr><td valign=top><em><a name="a36a8" doxytag="CF_VERSION"></a><em>CF_VERSION</em></em>&nbsp;</td><td>
+<tr><td valign=top><em><a name="a37a8" doxytag="CF_VERSION"></a><em>CF_VERSION</em></em>&nbsp;</td><td>
 </td></tr>
 </table>
 </dl>
@@ -770,7 +772,39 @@ find flash type used and initiate Flash_init function
     </td>
   </tr>
 </table>
-<a name="a35" doxytag="fpga_load.c::main"></a><p>
+<a name="a35" doxytag="fpga_load.c::is_kernel_locked_down"></a><p>
+<table width="100%" cellpadding="2" cellspacing="0" border="0">
+  <tr>
+    <td class="md">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> int is_kernel_locked_down </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap></td>
+        </tr>
+
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Check if kernel is locked down.
+<p>
+<dl compact><dt><b>Returns:</b></dt><dd>0 if kernel is not locked down <p>
+non-zero if kernel is locked down </dd></dl>
+    </td>
+  </tr>
+</table>
+<a name="a36" doxytag="fpga_load.c::main"></a><p>
 <table width="100%" cellpadding="2" cellspacing="0" border="0">
   <tr>
     <td class="md">

@@ -435,22 +435,22 @@
     </member>
     <member kind="enumeration">
       <name>CHAM_FLAGS</name>
-      <anchor>a36</anchor>
+      <anchor>a37</anchor>
       <arglist></arglist>
     </member>
     <member kind="enumvalue">
       <name>CF_ALL_TABLES</name>
-      <anchor>a36a6</anchor>
+      <anchor>a37a6</anchor>
       <arglist></arglist>
     </member>
     <member kind="enumvalue">
       <name>CF_DEBUG</name>
-      <anchor>a36a7</anchor>
+      <anchor>a37a7</anchor>
       <arglist></arglist>
     </member>
     <member kind="enumvalue">
       <name>CF_VERSION</name>
-      <anchor>a36a8</anchor>
+      <anchor>a37a8</anchor>
       <arglist></arglist>
     </member>
     <member kind="function" static="yes">
@@ -611,8 +611,14 @@
     </member>
     <member kind="function">
       <type>int</type>
-      <name>main</name>
+      <name>is_kernel_locked_down</name>
       <anchor>a35</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>main</name>
+      <anchor>a36</anchor>
       <arglist>(int argc, char *argv[])</arglist>
     </member>
     <member kind="variable" static="yes">
